@@ -1,0 +1,14 @@
+<div *ngIf="invalidError" style="color:red">
+  {{ invalidError.message }}
+</div>
+
+<stripe-card
+  #stripeCard
+  (catch) = "onStripeError($event)"
+  [(invalid)] = "invalidError"
+  (tokenChange) = "setStripeToken($event)"
+  (sourceChange) = "setStripeSource($event)"
+></stripe-card>
+
+<button type="button" (click)="stripeCard.createToken()">createToken</button>
+
