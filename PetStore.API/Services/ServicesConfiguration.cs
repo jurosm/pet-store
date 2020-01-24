@@ -1,0 +1,26 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using PetStore.API.Db;
+using PetStore.API.Services.CategorySystem;
+using PetStore.API.Services.CRUD;
+using PetStore.API.Services.ToySystem;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PetStore.API.Services
+{
+    public static class ServicesConfiguration
+    {
+        public static void AddMyTOCServices(this IServiceCollection services)
+        {
+            services.AddScoped<ContextWrapper<Category>>();
+            services.AddScoped<CategoryRepository>();
+            services.AddScoped<CategoryService>();
+
+            services.AddTransient<ContextWrapper<Toy>>();
+            services.AddScoped<ToyRepository>();
+            services.AddScoped<ToyService>();
+        }
+    }
+}
