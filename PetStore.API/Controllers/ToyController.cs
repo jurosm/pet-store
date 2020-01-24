@@ -18,8 +18,8 @@ namespace PetStore.API.Controllers
             this.ToyService = toyService;
         }
 
-        [HttpGet("page/{page}")]
-        public PageResponse<ToyUnit> GetToysPage(int page, [FromQuery] string order = "asc", [FromQuery] string match = "", [FromQuery] string category = "", [FromQuery] int pageSize = 5)
+        [HttpGet("")]
+        public PageResponse<ToyUnit> GetToysPage([FromQuery]int page=1, [FromQuery] string order = "asc", [FromQuery] string match = "", [FromQuery] string category = "", [FromQuery] int pageSize = 5)
         {
             return ToyService.GetToysPage(pageSize, page, order, match, category);
         }

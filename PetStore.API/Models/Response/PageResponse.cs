@@ -7,7 +7,7 @@ namespace PetStore.API.Models.Response
 {
     public class PageResponse<T>
     {
-        public List<T> Items { get; set; }
+        public IEnumerable<T> Items { get; set; }
         public int NumberOfPages { get; set; }
 
         public PageResponse()

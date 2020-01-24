@@ -1,4 +1,5 @@
-﻿using PetStore.API.Db;
+﻿using AutoMapper;
+using PetStore.API.Db;
 using PetStore.API.Helper.Pagination;
 using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Toy;
@@ -13,9 +14,11 @@ namespace PetStore.API.Services.ToySystem
     public class ToyService
     {
         ToyRepository ToyRepository;
-        public ToyService(ToyRepository toyRepository) 
+        IMapper Mapper;
+        public ToyService(ToyRepository toyRepository, IMapper mapper) 
         { 
-            this.ToyRepository = toyRepository; 
+            this.ToyRepository = toyRepository;
+            this.Mapper = mapper;
         }
 
         public PageResponse<ToyUnit> GetToysPage(int pageSize, int page, string order, string match, string category)
@@ -23,18 +26,8 @@ namespace PetStore.API.Services.ToySystem
             PagedResult<Toy> toys = ToyRepository.GetToysPaged(pageSize, page, order, match, category);
             if (toys.Results != null)
             {
-                List<Toy> toysList = toys.Results.ToList();
                 PageResponse<ToyUnit> response = new PageResponse<ToyUnit>();
-
-                foreach (Toy toy in toysList)
-                {
-                    ToyUnit toyUnit = new ToyUnit() { ToyId = toy.ToyId, Name = toy.Name, Description = toy.Description, ShortDescription = toy.ShortDescription, Price = toy.Price };
-                    if(toy.Category != null)
-                    {
-                        toyUnit.Category = toy.Category.Name;
-                    }
-                    response.Items.Add(toyUnit);
-                }
+                response.Items = toys.Results.Select( x => { return Mapper.Map<ToyUnit>(x); });
                 response.NumberOfPages = toys.PageCount;
                 return response;
             }
