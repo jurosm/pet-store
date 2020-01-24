@@ -21,8 +21,7 @@ namespace PetStore.API.Helper.Pagination
                 RowCount = query.Count()
             };
 
-            var pageCount = (double)result.RowCount / pageSize;
-            result.PageCount = (int)Math.Ceiling(pageCount);
+            result.PageCount = result.RowCount / pageSize;
 
             var skip = (page - 1) * pageSize;
 
