@@ -7,5 +7,6 @@ namespace PetStore.API.Services.ExternalServices
 {
     public class StripeService
     {
+
     }
 }

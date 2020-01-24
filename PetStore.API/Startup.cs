@@ -12,6 +12,10 @@ using PetStore.API.Db;
 using PetStore.API.Filters.GlobalFilters;
 using PetStore.API.Services;
 using PetStore.API.Services.AuthenticationSystem;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using PetStore.API.Services.ExternalServices;
+using Stripe;
 
 namespace PetStore.API
 {
@@ -27,6 +31,12 @@ namespace PetStore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ExceptionActionFilter>();
+
+            services.AddExternalServices(Configuration["Stripe:Secret"]);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddPetStoreDBServices(Configuration.GetConnectionString("DefaultConnection"));
 
