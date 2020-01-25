@@ -14,7 +14,7 @@ namespace PetStore.API.Services.ExternalServices
             {
                 Source = tokenId,
                 Currency = "USD",
-                Amount = (long)amount
+                Amount = (long)amount*100
             };
             var service = new ChargeService();
             Charge charge = service.Create(options);

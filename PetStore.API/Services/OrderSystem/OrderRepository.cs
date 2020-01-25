@@ -15,13 +15,22 @@ namespace PetStore.API.Services.OrderSystem
 
         public bool CheckValidOrder(List<OrderItemRequest> orderItems)
         {
-            return Context.PSContext.Toy.ToList().All(x => (!(orderItems.Any(y => ((y.ToyId == x.ToyId) && (y.Quantity > x.Quantity)))))
-            && orderItems.Any(y => x.ToyId == y.ToyId));
+            return orderItems.All(x => ((Context.PSContext.Toy.ToList().Any(y => ((y.ToyId == x.ToyId) && (y.Quantity >= x.Quantity))))));
         }
 
         public decimal PricePerOrder(List<OrderItemRequest> orderItems)
         {
-            return Context.PSContext.Toy.ToList().Sum(x =>  orderItems.Find(y => y.ToyId == x.ToyId).Quantity*x.Price);
+            return orderItems.Sum(x => Context.PSContext.Toy.ToList().Find(y => y.ToyId == x.ToyId).Price*x.Quantity);
+        }
+
+        public async Task RemoveItemsAsync(List<OrderItemRequest> orderItems)
+        {
+            orderItems.ForEach(async x => 
+            {
+                Toy toy = (await Context.PSContext.Toy.FindAsync(x.ToyId));
+                toy.Quantity -= x.Quantity;
+            });
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -33,19 +33,28 @@ namespace PetStore.API.Services.OrderSystem
             IPInfoResponse ipInfoAddress = await IPInfo.GetLocation(address);
 
             if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) return new BadRequestResult();
-            decimal amount = OrderRepository.PricePerOrder(orderRequest.OrderItems);
 
-            string chargeId = StripeService.CreateCharge(orderRequest.TokenId, (long)amount);
-            string status = await StripeService.GetStatusAsync(chargeId);
+            decimal amount = OrderRepository.PricePerOrder(orderRequest.OrderItems);
 
             Order order = Mapper.Map<Order>(orderRequest);
             orderRequest.OrderItems.ForEach(x => order.OrderItem.Add(Mapper.Map<OrderItem>(x)));
             order.ShippingAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
-            order.IpinfoAddress = ipInfoAddress.Country + "" + ipInfoAddress.City;
-            order.ExternalReferenceId = chargeId;
+            order.IpinfoAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
             order.OrderStatus = "pending";
-            order.OrderStatus = status;
             await OrderRepository.CreateAsync(order);
+
+            string chargeId = StripeService.CreateCharge(orderRequest.TokenId, (long)amount);
+            order.ExternalReferenceId = chargeId;
+
+            string status = await StripeService.GetStatusAsync(chargeId);
+            order.OrderStatus = status;
+
+            await OrderRepository.UpdateAsync(order);
+
+            if(order.OrderStatus == "succeeded")
+            {
+                await OrderRepository.RemoveItemsAsync(orderRequest.OrderItems);
+            }
 
             return new StatusCodeResult(200);
         }
