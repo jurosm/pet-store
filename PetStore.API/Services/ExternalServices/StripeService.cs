@@ -23,7 +23,7 @@ namespace PetStore.API.Services.ExternalServices
 
         public async Task<string> GetStatusAsync(string chargeId)
         {
-            var service = new ChargeService();
+            var service = new ChargeService(); 
             return (await service.GetAsync(chargeId)).Status;
         }
     }

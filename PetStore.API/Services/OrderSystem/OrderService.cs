@@ -27,12 +27,12 @@ namespace PetStore.API.Services.OrderSystem
             this.Mapper = mapper;
         }
 
-        public async Task<IActionResult> Buy(OrderRequest orderRequest)
+        public async Task<string> Buy(OrderRequest orderRequest)
         {
             var address = Accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             IPInfoResponse ipInfoAddress = await IPInfo.GetLocation(address);
 
-            if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) return new BadRequestResult();
+            if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) return "Items not valid!";
 
             decimal amount = OrderRepository.PricePerOrder(orderRequest.OrderItems);
 
@@ -51,12 +51,13 @@ namespace PetStore.API.Services.OrderSystem
 
             await OrderRepository.UpdateAsync(order);
 
-            if(order.OrderStatus == "succeeded")
+            if(order.OrderStatus == "succeeded" || order.OrderStatus == "amount_capturable_updated")
             {
                 await OrderRepository.RemoveItemsAsync(orderRequest.OrderItems);
+                return "Items successfully bought!";
             }
 
-            return new StatusCodeResult(200);
+            return "Payment failed!";
         }
     }
 }

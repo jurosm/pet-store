@@ -78,5 +78,10 @@ namespace PetStore.API.Services
             await Context.SaveChangesAsync();
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await Context.SaveChangesAsync();
+        }
+
     }
 }
