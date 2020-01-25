@@ -21,6 +21,11 @@ namespace PetStore.API.Helper.Mapper
                 .ReverseMap();
 
             CreateMap<OrderItemRequest, OrderItem>().ReverseMap();
+
+            CreateMap<OrderRequest, Order>().ForMember(dest =>
+            dest.ShippingAddress, opt =>
+            opt.MapFrom(src => 
+                src.Country + "," + src.City + "," + src.StreetAddress));
         }
     }
 

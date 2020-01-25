@@ -16,10 +16,10 @@ namespace PetStore.API.Services.AuthenticationSystem
 
         public AuthService(IConfiguration configuration)
         {
-            this.Audience = configuration["Auth0:Audience"];
-            this.ClientId = configuration["Auth0:ClientId"];
-            this.ClientSecret = configuration["Auth0:ClientSecret"];
-            this.Domain = configuration["Auth0:Domain"];
+            this.Audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE");
+            this.ClientId = Environment.GetEnvironmentVariable("AUTH0_CLIENT_ID");
+            this.ClientSecret = Environment.GetEnvironmentVariable("AUTH0_CLIENT_SECRET");
+            this.Domain = Environment.GetEnvironmentVariable("AUTH0_DOMAIN");
         }
 
         public async Task<LoginResponse> LoginUser(LoginRequest login)

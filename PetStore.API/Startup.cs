@@ -1,21 +1,16 @@
 using CodeSpaceBlog.API.Db;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using PetStore.API.Controllers;
-using PetStore.API.Db;
 using PetStore.API.Filters.GlobalFilters;
 using PetStore.API.Services;
 using PetStore.API.Services.AuthenticationSystem;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using PetStore.API.Services.ExternalServices;
-using Stripe;
+using System;
 
 namespace PetStore.API
 {
@@ -23,7 +18,7 @@ namespace PetStore.API
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration; 
         }
 
         public IConfiguration Configuration { get; }
@@ -32,17 +27,19 @@ namespace PetStore.API
         {
             services.AddScoped<ExceptionActionFilter>();
 
-            services.AddExternalServices(Configuration["Stripe:Secret"]);
+            services.AddExternalServices(Environment.GetEnvironmentVariable("STRIPE_SECRET"));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddPetStoreDBServices(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddCors();
+
+            services.AddPetStoreDBServices(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
 
             services.AddMyTOCServices();
 
-            services.AddAuth0AuthenticationServices(Configuration["Auth0:Domain"], Configuration["Auth0:Audience"]);
+            services.AddAuth0AuthenticationServices(Environment.GetEnvironmentVariable("AUTH0_DOMAIN"), Environment.GetEnvironmentVariable("AUTH0_AUDIENCE"));
 
             services.AddAuthorization();
 
@@ -52,6 +49,8 @@ namespace PetStore.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowCredentials().AllowAnyMethod());
 
             app.UseRouting();
 

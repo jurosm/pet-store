@@ -12,7 +12,6 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,8 +19,14 @@
     "PetStore.API": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "",
       "environmentVariables": {
+        "DB_CONNECTION_STRING": "Server=localhost;Database=PetStoreDB;Username=postgres;Password=postgres",
+        "AUTH0_AUDIENCE": "https://petstore.com",
+        "IPINFO_TOKEN": "237e92574bcfed",
+        "AUTH0_DOMAIN": "pet-store.eu.auth0.com",
+        "AUTH0_CLIENT_ID": "6WmB1sKMFr9YoTyNK7aI3csWipJh3k2c",
+        "STRIPE_SECRET": "sk_test_wAqd9vsvPb6zDLclp1LigGst00tWkEbSOA",
+        "AUTH0_CLIENT_SECRET": "NSXlTNsuQqqMXfUfXgnelWhUL_wLqXWpSKfgGeYGwzz_BeF7EtbPKCbKpRXsJ4qL",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

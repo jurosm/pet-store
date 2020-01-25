@@ -19,7 +19,12 @@ namespace PetStore.API.Services.ExternalServices
         }
         public async Task<IPInfoResponse> GetLocation(string ipAddress)
         {
-            HttpResponseMessage httpResponse = await client.GetAsync("https://ipinfo.io/" + ipAddress + "?token=" + "237e92574bcfed");
+            if (ipAddress == "::1") 
+            {
+                HttpClient client = new HttpClient();
+                ipAddress = await (await client.GetAsync("https://api.ipify.org/")).Content.ReadAsStringAsync();
+            }
+            HttpResponseMessage httpResponse = await client.GetAsync("https://ipinfo.io/" + ipAddress + "?token=" + Environment.GetEnvironmentVariable("IPINFO_TOKEN"));
             string res = await httpResponse.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<IPInfoResponse>(res);
         }

@@ -19,9 +19,9 @@ namespace PetStore.API.Controllers
         }
 
         [HttpPost("buy")]
-        public async Task Buy([FromBody]OrderRequest orderRequest)
+        public async Task<IActionResult> Buy([FromBody]OrderRequest orderRequest)
         {
-            await OrderService.Buy(orderRequest);
+            return await OrderService.Buy(orderRequest);
         }
     }
 }

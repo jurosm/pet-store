@@ -8,7 +8,12 @@ namespace PetStore.API.Models.Request.Order
 {
     public class OrderRequest
     {
-        public List<OrderItem> OrderItems { get; set; }
+        public List<OrderItemRequest> OrderItems { get; set; }
         public string TokenId { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerSurname { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string StreetAddress { get; set; }
     }
 }
