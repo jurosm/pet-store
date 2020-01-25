@@ -1,3 +1,3 @@
 export class Order{
-  token:string;
+  tokenId: string;
 }

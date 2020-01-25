@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StripeScriptTag, StripeToken, StripeSource, StripeCard, Stripe  } from 'stripe-angular';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-order',
@@ -10,7 +11,7 @@ export class OrderComponent implements OnInit {
   private publishableKey = 'pk_test_bcChbYVcDBLs1fyRed6W76tf003ga0Kj98';
   invalidError:any;
 
-  constructor(public StripeScriptTag: StripeScriptTag) {
+  constructor(public StripeScriptTag: StripeScriptTag, private orderService: OrderService) {
     this.StripeScriptTag.setPublishableKey(this.publishableKey);
   }
 
@@ -28,6 +29,8 @@ export class OrderComponent implements OnInit {
 
   setStripeToken( token: StripeToken ) {
     console.log('Stripe token', token);
+    this.orderService.order.tokenId = token.id;
+    this.orderService.buy();
   }
 
   setStripeSource( source: StripeSource ) {

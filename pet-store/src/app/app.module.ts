@@ -8,6 +8,9 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { OrderComponent } from './components/order/order.component';
 
 import { Module as StripeModule } from 'stripe-angular';
+import { OrderService } from './services/order.service';
+import { PetStoreService } from './services/pet-store.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,10 @@ import { Module as StripeModule } from 'stripe-angular';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     StripeModule.forRoot()
   ],
-  providers: [],
+  providers: [OrderService, PetStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
