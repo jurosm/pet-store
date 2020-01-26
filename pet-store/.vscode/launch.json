@@ -9,7 +9,12 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}",
+
+              "env": {
+                "API_URL": "https://localhost:5001/"
+              }
+
         }
     ]
 }
