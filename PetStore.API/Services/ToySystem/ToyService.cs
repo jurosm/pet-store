@@ -49,7 +49,7 @@ namespace PetStore.API.Services.ToySystem
             Toy toy = ToyRepository.GetToyById(id);
             if (toy != null)
             {
-                return new ToyUnit() { ToyId = toy.ToyId, Name = toy.Name, Category = toy.Category.Name, Description = toy.Description, Price = toy.Price };
+                return Mapper.Map<ToyUnit>(toy);
             }
             else
             {

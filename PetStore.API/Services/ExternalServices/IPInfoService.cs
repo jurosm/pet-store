@@ -24,6 +24,7 @@ namespace PetStore.API.Services.ExternalServices
                 HttpClient client = new HttpClient();
                 ipAddress = await (await client.GetAsync("https://api.ipify.org/")).Content.ReadAsStringAsync();
             }
+
             HttpResponseMessage httpResponse = await client.GetAsync("https://ipinfo.io/");
             string res = await httpResponse.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<IPInfoResponse>(res);

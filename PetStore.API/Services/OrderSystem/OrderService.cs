@@ -54,7 +54,7 @@ namespace PetStore.API.Services.OrderSystem
             if(order.OrderStatus == "succeeded" || order.OrderStatus == "amount_capturable_updated")
             {
                 await OrderRepository.RemoveItemsAsync(orderRequest.OrderItems);
-                return "Items successfully bought!";
+                return "Transaction succeeded!";
             }
 
             return "Payment failed!";

@@ -25,6 +25,8 @@ namespace PetStore.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<EnvironmentConfigurationService>();
+
             services.AddScoped<ExceptionActionFilter>();
 
             services.AddExternalServices(Environment.GetEnvironmentVariable("STRIPE_SECRET"));

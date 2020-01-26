@@ -14,7 +14,7 @@ namespace PetStore.API.Services.AuthenticationSystem
     {
         private string Audience, ClientId, ClientSecret, Domain;
 
-        public AuthService(IConfiguration configuration)
+        public AuthService()
         {
             this.Audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE");
             this.ClientId = Environment.GetEnvironmentVariable("AUTH0_CLIENT_ID");
