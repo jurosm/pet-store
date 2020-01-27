@@ -9,11 +9,14 @@ namespace PetStore.API.Helper.Pagination
     {
         public IEnumerable<T> Results { get; set; }
 
-        public PagedResult() {}
+        public PagedResult() { }
 
         public static PagedResult<T> GetPaged<T>(IQueryable<T> query,
                               int page, int pageSize) where T : class
         {
+            if (pageSize <= 0 || page <= 0) { pageSize = 6; page = 1; }
+
+
             var result = new PagedResult<T>
             {
                 CurrentPage = page,
@@ -21,20 +24,22 @@ namespace PetStore.API.Helper.Pagination
                 RowCount = query.Count()
             };
 
-            result.PageCount = result.RowCount / pageSize;
+            var pageCount = (double)result.RowCount / pageSize;
+            result.PageCount = (int)Math.Ceiling(pageCount);
 
             var skip = (page - 1) * pageSize;
 
             if (skip + pageSize <= result.RowCount)
             {
                 result.Results = query.Skip(skip).Take(pageSize).ToList();
-            } 
-            else if(skip + pageSize > result.RowCount && skip < result.RowCount)
+            }
+            else if (skip + pageSize > result.RowCount && skip < result.RowCount)
             {
                 result.Results = query.Skip(skip).ToList();
             }
 
             return result;
+
         }
     }
 }
