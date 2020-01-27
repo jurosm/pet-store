@@ -13,11 +13,11 @@ export class ErrorService {
 
     handlerError = (error) => {
         if (error instanceof HttpErrorResponse && error.status < 500) {
-            let err = new ErrorResponse();
+            const err = new ErrorResponse();
             if (error.error.errors !== undefined) {
                 err.errors = error.error.errors;
             }
-            err.message = error.error.message;
+            err.message = error.error.message; const a = 3;
             return throwError(err);
         } else if (error instanceof HttpErrorResponse) {
             this.router.navigate(['/error']);

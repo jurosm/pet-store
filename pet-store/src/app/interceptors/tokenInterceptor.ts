@@ -19,10 +19,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private addToken(req: HttpRequest<any>): HttpRequest<any> {
     const headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + this.authService.getJwtToken()
+      Authorization: 'Bearer ' + this.authService.getJwtToken()
     });
     return req.clone({
       headers
     });
   }
 }
+

@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    if(this.loginForm.controls.password.valid && this.loginForm.controls.username.valid) {
+    if (this.loginForm.controls.password.valid && this.loginForm.controls.username.valid) {
     this.service.login(this.login).subscribe(res => {
 
       localStorage.setItem('jwtToken', res.jwtToken);

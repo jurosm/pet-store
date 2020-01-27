@@ -1,58 +1,73 @@
 <div class="container">
 
-  <ul class="nav nav-pills">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Order by price</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" (click)="getToyParams.order='asc'">Ascending</a>
-        <a class="dropdown-item" href="#">Descending</a>
-      </div>
-    </li>
-
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Category</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
-      </div>
-    </li>
-    <li>
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-    </li>
-    <li>
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </li>
-  </ul>
-
-
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
-    <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
+  <div class="d-flex justify-content-center mt-3">
+    <button type="button" name="button" class="btn btn-primary" (click)="router.navigate(['/order'])">Pay</button>
   </div>
 
+  <div class="text-success">Number of items bought: {{service.numberOfItems()}}</div>
 
-  <nav aria-label="...">
-    <ul class="pagination pagination-sm">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1">1</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
+  <form [formGroup]="searchForm">
+  <ul class="nav nav-pills">
+<div class="row">
+<div class="mx-2">
+    <select [(ngModel)]="getToyParams.order" formControlName="order">
+      <option [(ngValue)]=none>None order</option>
+      <option [(ngValue)]=asc>Ascending</option>
+      <option [(ngValue)]=desc>Descending </option>
+  </select>
+</div>
+
+<div class="mx-2">
+    <select [(ngModel)]="getToyParams.category" formControlName="category">
+      <option [value]=all >All categories</option>
+      <option *ngFor="let category of toys.categories" [value]="category">{{category}}</option>
+    </select>
+  </div>
+
+  <div class="mx-2">
+    <select [(ngModel)]="getToyParams.pageSize" formControlName="pageSize" id="page-size-select" [value]=all>
+      <option value=all>Choose page size</option>
+      <option *ngFor="let number of pageSizeList" [value]="number+1">
+        {{number+1}}
+      </option>
+    </select>
+  </div>
+</div>
+    <div class="mx-2">
+    <select [(ngModel)]="getToyParams.page" formControlName="page" [value]=none>
+      <option [value]=none>Choose page</option>
+      <option *ngFor="let number of numberOfPagesList" [value]="number+1">
+          {{number+1}}
+      </option>
+    </select>
+    </div>
+    <div class="mx-3">
+    <li>
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="getToyParams.matchName" formControlName="matchName">
+    </li>
+  </div>
+    <div class="mx-2">
+    <li>
+      <button class="btn btn-outline-success" type="submit" (click)="getToys()">Search</button>
+    </li>
+  </div>
+  </ul>
+
+<div class="card-group mx-2">
+  <div class="card mx-2" style="width: 18rem;" *ngFor="let element of toys.items">
+    <div class="card-body">
+      <h5 class="card-title"><a [routerLink]="['/toys', element.toyId]">{{element.name}}</a></h5>
+      <p class="card-text">{{element.shortDescription}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Category: {{element.category}}</li>
+      <li class="list-group-item">Price: {{element.price}}</li>
     </ul>
-  </nav>
+    <div class="card-body">
 
+    </div>
+  </div>
+</div>
+
+</form>
 </div>

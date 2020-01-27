@@ -20,6 +20,7 @@ import { RouteGuard } from './guards/route.guard';
 import { LoginComponent } from './components/auth/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RouterModule } from '@angular/router';
     OrderComponent,
     ToysComponent,
     ToyComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { Order } from '../models/order';
+import { Order } from '../models/order/order';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoginModel } from '../models/auth/loginModel';
@@ -9,6 +9,8 @@ import { ErrorService } from './errorService';
 import { getLocaleExtraDayPeriods } from '@angular/common';
 import { GetToysParams } from '../models/toy/getToysParams';
 import { environment } from 'src/environments/environment';
+import { ToysResponse } from '../models/toy/toysResponse';
+import { Toy } from '../models/toy/toy';
 
 @Injectable({
   providedIn: 'root'
@@ -31,17 +33,21 @@ export class PetStoreService {
     );
   }
 
-  getToys(getToysParams: GetToysParams) {
-    const params = new HttpParams()
+  getToys(getToysParams: GetToysParams): Observable<ToysResponse> {
+    let params = new HttpParams()
     .set('page', getToysParams.page.toString())
-    .set('pageSize', getToysParams.itemsPerPage.toString());
+    .set('pageSize', getToysParams.pageSize.toString());
 
-    if(getToysParams.order !== '') { params.set('order', getToysParams.order); }
-    if(getToysParams.category !== '') {  params.set('category', getToysParams.category); }
-    if(getToysParams.matchName !== '') { params.set('match', getToysParams.matchName); }
+    if (getToysParams.order !== '') { params = params.set('order', getToysParams.order); }
+    if (getToysParams.category !== '') { params = params.set('category', getToysParams.category); }
+    if (getToysParams.matchName !== '') { params = params.set('match', getToysParams.matchName); }
 
-    return this.httpClient.get(this.url + 'toys', {
+    return this.httpClient.get<ToysResponse>(this.url + 'toys', {
       params
     });
+  }
+
+  getToy(id: string) : Observable<Toy> {
+    return this.httpClient.get<Toy>(this.url + 'toys/' + id);
   }
 }

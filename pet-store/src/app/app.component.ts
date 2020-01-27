@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   <app-header></app-header>
   <main>
     <div id='main-content' class='container'>
-     <!-- <div [@routeAnimations]="o && o.activatedRouteData && o.activatedRouteData['animation']"> -->
         <router-outlet #o="outlet" ></router-outlet>
       </div>
 
