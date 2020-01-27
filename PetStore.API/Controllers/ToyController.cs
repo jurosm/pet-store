@@ -19,13 +19,13 @@ namespace PetStore.API.Controllers
         }
 
         [HttpGet("")]
-        public PageResponse<ToyUnit> GetToysPage([FromQuery]int page=1, [FromQuery] string order = "asc", [FromQuery] string match = "", [FromQuery] string category = "", [FromQuery] int pageSize = 5)
+        public ToysResponse GetToysPage([FromQuery]int page=1, [FromQuery] string order = "asc", [FromQuery] string match = "", [FromQuery] string category = "", [FromQuery] int pageSize = 5)
         {
             return ToyService.GetToysPage(pageSize, page, order, match, category);
         }
         
         [HttpGet("{id}")]
-        public ToyUnit GetToy(int id)
+        public ToyResponse GetToy(int id)
         {
             return ToyService.GetToy(id);
         }
@@ -37,10 +37,10 @@ namespace PetStore.API.Controllers
         }
 
         [HttpPost("edit/{id}")]
-        public async Task UpdateToy([FromBody] ToyUnit toyUnit, int id)
+        public async Task UpdateToy([FromBody] ToyChangeRequest toy, int id)
         {
-            toyUnit.ToyId = id;
-            await ToyService.UpdateToyAsync(toyUnit);
+            toy.ToyId = id;
+            await ToyService.UpdateToyAsync(toy);
         }
 
         [HttpPost("add")]
