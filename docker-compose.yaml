@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  pet-db:
+    image: "postgres"
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD:secret1234!
+    volumes:
+      - "./PetStore.API/petstoredb:/docker-entrypoint-initdb.d/init.sql"
+
+  pet-api:
+    image: "pet-store-api"
+    container_name: pet-api
+    ports:
+      - 12345:80
+    environment:
+      - DB_CONNECTION_STRING=User ID=postgres;Password=secret1234!;Server=pet-db;Port=5432;Database=postgres;
+    depends_on:
+      - pet-db
+
+  pet-ui:
+    image: "pet-store-app"
+    container_name: pet-app
+    ports:
+      - 4200:4200
+    depends_on:
+      - pet-api
+    environment:
+      - API_URL=http://localhost:12345/

@@ -1,22 +1,13 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
-WORKDIR /src
-COPY ["PetStore.API.csproj", ""]
+COPY PetStore.API.csproj PetStore.API.csproj
 RUN dotnet restore "./PetStore.API.csproj"
 COPY . .
-WORKDIR "/src/."
 RUN dotnet build "PetStore.API.csproj" -c Release -o /app/build
-
-FROM build AS publish
 RUN dotnet publish "PetStore.API.csproj" -c Release -o /app/publish
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+EXPOSE 80
 ENTRYPOINT ["dotnet", "PetStore.API.dll"]
