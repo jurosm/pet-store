@@ -11,6 +11,9 @@ import { GetToysParams } from '../models/toy/getToysParams';
 import { environment } from 'src/environments/environment';
 import { ToysResponse } from '../models/toy/toysResponse';
 import { Toy } from '../models/toy/toy';
+import { ToyInfo } from '../models/toy/toyInfo';
+import { Categories } from '../models/categories/categories';
+import { Category } from '../models/categories/category';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +42,7 @@ export class PetStoreService {
     .set('pageSize', getToysParams.pageSize.toString());
 
     if (getToysParams.order !== '') { params = params.set('order', getToysParams.order); }
-    if (getToysParams.category !== '') { params = params.set('category', getToysParams.category); }
+    if (getToysParams.category !== 0) { params = params.set('categoryId', getToysParams.category.toString()); }
     if (getToysParams.matchName !== '') { params = params.set('match', getToysParams.matchName); }
 
     return this.httpClient.get<ToysResponse>(this.url + 'toys', {
@@ -50,4 +53,13 @@ export class PetStoreService {
   getToy(id: string) : Observable<Toy> {
     return this.httpClient.get<Toy>(this.url + 'toys/' + id);
   }
+
+  createToy(toyInfo: ToyInfo) {
+    return this.httpClient.post<ToyInfo>(this.url + 'toys', toyInfo);
+  }
+
+  getCategories() {
+    return this.httpClient.get<Category[]>(this.url + 'categories');
+  }
+
 }
