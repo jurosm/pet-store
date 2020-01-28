@@ -7,6 +7,6 @@ namespace PetStore.API.Models.Response.Order
 {
     public class OrderResponse
     {
-        public string message { get; set; }
+        public string Message { get; set; }
     }
 }

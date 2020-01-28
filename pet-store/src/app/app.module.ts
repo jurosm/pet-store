@@ -21,6 +21,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
+import { CreateToyComponent } from './components/admin/create-toy/create-toy.component';
+import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { ErrorComponent } from './components/error/error.component';
     ToysComponent,
     ToyComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    CreateToyComponent,
+    ListOrdersComponent
   ],
   imports: [
     BrowserModule,

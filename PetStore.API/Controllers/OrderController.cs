@@ -22,7 +22,7 @@ namespace PetStore.API.Controllers
         [HttpPost("buy")]
         public async Task<IActionResult> Buy([FromBody]OrderRequest orderRequest)
         {
-            return Ok(new MessageResponse() { Message = await OrderService.Buy(orderRequest) });
+            return Ok(await OrderService.Buy(orderRequest));
         }
     }
 }

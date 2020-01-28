@@ -1,3 +1,5 @@
+import { Category } from './category';
+
 export class Categories {
-  categories: string[];
+  categories: Category[];
 }

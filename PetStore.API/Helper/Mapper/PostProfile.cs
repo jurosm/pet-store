@@ -2,7 +2,9 @@
 using PetStore.API.Db;
 using PetStore.API.Models.Request;
 using PetStore.API.Models.Request.Order;
+using PetStore.API.Models.Request.Toy;
 using PetStore.API.Models.Response;
+using PetStore.API.Models.Response.Category;
 using PetStore.API.Models.Response.Toy;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,8 @@ namespace PetStore.API.Helper.Mapper
             opt.MapFrom(src => src.CategoryId.HasValue ? src.Category.Name : null))
                 .ReverseMap();
 
+            CreateMap<ToyData, Toy>();
+
             CreateMap<OrderItemRequest, OrderItem>().ReverseMap();
 
             CreateMap<Toy, OrderItemRequest>().ReverseMap();
@@ -33,6 +37,8 @@ namespace PetStore.API.Helper.Mapper
             dest.ShippingAddress, opt =>
             opt.MapFrom(src => 
                 src.Country + "," + src.City + "," + src.StreetAddress));
+
+            CreateMap<Category, CategoryUnit>().ReverseMap();
         }
     }
 
