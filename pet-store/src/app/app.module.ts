@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { CreateToyComponent } from './components/admin/create-toy/create-toy.component';
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component';
+import { CommentsComponent } from './components/toy/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ListOrdersComponent } from './components/admin/list-orders/list-orders.
     LoginComponent,
     ErrorComponent,
     CreateToyComponent,
-    ListOrdersComponent
+    ListOrdersComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,

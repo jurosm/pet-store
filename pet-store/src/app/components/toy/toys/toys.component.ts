@@ -6,6 +6,7 @@ import { ToysResponse } from 'src/app/models/toy/toysResponse';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Category } from 'src/app/models/categories/category';
 
 @Component({
   selector: 'app-toys',
@@ -24,6 +25,7 @@ export class ToysComponent implements OnInit {
   numberOfPagesList: number[];
   pageSizeList: number[];
   orderIsSuccessful: boolean;
+  categories: Category[];
 
   constructor(public api: PetStoreService, public service: OrderService, public router: Router, public authService: AuthService) {
     this.none = 'none'; this.asc = 'asc'; this.desc = 'desc'; this.all = 'all'; this.default = 1;
@@ -38,6 +40,7 @@ export class ToysComponent implements OnInit {
     this.toys = new ToysResponse();
     this.getToyParams = {page: 1, pageSize: 6, matchName: '', order: 'none', category: 0};
     this.getToys();
+    this.getCategories();
    }
 
   ngOnInit() {
@@ -62,7 +65,15 @@ export class ToysComponent implements OnInit {
   }
 
   deleteToy(toyId: number) {
-    this.api.deleteToy(toyId).subscribe();
+    this.api.deleteToy(toyId).subscribe(res => {
+      this.toys.items = this.toys.items.filter(el => el.toyId !== toyId);
+    });
+  }
+
+  getCategories() {
+    this.api.getCategories().subscribe(res => {
+      this.categories = res;
+    });
   }
 
 }

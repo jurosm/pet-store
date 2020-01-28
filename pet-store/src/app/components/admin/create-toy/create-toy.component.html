@@ -4,7 +4,7 @@
     <span class="input-group-text">Name: </span>
   </div>
   <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toyInfo.name" formControlName="name">
+    [(ngModel)]="toy.name" formControlName="name">
 </div>
 
 <div class="text-danger" *ngIf="createForm.controls.name.errors">
@@ -15,7 +15,7 @@
   <div class="input-group-append">
     <span class="input-group-text">Description: </span>
   </div>
-  <textarea class="form-control" rows="5"   [(ngModel)]="toyInfo.description" formControlName="description" required>
+  <textarea class="form-control" rows="5"   [(ngModel)]="toy.description" formControlName="description" required>
   </textarea>
 </div>
 
@@ -28,7 +28,7 @@
     <span class="input-group-text">Short description: </span>
   </div>
   <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toyInfo.shortDescription" formControlName="shortDescription">
+    [(ngModel)]="toy.shortDescription" formControlName="shortDescription">
 </div>
 
 <div class="text-danger" *ngIf="createForm.controls.shortDescription.errors">
@@ -40,9 +40,8 @@
     <span class="input-group-text">Select category: </span>
   </div>
 <div>
-  <select class="form-control" [(ngModel)]="toyInfo.category" formControlName="category">
-    <option [value]=all >Other</option>
-    <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
+  <select class="form-control" [(ngModel)]="toy.category.categoryId" formControlName="category" [value]="toy.category?.categoryId">
+    <option *ngFor="let category of categories" [value]="category?.categoryId">{{category.name}}</option>
   </select>
 </div>
 </div>
@@ -52,7 +51,7 @@
     <span class="input-group-text">Price: </span>
   </div>
   <input type="number" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toyInfo.price" formControlName="price">
+    [(ngModel)]="toy.price" formControlName="price">
 </div>
 
 <div class="text-danger" *ngIf="createForm.controls.price.errors">
@@ -64,7 +63,7 @@
     <span class="input-group-text">Quantity: </span>
   </div>
   <input type="number" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toyInfo.quantity" formControlName="price">
+    [(ngModel)]="toy.quantity" formControlName="price">
 </div>
 
 <div class="text-danger" *ngIf="createForm.controls.quantity.errors">

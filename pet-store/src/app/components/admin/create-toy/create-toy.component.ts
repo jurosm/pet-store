@@ -16,12 +16,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateToyComponent implements OnInit {
 all: string;
 createForm: FormGroup;
-toyInfo: ToyInfo;
+toy: Toy;
+category: Category;
 categories: Category[];
   isPostEditRoute: boolean;
 
   constructor(private api: PetStoreService, private route: ActivatedRoute, private router: Router) {
     this.all = 'all';
+    this.category = new Category();
     this.createForm = new FormGroup({
       name: new FormControl(Validators.required),
       description: new FormControl(Validators.required),
@@ -35,19 +37,19 @@ categories: Category[];
       this.categories = res;
     });
 
-    this.toyInfo = new ToyInfo();
+    this.toy = new Toy();
   }
 
   ngOnInit() {
-    if (this.router.url.startsWith('toy/edit')) {
+    if (this.router.url.startsWith('/toy/edit')) {
       this.route.paramMap.subscribe(
-        params => {this.api.getToy(params.get('id')).subscribe(res => {this.toyInfo = res; this.toyInfo.toyId = +params.get('id'); }); }
+        params => {this.api.getToy(params.get('id')).subscribe(res => {this.toy = res; this.toy.toyId = +params.get('id'); }); }
       );
     }
   }
 
   submitToy() {
-    if(this.router.url.startsWith('toy/edit')) {
+    if (this.router.url.startsWith('/toy/edit')) {
       this.updateToy();
     } else {
       this.createToy();
@@ -55,11 +57,11 @@ categories: Category[];
   }
 
   updateToy() {
-    this.api.updateToy(this.toyInfo);
+    this.api.updateToy(this.toy).subscribe();
   }
 
   createToy() {
-    this.api.createToy(this.toyInfo).subscribe();
+    this.api.createToy(this.toy).subscribe();
   }
 
 }

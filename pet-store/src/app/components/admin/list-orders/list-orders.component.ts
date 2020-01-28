@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PetStoreService } from 'src/app/services/pet-store.service';
+import { OrderListItem } from 'src/app/models/order/orderListItem';
 
 @Component({
   selector: 'app-list-orders',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-orders.component.css']
 })
 export class ListOrdersComponent implements OnInit {
-
-  constructor() { }
+  orderListItems: OrderListItem[];
+  constructor(public api: PetStoreService) {
+    this.api.getOrders().subscribe(res => {
+      this.orderListItems = res;
+    });
+  }
 
   ngOnInit() {
+
   }
 
 }

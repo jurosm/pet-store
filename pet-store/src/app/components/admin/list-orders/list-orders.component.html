@@ -1,1 +1,20 @@
-<p>list-orders works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Order id</th>
+      <th scope="col">Customer name</th>
+      <th scope="col">Customer surname</th>
+      <th scope="col">Shipping address</th>
+      <th scope="col">Order status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orderListItems">
+      <th scope="row">{{order.orderId}}</th>
+      <td>{{order.customerName}}</td>
+      <td>{{order.customerSurname}}</td>
+      <td>{{order.shippingAddress}}</td>
+      <td>{{order.orderStatus}}</td>
+    </tr>
+  </tbody>
+</table>

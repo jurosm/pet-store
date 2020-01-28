@@ -14,6 +14,7 @@ import { Toy } from '../models/toy/toy';
 import { ToyInfo } from '../models/toy/toyInfo';
 import { Categories } from '../models/categories/categories';
 import { Category } from '../models/categories/category';
+import { OrderListItem } from '../models/order/orderListItem';
 
 @Injectable({
   providedIn: 'root'
@@ -50,12 +51,12 @@ export class PetStoreService {
     });
   }
 
-  getToy(id: string) : Observable<ToyInfo> {
-    return this.httpClient.get<ToyInfo>(this.url + 'toys/' + id);
+  getToy(id: string) : Observable<Toy> {
+    return this.httpClient.get<Toy>(this.url + 'toys/' + id);
   }
 
-  createToy(toyInfo: ToyInfo) {
-    return this.httpClient.post<ToyInfo>(this.url + 'toys', toyInfo);
+  createToy(toy: Toy) {
+    return this.httpClient.post<ToyInfo>(this.url + 'toys', toy);
   }
 
   getCategories() {
@@ -68,6 +69,18 @@ export class PetStoreService {
 
   updateToy(toyInfo) {
     return this.httpClient.put<ToyInfo>(this.url + 'toys/' + toyInfo.toyId, toyInfo);
+  }
+
+  getOrders(){
+    return this.httpClient.get<OrderListItem[]>(this.url + 'orders');
+  }
+
+  createComment(comment: Comment){
+    return this.httpClient.post<Comment>(this.url + 'comments', comment);
+  }
+
+  getComments() {
+    return this.httpClient.get<Comment[]>(this.url + 'comments');
   }
 
 }

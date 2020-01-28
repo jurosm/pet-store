@@ -1,7 +1,7 @@
 export class ToyInfo {
   description: string;
   shortDescription: string;
-  category: string;
+  categoryId: number;
   name: string;
   price: number;
   quantity: number;

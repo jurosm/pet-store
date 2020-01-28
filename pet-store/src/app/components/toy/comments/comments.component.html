@@ -1,0 +1,31 @@
+<form [formGroup]="commentsForm">
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <span class="input-group-text">Name: </span>
+    </div>
+    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+      [(ngModel)]="comment.author" formControlName="author">
+  </div>
+
+  <div class="text-danger" *ngIf="commentsForm.controls.author.errors">
+    Author is required.
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <span class="input-group-text">Description: </span>
+    </div>
+    <textarea class="form-control" rows="5"   [(ngModel)]="comment.text" formControlName="text" required>
+    </textarea>
+  </div>
+
+  <div class="text-danger" *ngIf="commentsForm.controls.description.errors">
+    Text is required.
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
+    <input type="button" class="btn btn-primary btn-lg" value="Submit"
+      (click)="submitComment()" [disabled]="!commentsForm.valid" />
+  </div>
+
+</form>
