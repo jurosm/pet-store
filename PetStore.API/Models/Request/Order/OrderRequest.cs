@@ -1,6 +1,7 @@
 ﻿using PetStore.API.Db;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,12 +9,31 @@ namespace PetStore.API.Models.Request.Order
 {
     public class OrderRequest
     {
+        [Required]
         public List<OrderItemRequest> OrderItems { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Maximum length is 30")]
         public string TokenId { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Maximum length is 30")]
         public string CustomerName { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Maximum length is 30")]
         public string CustomerSurname { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Maximum length is 30")]
         public string Country { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Maximum length is 30")]
         public string City { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Maximum length is 30")]
         public string StreetAddress { get; set; }
     }
 }

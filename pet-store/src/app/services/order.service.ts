@@ -3,20 +3,23 @@ import { Order } from '../models/order/order';
 import { PetStoreService } from './pet-store.service';
 import * as Collections from 'typescript-collections';
 import { OrderItem } from '../models/order/orderItem';
+import { ErrorService } from './errorService';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   order: Order;
-  constructor(private service: PetStoreService) {
+  constructor(private service: PetStoreService, private errorService: ErrorService) {
     this.order = new Order();
     this.order.orderItems = [];
    }
 
   buy() {
-    this.service.buy(this.order).subscribe();
-    this.order.orderItems = [];
+    return this.service.buy(this.order).pipe(
+      catchError(this.errorService.handlerError)
+    );
   }
 
   addToCart(id: number) {

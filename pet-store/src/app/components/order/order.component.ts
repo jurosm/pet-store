@@ -14,8 +14,12 @@ export class OrderComponent implements OnInit {
   invalidError: any;
   orderForm: FormGroup;
   order: Order;
+  isSuccessful: boolean;
+  transactionIsNotSuccessful: boolean;
 
   constructor(public StripeScriptTag: StripeScriptTag, public orderService: OrderService) {
+    this.transactionIsNotSuccessful = false;
+    this.isSuccessful = false;
     this.StripeScriptTag.setPublishableKey(this.publishableKey);
     this.order = new Order();
     this.orderForm = new FormGroup({
@@ -42,7 +46,14 @@ export class OrderComponent implements OnInit {
   setStripeToken( token: StripeToken ) {
     console.log('Stripe token', token);
     this.orderService.order.tokenId = token.id;
-    this.orderService.buy();
+    this.orderService.buy().subscribe(res => {
+      this.isSuccessful = true;
+      this.transactionIsNotSuccessful = false;
+      this.orderService.order.orderItems = [];
+    }, res => {
+      this.transactionIsNotSuccessful = true;
+      this.isSuccessful = false;
+    });
   }
 
   setStripeSource( source: StripeSource ) {

@@ -50,8 +50,8 @@ export class PetStoreService {
     });
   }
 
-  getToy(id: string) : Observable<Toy> {
-    return this.httpClient.get<Toy>(this.url + 'toys/' + id);
+  getToy(id: string) : Observable<ToyInfo> {
+    return this.httpClient.get<ToyInfo>(this.url + 'toys/' + id);
   }
 
   createToy(toyInfo: ToyInfo) {
@@ -60,6 +60,14 @@ export class PetStoreService {
 
   getCategories() {
     return this.httpClient.get<Category[]>(this.url + 'categories');
+  }
+
+  deleteToy(toyId: number) {
+    return this.httpClient.delete(this.url + 'toys/' + toyId);
+  }
+
+  updateToy(toyInfo) {
+    return this.httpClient.put<ToyInfo>(this.url + 'toys/' + toyInfo.toyId, toyInfo);
   }
 
 }

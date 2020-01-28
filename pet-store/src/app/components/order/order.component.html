@@ -76,4 +76,16 @@
       (click)="stripeCard.createToken()" [disabled]="!orderForm.valid || !orderService.numberOfItems()" />
   </div>
 
+  <div class="d-flex justify-content-center mt-3">
+    <div class="alert alert-success" role="alert" *ngIf="this.isSuccessful">
+      Transaction is successful!
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+  <div class="alert alert-danger" role="alert" *ngIf="this.transactionIsNotSuccessful">
+    Transaction is not successful!
+</div>
+</div>
+
 </div>
