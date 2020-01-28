@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Models.Response;
+using PetStore.API.Models.Response.Order;
 using PetStore.API.Services.OrderSystem;
 
 namespace PetStore.API.Controllers
@@ -17,6 +18,12 @@ namespace PetStore.API.Controllers
         public OrderController(OrderService orderService)
         {
             this.OrderService = orderService;
+        }
+
+        [HttpGet]
+        public List<OrderListItem> GetAllOrders()
+        {
+            return OrderService.GetAllOrders().ToList();
         }
 
         [HttpPost("buy")]

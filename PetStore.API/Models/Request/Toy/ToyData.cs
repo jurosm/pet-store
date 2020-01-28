@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetStore.API.Models.Response.Category;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace PetStore.API.Models.Request.Toy
     {
         [Required]
         public string Description { get; set; }
-        public int? CategoryId { get; set; }
+        public CategoryUnit? Category { get; set; }
         [Required]
         [MaxLength(30,ErrorMessage = "Maximum length is 30")]
         public string Name { get; set; }

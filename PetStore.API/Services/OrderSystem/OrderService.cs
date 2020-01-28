@@ -5,10 +5,13 @@ using PetStore.API.Db;
 using PetStore.API.Exceptions.Services.Order;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Models.Response.ExternalServices;
+using PetStore.API.Models.Response.Order;
 using PetStore.API.Models.Services.Order;
 using PetStore.API.Services.ExternalServices;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace PetStore.API.Services.OrderSystem
 {
@@ -60,6 +63,11 @@ namespace PetStore.API.Services.OrderSystem
             }
 
             return new OrderInfo() { Message = "Payment failed!" };
+        }
+
+        public IEnumerable<OrderListItem> GetAllOrders()
+        {
+            return OrderRepository.ReadAll().Select(x => Mapper.Map<OrderListItem>(x));
         }
     }
 }

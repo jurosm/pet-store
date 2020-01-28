@@ -51,7 +51,7 @@ namespace PetStore.API.Services
 
         public IEnumerable<T> ReadAll()
         {
-            return Context.Table;
+            return Context.Table as IEnumerable<T>;
         }
 
         public T ReadOne(Expression<Func<T, bool>> predicate)

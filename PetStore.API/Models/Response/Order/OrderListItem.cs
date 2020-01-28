@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PetStore.API.Db
+namespace PetStore.API.Models.Response.Order
 {
-    public partial class Order
+    public class OrderListItem
     {
-        public Order()
-        {
-            OrderItem = new HashSet<OrderItem>();
-        }
-
         public DateTime OrderDate { get; set; }
         public int OrderId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
         public string ShippingAddress { get; set; }
-        public string IpinfoAddress { get; set; }
         public string OrderStatus { get; set; }
-        public string ExternalReferenceId { get; set; }
-
-        public virtual ICollection<OrderItem> OrderItem { get; set; }
     }
 }

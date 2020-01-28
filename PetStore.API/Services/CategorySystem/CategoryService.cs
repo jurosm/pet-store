@@ -1,5 +1,7 @@
-﻿using PetStore.API.Db;
+﻿using AutoMapper;
+using PetStore.API.Db;
 using PetStore.API.Models.Request.Category;
+using PetStore.API.Models.Response.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,18 @@ namespace PetStore.API.Services.CategorySystem
 {
     public class CategoryService
     {
+        IMapper Mapper;
         CategoryRepository CategoryRepository;
 
-        public CategoryService(CategoryRepository categoryRepository)
+        public CategoryService(CategoryRepository categoryRepository, IMapper mapper)
         {
+            this.Mapper = mapper;
             this.CategoryRepository = categoryRepository;
         }
 
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<CategoryUnit> GetAll()
         {
-            return CategoryRepository.ReadAll();
+            return CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
         }
 
         public async Task AddAsync(string name)

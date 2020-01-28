@@ -25,6 +25,14 @@ namespace PetStore.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddTransient<EnvironmentConfigurationService>();
 
             services.AddScoped<ExceptionActionFilter>();
@@ -50,9 +58,10 @@ namespace PetStore.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowCredentials().AllowAnyMethod());
+            // app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseRouting();
 

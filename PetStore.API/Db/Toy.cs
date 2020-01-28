@@ -7,6 +7,7 @@ namespace PetStore.API.Db
     {
         public Toy()
         {
+            Comment = new HashSet<Comment>();
             OrderItem = new HashSet<OrderItem>();
         }
 
@@ -19,6 +20,7 @@ namespace PetStore.API.Db
         public int Quantity { get; set; }
 
         public virtual Category Category { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<OrderItem> OrderItem { get; set; }
     }
 }

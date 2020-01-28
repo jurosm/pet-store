@@ -16,6 +16,7 @@ namespace PetStore.API.Db
         }
 
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItem> OrderItem { get; set; }
         public virtual DbSet<Toy> Toy { get; set; }
@@ -25,7 +26,7 @@ namespace PetStore.API.Db
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Server=localhost;Database=PetStoreDB;Username=postgres;Password=Thewho123_");
+                optionsBuilder.UseNpgsql("Host=localhost;Database=PetStoreDB;Username=postgres;Password=postgres");
             }
         }
 
@@ -40,21 +41,38 @@ namespace PetStore.API.Db
                     .HasMaxLength(255);
             });
 
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment", "petstore");
+
+                entity.HasIndex(e => e.ToyId)
+                    .HasName("fki_Comment_Toy");
+
+                entity.Property(e => e.DatePosted)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("CURRENT_DATE");
+
+                entity.Property(e => e.Text).IsRequired();
+
+                entity.HasOne(d => d.Toy)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.ToyId)
+                    .HasConstraintName("Comment_Toy");
+            });
+
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.ToTable("Order", "petstore");
 
                 entity.Property(e => e.CustomerName)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.CustomerSurname)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasMaxLength(30);
 
-                entity.Property(e => e.ExternalReferenceId)
-                    .IsRequired()
-                    .HasColumnType("character(255)[]");
+                entity.Property(e => e.ExternalReferenceId).HasMaxLength(255);
 
                 entity.Property(e => e.IpinfoAddress)
                     .IsRequired()
@@ -93,7 +111,7 @@ namespace PetStore.API.Db
                 entity.HasOne(d => d.Toy)
                     .WithMany(p => p.OrderItem)
                     .HasForeignKey(d => d.ToyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("OrderItem_Toy");
             });
 
@@ -106,18 +124,17 @@ namespace PetStore.API.Db
 
                 entity.Property(e => e.Description).IsRequired();
 
-                entity.Property(e => e.Name).HasMaxLength(255);
+                entity.Property(e => e.Name).HasMaxLength(30);
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
                 entity.Property(e => e.ShortDescription)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Toy)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("Toy_Category");
             });
 

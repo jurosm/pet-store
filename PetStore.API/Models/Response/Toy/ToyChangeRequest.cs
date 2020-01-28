@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetStore.API.Models.Response.Category;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace PetStore.API.Models.Response.Toy
         public string ShortDescription { get; set; }
         [Required]
         public string Description { get; set; }
-        public string Category { get; set; }
+        public CategoryUnit Category { get; set; }
         public int ToyId { get; set; }
         [Required]
         public string Name { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Db;
 using PetStore.API.Models.Request.Category;
+using PetStore.API.Models.Response.Category;
 using PetStore.API.Services.CategorySystem;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace PetStore.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Category> GetAll()
+        public IEnumerable<CategoryUnit> GetAll()
         {
             return CategoryService.GetAll();
         }
