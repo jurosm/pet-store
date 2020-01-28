@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using PetStore.API.Db;
 using PetStore.API.Helper.Pagination;
+using PetStore.API.Models.Request.Toy;
 using PetStore.API.Models.Response;
+using PetStore.API.Models.Response.Category;
 using PetStore.API.Models.Response.Toy;
 using PetStore.API.Services.CategorySystem;
 using System;
@@ -24,9 +26,9 @@ namespace PetStore.API.Services.ToySystem
             this.Mapper = mapper;
         }
 
-        public ToysResponse GetToysPage(int pageSize, int page, string order, string match, string category)
+        public ToysResponse GetToysPage(int pageSize, int page, string order, string match, int category)
         {
-            string[] categories = CategoryRepository.ReadAll().Select(x => x.Name).ToArray();
+            IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
             ToysResponse response = new ToysResponse();
             response.Categories = categories;
 
@@ -42,14 +44,14 @@ namespace PetStore.API.Services.ToySystem
             return new ToysResponse() { Items = null, NumberOfPages = 0, Categories = categories};
         }
 
-        public async Task AddToyAsync(ToyUnit toyUnit)
+        public async Task AddToyAsync(ToyData toyUnit)
         {
             await ToyRepository.AddToyAsync(toyUnit);
         }
 
-        public async Task UpdateToyAsync(ToyChangeRequest toy)
+        public async Task UpdateToyAsync(ToyData toy, int id)
         {
-            await ToyRepository.UpdateToyAsync(toy);
+            await ToyRepository.UpdateToyAsync(toy, id);
         }
 
         public ToyResponse GetToy(int id)

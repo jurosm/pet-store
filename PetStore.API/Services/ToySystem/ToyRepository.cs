@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PetStore.API.Models.Response.Toy;
 using System.IO;
 using AutoMapper;
+using PetStore.API.Models.Request.Toy;
 
 namespace PetStore.API.Services.ToySystem
 {
@@ -19,21 +20,21 @@ namespace PetStore.API.Services.ToySystem
             this.Mapper = mapper;
         }
 
-        public PagedResult<Toy> GetToysPaged(int pageSize, int page, string order, string match, string category)
+        public PagedResult<Toy> GetToysPaged(int pageSize, int page, string order, string match, int category)
         {
             if (order == "asc")
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null || category == "all")).OrderBy(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <=0)).OrderBy(x => x.Price), page, pageSize);
             } 
 
             else if (order == "desc")
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null || category == "all")).OrderByDescending(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
             } 
 
             else
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null || category == "all")), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)), page, pageSize);
             }
         }
 
@@ -42,25 +43,22 @@ namespace PetStore.API.Services.ToySystem
             return Context.Table.Include(x => x.Category).FirstOrDefault(x => x.ToyId == id);
         }
 
-        public async Task AddToyAsync(ToyUnit toyUnit)
+        public async Task AddToyAsync(ToyData toyUnit)
         {
             Toy toy = Mapper.Map<Toy>(toyUnit);
-            Category category = Context.PSContext.Category.FirstOrDefault(x => x.Name == toyUnit.Category);
+            Category category = Context.PSContext.Category.FirstOrDefault(x => x.CategoryId == toyUnit.CategoryId);
             if (category != null) category.Toy.Add(toy); else Context.Table.Add(toy);
             await Context.SaveChangesAsync();
         }
 
-        public async Task UpdateToyAsync(ToyChangeRequest toyChange)
+        public async Task UpdateToyAsync(ToyData toyData, int id)
         {
-            Toy toy = Context.Table.First(x => x.ToyId == toyChange.ToyId);
+            Toy toy = Mapper.Map<Toy>(toyData);
+            toy.ToyId = id;
 
-            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.Name == toyChange.Category);
+            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.CategoryId);
             if(category != null) toy.Category = category;
        
-            toy.Name = toyChange.Name;
-            toy.Description = toyChange.Description;
-            toy.ShortDescription = toyChange.Description;
-            toy.Price = toyChange.Price;
             await Context.SaveChangesAsync();
         }
     }

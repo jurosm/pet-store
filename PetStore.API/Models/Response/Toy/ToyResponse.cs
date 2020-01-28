@@ -11,9 +11,7 @@ namespace PetStore.API.Models.Response.Toy
         public string ShortDescription { get; set; }
         public string Category { get; set; }
         public int ToyId { get; set; }
-
         public string Name { get; set; }
-
         public decimal Price { get; set; }
     }
 }

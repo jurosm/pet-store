@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PetStore.API.Models.Request.Toy;
 using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Toy;
 using PetStore.API.Services.ToySystem;
@@ -19,9 +20,9 @@ namespace PetStore.API.Controllers
         }
 
         [HttpGet("")]
-        public ToysResponse GetToysPage([FromQuery]int page=1, [FromQuery] string order = "asc", [FromQuery] string match = "", [FromQuery] string category = "", [FromQuery] int pageSize = 5)
+        public ToysResponse GetToysPage([FromQuery]int page=1, [FromQuery] string order = "asc", [FromQuery] string match = "", [FromQuery] int categoryId = 0, [FromQuery] int pageSize = 5)
         {
-            return ToyService.GetToysPage(pageSize, page, order, match, category);
+            return ToyService.GetToysPage(pageSize, page, order, match, categoryId);
         }
         
         [HttpGet("{id}")]
@@ -36,15 +37,14 @@ namespace PetStore.API.Controllers
             await ToyService.DeleteToyAsync(id);
         }
 
-        [HttpPost("edit/{id}")]
-        public async Task UpdateToy([FromBody] ToyChangeRequest toy, int id)
+        [HttpPut("{id}")]
+        public async Task UpdateToy([FromBody] ToyData toy, int id)
         {
-            toy.ToyId = id;
-            await ToyService.UpdateToyAsync(toy);
+            await ToyService.UpdateToyAsync(toy, id);
         }
 
-        [HttpPost("add")]
-        public async Task AddToy([FromBody] ToyUnit toyUnit)
+        [HttpPost]
+        public async Task AddToy([FromBody] ToyData toyUnit)
         {
             await ToyService.AddToyAsync(toyUnit);
         }
