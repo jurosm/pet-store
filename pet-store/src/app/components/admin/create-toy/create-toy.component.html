@@ -1,0 +1,42 @@
+<form [formGroup]="createForm">
+<div class="input-group mb-3">
+  <div class="input-group-append">
+    <span class="input-group-text">Name: </span>
+  </div>
+  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toy.name" formControlName="name">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-append">
+    <span class="input-group-text">Description: </span>
+  </div>
+  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toy.description" formControlName="description">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-append">
+    <span class="input-group-text">Short description: </span>
+  </div>
+  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toy.shortDescription" formControlName="shortDescription">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-append">
+    <span class="input-group-text">Category: </span>
+  </div>
+  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toy.category" formControlName="category">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-append">
+    <span class="input-group-text">Price: </span>
+  </div>
+  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toy.price" formControlName="price">
+</div>
+
+</form>
