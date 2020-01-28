@@ -9,30 +9,52 @@
   <form [formGroup]="searchForm">
   <ul class="nav nav-pills">
 <div class="row">
-<div class="mx-2">
+  <div class="column">
+<div class="form-control">
     <select [(ngModel)]="getToyParams.order" formControlName="order">
       <option [(ngValue)]=none>None order</option>
       <option [(ngValue)]=asc>Ascending</option>
       <option [(ngValue)]=desc>Descending </option>
   </select>
 </div>
-
-<div class="mx-2">
-    <select [(ngModel)]="getToyParams.category" formControlName="category">
-      <option [value]=all >All categories</option>
-      <option *ngFor="let category of toys.categories" [value]="category">{{category}}</option>
-    </select>
-  </div>
-
-  <div class="mx-2">
-    <select [(ngModel)]="getToyParams.pageSize" formControlName="pageSize" id="page-size-select" [value]=all>
-      <option value=all>Choose page size</option>
-      <option *ngFor="let number of pageSizeList" [value]="number+1">
-        {{number+1}}
-      </option>
-    </select>
-  </div>
 </div>
+
+<div class="column">
+
+<div class="form-control">
+  <select [(ngModel)]="getToyParams.category" formControlName="category">
+    <option [value]=all >All categories</option>
+    <option *ngFor="let category of toys.categories" [value]="category.categoryId">{{category.name}}</option>
+  </select>
+</div>
+</div>
+
+<div class="column">
+<div class="form-control">
+  <select [(ngModel)]="getToyParams.pageSize" formControlName="pageSize" id="page-size-select" [value]=all>
+    <option value=all>Choose page size</option>
+    <option *ngFor="let number of pageSizeList" [value]="number+1">
+      {{number+1}}
+    </option>
+  </select>
+</div>
+</div>
+
+<div class="column">
+  <li>
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="getToyParams.matchName" formControlName="matchName">
+  </li>
+</div>
+
+<div class="column">
+  <li>
+    <button class="btn btn-outline-success" type="submit" (click)="filter()">Search</button>
+  </li>
+</div>
+</div>
+</ul>
+
+<!--
     <div class="mx-2">
     <select [(ngModel)]="getToyParams.page" formControlName="page" [value]=none>
       <option [value]=none>Choose page</option>
@@ -40,19 +62,9 @@
           {{number+1}}
       </option>
     </select>
-    </div>
-    <div class="mx-3">
-    <li>
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="getToyParams.matchName" formControlName="matchName">
-    </li>
-  </div>
-    <div class="mx-2">
-    <li>
-      <button class="btn btn-outline-success" type="submit" (click)="getToys()">Search</button>
-    </li>
-  </div>
-  </ul>
-
+    </div> -->
+    <hr />
+<div class="row">
 <div class="card-group mx-2">
   <div class="card mx-2" style="width: 18rem;" *ngFor="let element of toys.items">
     <div class="card-body">
@@ -67,6 +79,14 @@
 
     </div>
   </div>
+</div>
+<hr />
+</div>
+<div class="row">
+
+<ul class="pagination">
+  <li class="page-item" *ngFor="let number of numberOfPagesList"><a class="page-link" (click)="paginate(number+1)">{{number+1}}</a></li>
+</ul>
 </div>
 
 </form>

@@ -1,8 +1,8 @@
-export class Toy {
+export class ToyInfo {
   description: string;
   shortDescription: string;
   category: string;
-  toyId: number;
   name: string;
   price: number;
+  quantity: number;
 }

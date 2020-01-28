@@ -4,15 +4,26 @@
     <span class="input-group-text">Name: </span>
   </div>
   <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toy.name" formControlName="name">
+    [(ngModel)]="toyInfo.name" formControlName="name">
+</div>
+
+<div class="text-danger" *ngIf="createForm.controls.name.errors">
+  Name is required.
 </div>
 
 <div class="input-group mb-3">
   <div class="input-group-append">
     <span class="input-group-text">Description: </span>
   </div>
-  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toy.description" formControlName="description">
+  <textarea class="form-control" rows="5"   [(ngModel)]="toyInfo.description" formControlName="description" required>
+
+  </textarea>
+ <!-- <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toyInfo.description" formControlName="description"> -->
+</div>
+
+<div class="text-danger" *ngIf="createForm.controls.description.errors">
+  Description is required.
 </div>
 
 <div class="input-group mb-3">
@@ -20,23 +31,52 @@
     <span class="input-group-text">Short description: </span>
   </div>
   <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toy.shortDescription" formControlName="shortDescription">
+    [(ngModel)]="toyInfo.shortDescription" formControlName="shortDescription">
+</div>
+
+<div class="text-danger" *ngIf="createForm.controls.shortDescription.errors">
+  Short description is required.
 </div>
 
 <div class="input-group mb-3">
   <div class="input-group-append">
-    <span class="input-group-text">Category: </span>
+    <span class="input-group-text">Select category: </span>
   </div>
-  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toy.category" formControlName="category">
+<div>
+  <select class="form-control" [(ngModel)]="toyInfo.category" formControlName="category">
+    <option [value]=all >Other</option>
+    <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
+  </select>
+</div>
 </div>
 
 <div class="input-group mb-3">
   <div class="input-group-append">
     <span class="input-group-text">Price: </span>
   </div>
-  <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toy.price" formControlName="price">
+  <input type="number" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toyInfo.price" formControlName="price">
+</div>
+
+<div class="text-danger" *ngIf="createForm.controls.price.errors">
+  Price is required.
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-append">
+    <span class="input-group-text">Quantity: </span>
+  </div>
+  <input type="number" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
+    [(ngModel)]="toyInfo.quantity" formControlName="price">
+</div>
+
+<div class="text-danger" *ngIf="createForm.controls.quantity.errors">
+  Price is required.
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+  <input type="button" class="btn btn-primary btn-lg" value="Submit"
+    (click)="createToy()" [disabled]="!createForm.valid" />
 </div>
 
 </form>

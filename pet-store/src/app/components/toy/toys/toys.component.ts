@@ -34,7 +34,7 @@ export class ToysComponent implements OnInit {
       pageSize: new FormControl()
     });
     this.toys = new ToysResponse();
-    this.getToyParams = {page: 0, pageSize: 0, matchName: '', order: 'none', category: 'all'};
+    this.getToyParams = {page: 1, pageSize: 6, matchName: '', order: 'none', category: 0};
     this.getToys();
    }
 
@@ -47,6 +47,16 @@ export class ToysComponent implements OnInit {
       this.numberOfPagesList = Array(res.numberOfPages).fill(0).map((x, i) => i);
     }
       );
+  }
+
+  paginate(page: number) {
+    this.getToyParams.page = page;
+    this.getToys();
+  }
+
+  filter(){
+    this.getToyParams.page = 1;
+    this.getToys();
   }
 
 }
