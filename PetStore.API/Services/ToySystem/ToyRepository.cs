@@ -23,11 +23,17 @@ namespace PetStore.API.Services.ToySystem
         {
             if (order == "asc")
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null)).OrderBy(x => x.Price), page, pageSize);
-            }
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null || category == "all")).OrderBy(x => x.Price), page, pageSize);
+            } 
+
+            else if (order == "desc")
+            {
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null || category == "all")).OrderByDescending(x => x.Price), page, pageSize);
+            } 
+
             else
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null)).OrderByDescending(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.Category.Name.Contains(category) || x.Category == null || category == "all")), page, pageSize);
             }
         }
 
@@ -44,17 +50,17 @@ namespace PetStore.API.Services.ToySystem
             await Context.SaveChangesAsync();
         }
 
-        public async Task UpdateToyAsync(ToyUnit toyUnit)
+        public async Task UpdateToyAsync(ToyChangeRequest toyChange)
         {
-            Toy toy = Context.Table.First(x => x.ToyId == toyUnit.ToyId);
+            Toy toy = Context.Table.First(x => x.ToyId == toyChange.ToyId);
 
-            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.Name == toyUnit.Category);
+            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.Name == toyChange.Category);
             if(category != null) toy.Category = category;
        
-            toy.Name = toyUnit.Name;
-            toy.Description = toyUnit.Description;
-            toy.ShortDescription = toyUnit.Description;
-            toy.Price = toyUnit.Price;
+            toy.Name = toyChange.Name;
+            toy.Description = toyChange.Description;
+            toy.ShortDescription = toyChange.Description;
+            toy.Price = toyChange.Price;
             await Context.SaveChangesAsync();
         }
     }

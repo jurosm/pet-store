@@ -20,6 +20,11 @@ namespace PetStore.API.Helper.Mapper
             opt.MapFrom(src => src.CategoryId.HasValue ? src.Category.Name : null))
                 .ReverseMap();
 
+            CreateMap<Toy, ToyResponse>().ForMember(dest =>
+            dest.Category, opt =>
+            opt.MapFrom(src => src.CategoryId.HasValue ? src.Category.Name : null))
+                .ReverseMap();
+
             CreateMap<OrderItemRequest, OrderItem>().ReverseMap();
 
             CreateMap<Toy, OrderItemRequest>().ReverseMap();

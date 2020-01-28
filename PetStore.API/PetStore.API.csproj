@@ -27,4 +27,8 @@
     <PackageReference Include="Stripe.net" Version="34.16.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Services\" />
+  </ItemGroup>
+
 </Project>

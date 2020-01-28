@@ -18,7 +18,7 @@ namespace PetStore.API.Services.OrderSystem
         }
 
         public bool CheckValidOrder(List<OrderItemRequest> orderItems)
-        {
+        {//popraviti
             List<OrderItemRequest> toys = Context.PSContext.Toy.Select(x => Mapper.Map<OrderItemRequest>(x)).ToList();
             return orderItems.All(x => ((toys.Any(y => ((y.ToyId == x.ToyId) && (y.Quantity >= x.Quantity))))));
         }

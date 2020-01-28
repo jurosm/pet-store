@@ -16,7 +16,6 @@ namespace PetStore.API.Filters.GlobalFilters
         {
             if (context.Exception != null)
             {
-
                 context.HttpContext.Response.ContentType = "application/json";
 
                 switch (context.Exception)

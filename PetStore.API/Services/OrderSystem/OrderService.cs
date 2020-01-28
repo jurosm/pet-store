@@ -26,7 +26,7 @@ namespace PetStore.API.Services.OrderSystem
             this.StripeService = stripeService;
             this.Mapper = mapper;
         }
-
+        //order
         public async Task<string> Buy(OrderRequest orderRequest)
         {
             var address = Accessor.HttpContext.Connection.RemoteIpAddress.ToString();
@@ -35,7 +35,7 @@ namespace PetStore.API.Services.OrderSystem
             if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) return "Items not valid!";
 
             decimal amount = OrderRepository.PricePerOrder(orderRequest.OrderItems);
-
+            //order.
             Order order = Mapper.Map<Order>(orderRequest);
             orderRequest.OrderItems.ForEach(x => order.OrderItem.Add(Mapper.Map<OrderItem>(x)));
             order.ShippingAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
