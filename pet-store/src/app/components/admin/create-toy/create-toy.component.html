@@ -16,10 +16,7 @@
     <span class="input-group-text">Description: </span>
   </div>
   <textarea class="form-control" rows="5"   [(ngModel)]="toyInfo.description" formControlName="description" required>
-
   </textarea>
- <!-- <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toyInfo.description" formControlName="description"> -->
 </div>
 
 <div class="text-danger" *ngIf="createForm.controls.description.errors">
@@ -76,7 +73,7 @@
 
 <div class="d-flex justify-content-center mt-3">
   <input type="button" class="btn btn-primary btn-lg" value="Submit"
-    (click)="createToy()" [disabled]="!createForm.valid" />
+    (click)="submitToy()" [disabled]="!createForm.valid" />
 </div>
 
 </form>

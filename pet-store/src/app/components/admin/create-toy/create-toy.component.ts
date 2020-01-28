@@ -5,6 +5,7 @@ import { PetStoreService } from 'src/app/services/pet-store.service';
 import { ToyInfo } from 'src/app/models/toy/toyInfo';
 import { Categories } from 'src/app/models/categories/categories';
 import { Category } from 'src/app/models/categories/category';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-toy',
@@ -17,8 +18,9 @@ all: string;
 createForm: FormGroup;
 toyInfo: ToyInfo;
 categories: Category[];
+  isPostEditRoute: boolean;
 
-  constructor(private api: PetStoreService) {
+  constructor(private api: PetStoreService, private route: ActivatedRoute, private router: Router) {
     this.all = 'all';
     this.createForm = new FormGroup({
       name: new FormControl(Validators.required),
@@ -37,6 +39,23 @@ categories: Category[];
   }
 
   ngOnInit() {
+    if (this.router.url.startsWith('toy/edit')) {
+      this.route.paramMap.subscribe(
+        params => {this.api.getToy(params.get('id')).subscribe(res => {this.toyInfo = res; this.toyInfo.toyId = +params.get('id'); }); }
+      );
+    }
+  }
+
+  submitToy() {
+    if(this.router.url.startsWith('toy/edit')) {
+      this.updateToy();
+    } else {
+      this.createToy();
+    }
+  }
+
+  updateToy() {
+    this.api.updateToy(this.toyInfo);
   }
 
   createToy() {

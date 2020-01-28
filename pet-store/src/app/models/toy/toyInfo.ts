@@ -5,4 +5,5 @@ export class ToyInfo {
   name: string;
   price: number;
   quantity: number;
+  toyId: number;
 }

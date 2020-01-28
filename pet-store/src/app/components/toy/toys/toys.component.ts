@@ -5,6 +5,7 @@ import { GetToysParams } from 'src/app/models/toy/getToysParams';
 import { ToysResponse } from 'src/app/models/toy/toysResponse';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-toys',
@@ -22,10 +23,11 @@ export class ToysComponent implements OnInit {
   default: number;
   numberOfPagesList: number[];
   pageSizeList: number[];
+  orderIsSuccessful: boolean;
 
-  constructor(public api: PetStoreService, public service: OrderService, public router: Router) {
+  constructor(public api: PetStoreService, public service: OrderService, public router: Router, public authService: AuthService) {
     this.none = 'none'; this.asc = 'asc'; this.desc = 'desc'; this.all = 'all'; this.default = 1;
-    this.pageSizeList = Array(10).fill(0).map((x, i) => i);
+    this.pageSizeList = Array(9).fill(0).map((x, i) => i);
     this.searchForm = new FormGroup({
       order: new FormControl(),
       matchName: new FormControl(),
@@ -57,6 +59,10 @@ export class ToysComponent implements OnInit {
   filter(){
     this.getToyParams.page = 1;
     this.getToys();
+  }
+
+  deleteToy(toyId: number) {
+    this.api.deleteToy(toyId).subscribe();
   }
 
 }
