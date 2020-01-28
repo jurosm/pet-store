@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Db;
+using PetStore.API.Exceptions.Services.Order;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Models.Response.ExternalServices;
+using PetStore.API.Models.Services.Order;
 using PetStore.API.Services.ExternalServices;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,16 +28,16 @@ namespace PetStore.API.Services.OrderSystem
             this.StripeService = stripeService;
             this.Mapper = mapper;
         }
-        //order
-        public async Task<string> Buy(OrderRequest orderRequest)
+        
+        public async Task<OrderInfo> Buy(OrderRequest orderRequest)
         {
             var address = Accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             IPInfoResponse ipInfoAddress = await IPInfo.GetLocation(address);
 
-            if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) return "Items not valid!";
+            if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) throw new MessageException("Invalid order");
 
             decimal amount = OrderRepository.PricePerOrder(orderRequest.OrderItems);
-            //order.
+            
             Order order = Mapper.Map<Order>(orderRequest);
             orderRequest.OrderItems.ForEach(x => order.OrderItem.Add(Mapper.Map<OrderItem>(x)));
             order.ShippingAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
@@ -54,10 +56,10 @@ namespace PetStore.API.Services.OrderSystem
             if(order.OrderStatus == "succeeded" || order.OrderStatus == "amount_capturable_updated")
             {
                 await OrderRepository.RemoveItemsAsync(orderRequest.OrderItems);
-                return "Transaction succeeded!";
+                return new OrderInfo() { Message = "Transaction succeeded!" };
             }
 
-            return "Payment failed!";
+            return new OrderInfo() { Message = "Payment failed!" };
         }
     }
 }

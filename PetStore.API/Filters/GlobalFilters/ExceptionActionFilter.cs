@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using PetStore.API.Exceptions.Services.Order;
 using PetStore.API.Models.Response;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ namespace PetStore.API.Filters.GlobalFilters
                     case FileNotFoundException _:
                         context.HttpContext.Response.StatusCode = 404;
                         context.Result = new JsonResult(new MessageResponse { Message = "Item not found!" });
+                        break;
+
+                    case MessageException _:
+                        context.HttpContext.Response.StatusCode = 400;
+                        MessageException e = context.Exception as MessageException;
+                        context.Result = new JsonResult(new MessageResponse { Message = e.Message});
                         break;
 
                     default:

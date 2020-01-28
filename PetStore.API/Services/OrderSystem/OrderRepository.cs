@@ -13,7 +13,8 @@ namespace PetStore.API.Services.OrderSystem
     public class OrderRepository : Repository<Order>
     {
         readonly IMapper Mapper;
-        public OrderRepository(ContextWrapper<Order> context, IMapper mapper) : base(context) {
+        public OrderRepository(ContextWrapper<Order> context, IMapper mapper) : base(context)
+        {
             this.Mapper = mapper;
         }
 
@@ -35,6 +36,7 @@ namespace PetStore.API.Services.OrderSystem
                 Toy toy = (await Context.PSContext.Toy.FindAsync(x.ToyId));
                 toy.Quantity -= x.Quantity;
             });
+
             await Context.SaveChangesAsync();
         }
     }
