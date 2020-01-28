@@ -5,6 +5,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { ToyComponent } from './components/toy/toy.component';
 import { ToysComponent } from './components/toy/toys/toys.component';
 import { ErrorComponent } from './components/error/error.component';
+import { CreateToyComponent } from './components/admin/create-toy/create-toy.component';
+import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component';
 
 
 const routes: Routes = [
@@ -12,7 +14,10 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: '', component: ToysComponent },
   { path: 'toys/:id', component: ToyComponent },
-  { path: 'error', component: ErrorComponent}
+  { path: 'error', component: ErrorComponent },
+  { path: 'toy/create', component: CreateToyComponent },
+  { path: 'toy/edit/:id', component: CreateToyComponent },
+  { path: 'orders', component: ListOrdersComponent }
 ];
 
 @NgModule({
