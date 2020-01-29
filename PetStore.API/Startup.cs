@@ -14,17 +14,24 @@ using System;
 
 namespace PetStore.API
 {
+
     public class Startup
     {
+        private readonly EnvironmentConfigurations EnvVariables;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration; 
+            Configuration = configuration;
+            this.EnvVariables = new EnvironmentConfigurations();
         }
+
+        
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -37,7 +44,7 @@ namespace PetStore.API
 
             services.AddScoped<ExceptionActionFilter>();
 
-            services.AddExternalServices(Environment.GetEnvironmentVariable("STRIPE_SECRET"));
+            services.AddExternalServices(EnvVariables.StripeSecret);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -45,11 +52,11 @@ namespace PetStore.API
 
             services.AddCors();
 
-            services.AddPetStoreDBServices(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
+            services.AddPetStoreDBServices(EnvVariables.DBConnectionString);
 
             services.AddMyTOCServices();
 
-            services.AddAuth0AuthenticationServices(Environment.GetEnvironmentVariable("AUTH0_DOMAIN"), Environment.GetEnvironmentVariable("AUTH0_AUDIENCE"));
+            services.AddAuth0AuthenticationServices(EnvVariables.Auth0Domain, EnvVariables.Auth0Audience);
 
             services.AddAuthorization();
 
@@ -59,10 +66,9 @@ namespace PetStore.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("CorsPolicy");
+
             app.UseHttpsRedirection();
-
-            // app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
-
+          
             app.UseRouting();
 
             app.UseAuthentication();

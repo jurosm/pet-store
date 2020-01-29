@@ -1,30 +1,30 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top" >
   <a class="navbar-brand" href="#">Pet Store</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle" >
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarCollapse">
+  <div class="collapse navbar-collapse" id="navbarCollapse"  [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Home</a>
+        <a class="nav-link" routerLink="/" (click)="toggleNavbar()">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/toy/create" *ngIf="service.isAuthenticated()">Create toy</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/toy/create" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Create toy</a>
        </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" *ngIf="!service.isAuthenticated()">Login</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/login" *ngIf="!service.isAuthenticated()" (click)="toggleNavbar()">Login</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/orders" *ngIf="service.isAuthenticated()">Orders</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/orders" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Orders</a>
       </li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/" *ngIf="service.isAuthenticated()" (click)="service.logout()">Logout</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/" *ngIf="service.isAuthenticated()" (click)="service.logout()" (click)="toggleNavbar()">Logout</a>
        </li>
     </ul>
   </div>

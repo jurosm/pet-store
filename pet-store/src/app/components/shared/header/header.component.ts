@@ -7,6 +7,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  navbarOpen = false;
+
+  toggleNavbar(): void {
+    this.navbarOpen = !this.navbarOpen;
+  }
 
   constructor(public service: AuthService) { }
 
