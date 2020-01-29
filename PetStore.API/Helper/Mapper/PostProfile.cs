@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using PetStore.API.Db;
 using PetStore.API.Models.Request;
+using PetStore.API.Models.Request.Comment;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Models.Request.Toy;
 using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Category;
+using PetStore.API.Models.Response.Comment;
 using PetStore.API.Models.Response.Order;
 using PetStore.API.Models.Response.Toy;
 using System;
@@ -42,6 +44,10 @@ namespace PetStore.API.Helper.Mapper
             CreateMap<Order, OrderListItem>().ReverseMap();
 
             CreateMap<Category, CategoryUnit>().ReverseMap();
+
+            CreateMap<Comment, CommentsUnit>().ReverseMap();
+
+            CreateMap<CommentData, Comment>().ReverseMap();
         }
     }
 

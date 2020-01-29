@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PetStore.API.Db
+namespace PetStore.API.Models.Response.Comment
 {
-    public partial class Comment
+    public class CommentsUnit
     {
-        public int CommentId { get; set; }
         public string Text { get; set; }
-        public int? ToyId { get; set; }
         public DateTime DatePosted { get; set; }
         public string Author { get; set; }
 
-        public virtual Toy Toy { get; set; }
     }
 }

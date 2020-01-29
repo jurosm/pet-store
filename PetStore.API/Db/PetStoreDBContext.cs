@@ -48,6 +48,10 @@ namespace PetStore.API.Db
                 entity.HasIndex(e => e.ToyId)
                     .HasName("fki_Comment_Toy");
 
+                entity.Property(e => e.Author)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
                 entity.Property(e => e.DatePosted)
                     .HasColumnType("date")
                     .HasDefaultValueSql("CURRENT_DATE");
