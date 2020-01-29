@@ -10,7 +10,7 @@
         <li class="list-group-item">Price: {{toy?.price}}</li>
         <li class="list-group-item">This items in cart: {{this.service.numberOfItems(toy?.toyId)}}</li>
       </ul>
-      <div class="card-body">
+      <div class="card-body" *ngIf="!authService.isAuthenticated()">
         <div class="d-flex justify-content-center mt-3">
           <button type="button" name="button" class="btn btn-primary" (click)="service.removeFromCart(toy.toyId)">Remove from cart</button>
         </div>
@@ -21,7 +21,8 @@
     </div>
 
   </div>
-<div class="row">
+<div class="row" *ngIf="!authService.isAuthenticated()">
+
 <app-comments>
 
 </app-comments>

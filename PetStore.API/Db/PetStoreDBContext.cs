@@ -61,6 +61,7 @@ namespace PetStore.API.Db
                 entity.HasOne(d => d.Toy)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.ToyId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Comment_Toy");
             });
 

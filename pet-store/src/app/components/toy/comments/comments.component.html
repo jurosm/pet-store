@@ -1,5 +1,4 @@
 <div class="container">
-  {{comments[0]}}
 <form [formGroup]="commentsForm">
   <div class="input-group mb-3">
     <div class="input-group-append">
@@ -9,7 +8,7 @@
       [(ngModel)]="commentData.author" formControlName="author">
   </div>
 
-  <div class="text-danger" *ngIf="commentsForm.controls.author.errors">
+  <div class="text-danger" *ngIf="commentsForm.controls.author?.errors">
     Author is required.
   </div>
 
@@ -21,7 +20,7 @@
     </textarea>
   </div>
 
-  <div class="text-danger" *ngIf="commentsForm.controls.description.errors">
+  <div class="text-danger" *ngIf="commentsForm.controls.text?.errors">
     Text is required.
   </div>
 
@@ -31,19 +30,21 @@
   </div>
 
 </form>
+
 <hr />
 
+<h4>Comments: </h4>
 
-<div class="card-group">
+<div>
   <div class="card" *ngFor="let element of comments">
     <div class="card-title">
-      {{element.author}}
+      Author: {{element.author}}
     </div>
     <div class="card-body">
-      {{element.text}}
+      Test: {{element.text}}
     </div>
     <div class="card-footer">
-      {{element.datePosted}}
+      Posted : {{element.datePosted}}
     </div>
   </div>
 </div>
