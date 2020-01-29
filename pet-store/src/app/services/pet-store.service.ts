@@ -15,6 +15,8 @@ import { ToyInfo } from '../models/toy/toyInfo';
 import { Categories } from '../models/categories/categories';
 import { Category } from '../models/categories/category';
 import { OrderListItem } from '../models/order/orderListItem';
+import { CommentsUnit } from '../models/toy/comments/commentsUnit';
+import { Comment } from '../models/toy/comments/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +44,7 @@ export class PetStoreService {
     .set('page', getToysParams.page.toString())
     .set('pageSize', getToysParams.pageSize.toString());
 
-    if (getToysParams.order !== '') { params = params.set('order', getToysParams.order); }
+    if (getToysParams.order !== 0) { params = params.set('order', getToysParams.order.toString()); }
     if (getToysParams.category !== 0) { params = params.set('categoryId', getToysParams.category.toString()); }
     if (getToysParams.matchName !== '') { params = params.set('match', getToysParams.matchName); }
 
@@ -56,7 +58,7 @@ export class PetStoreService {
   }
 
   createToy(toy: Toy) {
-    return this.httpClient.post<ToyInfo>(this.url + 'toys', toy);
+    return this.httpClient.post<Toy>(this.url + 'toys', toy);
   }
 
   getCategories() {
@@ -67,8 +69,8 @@ export class PetStoreService {
     return this.httpClient.delete(this.url + 'toys/' + toyId);
   }
 
-  updateToy(toyInfo) {
-    return this.httpClient.put<ToyInfo>(this.url + 'toys/' + toyInfo.toyId, toyInfo);
+  updateToy(toy: Toy) {
+    return this.httpClient.put<Toy>(this.url + 'toys/' + toy.toyId, toy);
   }
 
   getOrders(){
@@ -80,7 +82,7 @@ export class PetStoreService {
   }
 
   getComments() {
-    return this.httpClient.get<Comment[]>(this.url + 'comments');
+    return this.httpClient.get<CommentsUnit[]>(this.url + 'comments');
   }
 
 }

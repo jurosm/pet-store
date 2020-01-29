@@ -40,9 +40,12 @@
     <span class="input-group-text">Select category: </span>
   </div>
 <div>
-  <select class="form-control" [(ngModel)]="toy.category.categoryId" formControlName="category" [value]="toy.category?.categoryId">
-    <option *ngFor="let category of categories" [value]="category?.categoryId">{{category.name}}</option>
+  <div class="form-control">
+  <select input="number" [(ngModel)]="toy.categoryId" formControlName="categoryId" >
+    <option [value]=0 >None</option>
+    <option *ngFor="let category of categories" [value]=category.categoryId>{{category.name}}</option>
   </select>
+</div>
 </div>
 </div>
 
@@ -63,7 +66,7 @@
     <span class="input-group-text">Quantity: </span>
   </div>
   <input type="number" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-    [(ngModel)]="toy.quantity" formControlName="price">
+    [(ngModel)]="toy.quantity" formControlName="quantity">
 </div>
 
 <div class="text-danger" *ngIf="createForm.controls.quantity.errors">

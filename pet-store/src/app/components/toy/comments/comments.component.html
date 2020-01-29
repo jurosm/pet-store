@@ -29,3 +29,17 @@
   </div>
 
 </form>
+
+<div class="card-group">
+  <div class="card" *ngFor="let element of comments">
+    <div class="card-title">
+      {{element.author}}
+    </div>
+    <div class="card-body">
+      {{element.text}}
+    </div>
+    <div class="card-footer">
+      {{element.datePosted}}
+    </div>
+  </div>
+</div>

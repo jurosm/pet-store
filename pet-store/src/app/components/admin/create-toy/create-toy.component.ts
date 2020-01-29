@@ -23,12 +23,11 @@ categories: Category[];
 
   constructor(private api: PetStoreService, private route: ActivatedRoute, private router: Router) {
     this.all = 'all';
-    this.category = new Category();
     this.createForm = new FormGroup({
       name: new FormControl(Validators.required),
       description: new FormControl(Validators.required),
       shortDescription: new FormControl(Validators.required),
-      category: new FormControl(Validators.required),
+      categoryId: new FormControl(Validators.required),
       price: new FormControl(Validators.required),
       quantity: new FormControl(Validators.required)
     });

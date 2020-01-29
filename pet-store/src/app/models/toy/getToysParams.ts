@@ -1,6 +1,6 @@
 export class GetToysParams {
   page: number;
-  order: string;
+  order: number;
   matchName: string;
   category: number;
   pageSize: number;

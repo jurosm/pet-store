@@ -14,9 +14,9 @@
   <div class="column">
 <div class="form-control">
     <select [(ngModel)]="getToyParams.order" formControlName="order">
-      <option [(ngValue)]=none>None order</option>
-      <option [(ngValue)]=asc>Ascending</option>
-      <option [(ngValue)]=desc>Descending </option>
+      <option [value]=0>None order</option>
+      <option [value]=1>Ascending</option>
+      <option [value]=2>Descending </option>
   </select>
 </div>
 </div>
@@ -25,7 +25,7 @@
 
 <div class="form-control">
   <select [(ngModel)]="getToyParams.category" formControlName="category">
-    <option [value]=all >All categories</option>
+    <option [value]=0 >All categories</option>
     <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
   </select>
 </div>
@@ -33,8 +33,8 @@
 
 <div class="column">
 <div class="form-control">
-  <select [(ngModel)]="getToyParams.pageSize" formControlName="pageSize" id="page-size-select" [value]=all>
-    <option value=all>Choose page size</option>
+  <select [(ngModel)]="getToyParams.pageSize" formControlName="pageSize">
+    <option [value]=0>Choose page size</option>
     <option *ngFor="let number of pageSizeList" [value]="number+1">
       {{number+1}}
     </option>

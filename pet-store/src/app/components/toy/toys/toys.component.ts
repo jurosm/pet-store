@@ -38,7 +38,7 @@ export class ToysComponent implements OnInit {
       pageSize: new FormControl()
     });
     this.toys = new ToysResponse();
-    this.getToyParams = {page: 1, pageSize: 6, matchName: '', order: 'none', category: 0};
+    this.getToyParams = {page: 1, pageSize: 6, matchName: '', order: 0, category: 0};
     this.getToys();
     this.getCategories();
    }
