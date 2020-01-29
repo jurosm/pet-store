@@ -1,10 +1,12 @@
+<div class="container">
+  {{comments[0]}}
 <form [formGroup]="commentsForm">
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Name: </span>
     </div>
     <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="comment.author" formControlName="author">
+      [(ngModel)]="commentData.author" formControlName="author">
   </div>
 
   <div class="text-danger" *ngIf="commentsForm.controls.author.errors">
@@ -15,7 +17,7 @@
     <div class="input-group-append">
       <span class="input-group-text">Description: </span>
     </div>
-    <textarea class="form-control" rows="5"   [(ngModel)]="comment.text" formControlName="text" required>
+    <textarea class="form-control" rows="5"   [(ngModel)]="commentData.text" formControlName="text" required>
     </textarea>
   </div>
 
@@ -29,6 +31,8 @@
   </div>
 
 </form>
+<hr />
+
 
 <div class="card-group">
   <div class="card" *ngFor="let element of comments">
@@ -42,4 +46,6 @@
       {{element.datePosted}}
     </div>
   </div>
+</div>
+
 </div>

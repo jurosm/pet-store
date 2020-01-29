@@ -11,16 +11,20 @@ import { PetStoreService } from 'src/app/services/pet-store.service';
   styleUrls: ['./toy.component.css']
 })
 export class ToyComponent implements OnInit {
+
  toy: Toy;
   constructor(private route: ActivatedRoute, private api: PetStoreService, public service: OrderService) {
     this.route.paramMap.subscribe(
       params => this.api.getToy(params.get('id')).subscribe(
-        res => this.toy = res
+        res => {
+          this.toy = res;
+        }
       )
     );
   }
 
   ngOnInit() {
   }
+
 
 }
