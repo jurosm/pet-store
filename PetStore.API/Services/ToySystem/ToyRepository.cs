@@ -20,14 +20,14 @@ namespace PetStore.API.Services.ToySystem
             this.Mapper = mapper;
         }
 
-        public PagedResult<Toy> GetToysPaged(int pageSize, int page, string order, string match, int category)
+        public PagedResult<Toy> GetToysPaged(int pageSize, int page, int order, string match, int category)
         {
-            if (order == "asc")
+            if (order == 1)
             {
                 return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <=0)).OrderBy(x => x.Price), page, pageSize);
             } 
 
-            else if (order == "desc")
+            else if (order == 2)
             {
                 return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
             } 
@@ -46,7 +46,7 @@ namespace PetStore.API.Services.ToySystem
         public async Task AddToyAsync(ToyData toyUnit)
         {
             Toy toy = Mapper.Map<Toy>(toyUnit);
-            Category category = Context.PSContext.Category.FirstOrDefault(x => x.CategoryId == toyUnit.Category.CategoryId);
+            Category category = Context.PSContext.Category.FirstOrDefault(x => x.CategoryId == toyUnit.CategoryId);
             if (category != null) category.Toy.Add(toy); else Context.Table.Add(toy);
             await Context.SaveChangesAsync();
         }
@@ -55,10 +55,10 @@ namespace PetStore.API.Services.ToySystem
         {
             Toy toy = Mapper.Map<Toy>(toyData);
             toy.ToyId = id;
-            if (toyData.Category.CategoryId != null)
+            if (toyData.CategoryId != null)
             {
-                Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.Category.CategoryId);
-                if (category != null) toy.Category = category;
+                Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.CategoryId);
+                if (category != null) toy.Category = category; else { toy.Category = null; toy.CategoryId = null; }
             }
             Context.Table.Update(toy);
             await Context.SaveChangesAsync();

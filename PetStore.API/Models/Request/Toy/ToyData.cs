@@ -11,7 +11,7 @@ namespace PetStore.API.Models.Request.Toy
     {
         [Required]
         public string Description { get; set; }
-        public CategoryUnit? Category { get; set; }
+        public int? CategoryId { get; set; }
         [Required]
         [MaxLength(30,ErrorMessage = "Maximum length is 30")]
         public string Name { get; set; }
