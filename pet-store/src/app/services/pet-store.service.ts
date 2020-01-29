@@ -17,6 +17,7 @@ import { Category } from '../models/categories/category';
 import { OrderListItem } from '../models/order/orderListItem';
 import { CommentsUnit } from '../models/toy/comments/commentsUnit';
 import { CommentData } from '../models/toy/comments/CommentData';
+import { CategoryName } from '../models/categories/categoryName';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +84,14 @@ export class PetStoreService {
 
   getComments(toyId: number) {
     return this.httpClient.get<CommentsUnit[]>(this.url + 'comments/' + toyId);
+  }
+
+  deleteCategory(id: number) {
+    return this.httpClient.delete(this.url + 'categories/' + id);
+  }
+
+  createCategory(name: CategoryName) {
+    return this.httpClient.post<string>(this.url + 'categories', name);
   }
 
 }

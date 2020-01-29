@@ -33,7 +33,7 @@ namespace PetStore.API.Controllers
         }
 
         [HttpPost]
-        public async Task Add([FromBody] string name)
+        public async Task Add([FromBody] CategoryUpdateRequest name)
         {
             await CategoryService.AddAsync(name);
         }

@@ -13,13 +13,15 @@ namespace PetStore.API.Services.AuthenticationSystem
     public class AuthService
     {
         private string Audience, ClientId, ClientSecret, Domain;
+        EnvironmentConfigurations EnvVariables;
 
-        public AuthService()
+        public AuthService(EnvironmentConfigurations envVariables)
         {
-            this.Audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE");
-            this.ClientId = Environment.GetEnvironmentVariable("AUTH0_CLIENT_ID");
-            this.ClientSecret = Environment.GetEnvironmentVariable("AUTH0_CLIENT_SECRET");
-            this.Domain = Environment.GetEnvironmentVariable("AUTH0_DOMAIN");
+            this.EnvVariables = envVariables;
+            this.Audience = envVariables.Auth0Audience;
+            this.ClientId = envVariables.Auth0ClientId;
+            this.ClientSecret = envVariables.Auth0ClientSecret;
+            this.Domain = envVariables.Auth0Domain;
         }
 
         public async Task<LoginResponse> LoginUser(LoginRequest login)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Models.Request.Toy;
 using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Toy;
@@ -32,18 +33,21 @@ namespace PetStore.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task DeleteToy(int id)
         {
             await ToyService.DeleteToyAsync(id);
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task UpdateToy([FromBody] ToyData toy, int id)
         {
             await ToyService.UpdateToyAsync(toy, id);
         }
 
         [HttpPost]
+        [Authorize]
         public async Task AddToy([FromBody] ToyData toyUnit)
         {
             await ToyService.AddToyAsync(toyUnit);

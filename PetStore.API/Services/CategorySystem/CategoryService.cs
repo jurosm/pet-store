@@ -25,9 +25,9 @@ namespace PetStore.API.Services.CategorySystem
             return CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
         }
 
-        public async Task AddAsync(string name)
+        public async Task AddAsync(CategoryUpdateRequest name)
         {
-            await CategoryRepository.CreateAsync(new Category() {Name = name});
+            await CategoryRepository.CreateAsync(new Category() {Name = name.Name});
         }
 
         public async Task DeleteAsync(int id)

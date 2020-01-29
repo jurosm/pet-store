@@ -7,6 +7,7 @@ import { ToysComponent } from './components/toy/toys/toys.component';
 import { ErrorComponent } from './components/error/error.component';
 import { CreateToyComponent } from './components/admin/create-toy/create-toy.component';
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component';
+import { CategoryComponent } from './components/category/category.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'error', component: ErrorComponent },
   { path: 'toy/create', component: CreateToyComponent },
   { path: 'toy/edit/:id', component: CreateToyComponent },
-  { path: 'orders', component: ListOrdersComponent }
+  { path: 'orders', component: ListOrdersComponent },
+  { path: 'category', component: CategoryComponent }
 ];
 
 @NgModule({

@@ -21,6 +21,10 @@
         <a class="nav-link" data-toggle="collapse" routerLink="/orders" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Orders</a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" routerLink="/category" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Categories</a>
+      </li>
+
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item">

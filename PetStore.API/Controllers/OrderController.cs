@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Models.Response;
@@ -21,6 +22,7 @@ namespace PetStore.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<OrderListItem> GetAllOrders()
         {
             return OrderService.GetAllOrders();

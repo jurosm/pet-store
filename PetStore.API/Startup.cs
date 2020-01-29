@@ -32,6 +32,8 @@ namespace PetStore.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<EnvironmentConfigurations>();
+
             services.AddMemoryCache();
 
             services.AddCors(options =>
@@ -43,8 +45,6 @@ namespace PetStore.API
             });
 
             services.AddRateLimitServices(Configuration.GetSection("IpRateLimiting"), Configuration.GetSection("IpRateLimitPolicies"));
-
-            services.AddTransient<EnvironmentConfigurationService>();
 
             services.AddScoped<ExceptionActionFilter>();
 

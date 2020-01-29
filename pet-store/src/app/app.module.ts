@@ -24,6 +24,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { CreateToyComponent } from './components/admin/create-toy/create-toy.component';
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component';
 import { CommentsComponent } from './components/toy/comments/comments.component';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CommentsComponent } from './components/toy/comments/comments.component'
     ErrorComponent,
     CreateToyComponent,
     ListOrdersComponent,
-    CommentsComponent
+    CommentsComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
