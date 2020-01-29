@@ -21,9 +21,9 @@ namespace PetStore.API.Controllers
         }
 
         [HttpGet]
-        public List<OrderListItem> GetAllOrders()
+        public IEnumerable<OrderListItem> GetAllOrders()
         {
-            return OrderService.GetAllOrders().ToList();
+            return OrderService.GetAllOrders();
         }
 
         [HttpPost("buy")]
@@ -31,5 +31,7 @@ namespace PetStore.API.Controllers
         {
             return Ok(await OrderService.Buy(orderRequest));
         }
+
+       
     }
 }

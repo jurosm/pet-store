@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using PetStore.API.Services.ExternalServices;
 using System;
+using AspNetCoreRateLimit;
 
 namespace PetStore.API
 {
@@ -31,6 +32,7 @@ namespace PetStore.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
 
             services.AddCors(options =>
             {
@@ -39,6 +41,8 @@ namespace PetStore.API
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
+
+            services.AddRateLimitServices(Configuration.GetSection("IpRateLimiting"), Configuration.GetSection("IpRateLimitPolicies"));
 
             services.AddTransient<EnvironmentConfigurationService>();
 
@@ -65,6 +69,8 @@ namespace PetStore.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseIpRateLimiting();
+
             app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
