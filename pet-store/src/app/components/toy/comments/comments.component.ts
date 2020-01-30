@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CommentData } from 'src/app/models/toy/comments/CommentData';
+import { CommentData } from 'src/app/models/toy/comments/commentData';
 import { PetStoreService } from 'src/app/services/pet-store.service';
 import { CommentsUnit } from 'src/app/models/toy/comments/commentsUnit';
 import { ActivatedRoute } from '@angular/router';

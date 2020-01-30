@@ -24,6 +24,12 @@ export class ToyComponent implements OnInit {
     );
   }
 
+  hasInStack() {
+    if(this.toy !== undefined) {
+    return (this.toy.quantity - this.service.numberOfItems(this.toy.toyId)) <= 0;
+    }
+  }
+
   ngOnInit() {
   }
 

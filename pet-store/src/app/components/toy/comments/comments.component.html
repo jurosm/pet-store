@@ -38,17 +38,30 @@
 <h4>Comments: </h4>
 
 <div>
-  <div class="card" *ngFor="let element of comments">
-    <div class="card-title">
+  <div class="card mt-4" *ngFor="let element of comments">
+    <div class="card-header">
       Author: {{element.author}}
     </div>
     <div class="card-body">
       Text: {{element.text}}
     </div>
     <div class="card-footer">
-      Posted : {{element.datePosted}}
+      <small class="text-muted mr-0"> Posted : {{element.datePosted | date}} </small>
     </div>
   </div>
 </div>
+
+<!--
+<div class="panel-group">
+  <div class="panel panel-pr" *ngFor="let element of comments">
+    <div class="panel-heading">
+      Author: {{element.author}}
+     <small class="text-muted mr-0">Posted : {{element.datePosted | date}}</small>
+    </div>
+    <div class="panel-body">
+      Text: {{element.text}}
+    </div>
+  </div>
+</div>-->
 
 </div>

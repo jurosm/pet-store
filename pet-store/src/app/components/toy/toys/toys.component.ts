@@ -76,4 +76,11 @@ export class ToysComponent implements OnInit {
     });
   }
 
+  onKeyDown(event){
+    if(event.key === 'enter') {
+      this.filter();
+    }
+
+  }
+
 }
