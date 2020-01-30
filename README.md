@@ -10,5 +10,18 @@ SPA toy shop application for pets!
 - Auth0
 - Stripe testing 
 
+## Environment variables
+
+### .NET Core
+- DB_CONNECTION_STRING
+- AUTH0_DOMAIN
+- AUTH0_AUDIENCE
+- AUTH0_CLIENT_ID
+- AUTH0_CLIENT_SECRET
+- STRIPE_SECRET
+
+### Angular
+- API_URL
+
 ## Licence
 MIT
