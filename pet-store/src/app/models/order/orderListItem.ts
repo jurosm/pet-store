@@ -4,4 +4,5 @@ export class OrderListItem {
   customerSurname: string;
   shippingAddress: string;
   orderStatus: string;
+  orderDate: Date;
 }
