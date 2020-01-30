@@ -3,9 +3,9 @@
 --
 
 -- Dumped from database version 12.1
--- Dumped by pg_dump version 12.1
+-- Dumped by pg_dump version 12.0
 
--- Started on 2020-01-29 19:59:21
+-- Started on 2020-01-30 12:59:50
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -285,13 +285,9 @@ ALTER TABLE ONLY petstore."Toy" ALTER COLUMN "ToyId" SET DEFAULT nextval('petsto
 --
 
 COPY petstore."Category" ("CategoryId", "Name") FROM stdin;
-4	none1
-9	dance
-11	jump
-13	Mocno
-14	Kul
-15	Kul
-16	cool
+23	Dogs
+24	Birds
+25	Cats
 \.
 
 
@@ -302,7 +298,6 @@ COPY petstore."Category" ("CategoryId", "Name") FROM stdin;
 --
 
 COPY petstore."Comment" ("CommentId", "Text", "ToyId", "DatePosted", "Author") FROM stdin;
-16	A very bad bad toy!	20	2020-01-29	zogi33
 \.
 
 
@@ -313,25 +308,8 @@ COPY petstore."Comment" ("CommentId", "Text", "ToyId", "DatePosted", "Author") F
 --
 
 COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname", "ShippingAddress", "IPInfoAddress", "OrderStatus", "ExternalReferenceId") FROM stdin;
-2020-01-26	4	Matt	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4yG7LOGOt5JdU3VKp5VOVg
-2020-01-25	1	Brone	Malesevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4sdALOGOt5JdU3yL2EI8na
-2020-01-25	2	Mitar	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4uECLOGOt5JdU3wfNu846o
-2020-01-25	3	Mitar	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4vtMLOGOt5JdU3mqJGXEDr
-2020-01-26	5	Matt	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4ykfLOGOt5JdU3ajF8SfbP
-2020-01-28	12	Petar	Petrovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5qiHLOGOt5JdU3nczgy2SS
-2020-01-28	13	Aleksandar	Gojkovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5qjMLOGOt5JdU3EYboxcN0
-2020-01-28	14	Miki	Manojlovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5wz7LOGOt5JdU3C7TbfT7n
-2020-01-28	15	asdfdsaf	dsafdsaf	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5x4PLOGOt5JdU3XZVBhzUO
-2020-01-28	16	fdsfdsa	adsf	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5x8JLOGOt5JdU3fspVJnOU
-2020-01-28	17	afds	fdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xC2LOGOt5JdU31fTLqdK6
-2020-01-28	18	afds	fdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xEMLOGOt5JdU37YWr16Tj
-2020-01-28	19	reg	rge	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xGWLOGOt5JdU3ifMSzjRN
-2020-01-28	20	dsaf	fdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xIaLOGOt5JdU3pwiFlmb5
-2020-01-28	21	gfdsadsaf	fdsafdsafdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xL2LOGOt5JdU3rmtGIDQl
-2020-01-28	22	asdf	asdfa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xPjLOGOt5JdU358b9nEPn
-2020-01-28	23	asdfsafdsa	dsadafdsafdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xSVLOGOt5JdU3yC7dhpGh
-2020-01-28	24	asdfsafdsa	dsadafdsafdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xTpLOGOt5JdU3e9hXvrDV
-2020-01-29	25	Jared	Kushner	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G6HzKLOGOt5JdU3Ke3ZgMXo
+2020-01-30	28	Marko	Markovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G6bJYLOGOt5JdU3sdCU8m1w
+2020-01-30	29	Jovan	Jovanovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G6bKELOGOt5JdU3vjH0Mmd4
 \.
 
 
@@ -342,31 +320,10 @@ COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname"
 --
 
 COPY petstore."OrderItem" ("Quantity", "OrderId", "ToyId", "OrderItemId") FROM stdin;
-1	2	\N	2
-1	3	\N	4
-1	4	\N	6
-3	5	\N	8
-1	18	20	17
-18	23	20	23
-2	12	\N	10
-2	13	\N	11
-3	16	\N	15
-1	21	\N	20
-1	17	\N	16
-1	22	\N	21
-2	2	\N	3
-2	3	\N	5
-6	4	\N	7
-6	5	\N	9
-2	13	\N	12
-1	19	\N	18
-4	14	\N	13
-33	23	\N	22
-3	15	\N	14
-4	24	\N	25
-1	20	\N	19
-3	24	\N	24
-5	25	31	26
+2	28	40	29
+2	28	41	30
+3	29	41	31
+4	29	38	32
 \.
 
 
@@ -377,10 +334,11 @@ COPY petstore."OrderItem" ("Quantity", "OrderId", "ToyId", "OrderItemId") FROM s
 --
 
 COPY petstore."Toy" ("Description", "CategoryId", "ToyId", "Name", "Price", "ShortDescription", "Quantity") FROM stdin;
-asdf	\N	31	uros	$343.00	asdf	4338
-fdsa	\N	20	Rosko	$234.00	fdsa	37
-dsaffdsafdsa	\N	30	dsafdsa	$0.00	dsafdsa	0
-asdf	\N	27	ggggg	$23.00	egreg	23
+OTIS & CLAUDE BALLISTIC BUDDY BONE DOG TOY is a simple, yet elegant toy for your dog. The Ballistic Buddy Bone Dog Toy has a squeaker in a classic bone shape that your dog will love. The toy is made with heavy duty nylon exteriors for high-durability and is sewn together for extra strength. The edging is reinforced and a PVC packing ensures your dog won't destroy this toy easily. The toy is lined with 100% polyester and comes in a bright red color with beautiful black fabric on the back	23	38	Chew ball	$48.00	Earth friendly - The new Barkin Black color	96
+KYJEN HARD CORE FIRE HOSE SQUEAK 'N FETCH is made from fire hose material, making it super durable. Fire hose material is designed for heavy-duty abrasion resistance, so this toy will be your dog's favorite for years! The tightly woven canvas shell and soft long-wearing rubber on the inside make this toy great for fetch. It's easy to throw and your dog will love to chew on the squeakers.	24	41	Kyjen Hard Core Fire Hose 	$52.00	Earth friendly - The new Barkin Black color	145
+Solid Rubber Dog Chew Training Ball Toys Tooth Cleaning Chew Ball Puppy Pet Play Training Chewing Toy With Rope Handle	23	42	Solid Rubber Dog Chew 	$36.00	Very nice toy!	68
+Over 100 years ago, in a very small town, Otis and Claude were building clever toys by hand. They used the best materials, and worked at their designs until they were extraordinary. Their handiwork lives on with Otis and Claude Fetching pet toys. The Ballistic Buddy line of toys utilize a strong fabric and simple designs to make a squeak toy that will last long.	24	39	Claude Ballistic Buddy	$48.00	Earth friendly - The new Barkin Black color	100
+Set your dog out on a wild chase with these tough flyers! DOG TOY RINGS are especially made tough for high flying. They give dogs a great chase & a good exercise at the same time! Dog Toy Rings are designed with triple-stitched seams, heavy duty rope & canvas for long-lasting use. Our ring toys have been thoughtfully designed for loads of doggy fun. They fly, are soft & flexible. WOOF! Comes in 3 characters: Chuck-A-Duck®, Heave-A Beaver® or Hurl-A- Squirrel® - or collect 'em all!	25	40	Fat Cat Classic 	$48.00	Earth friendly - The new Barkin Black color	98
 \.
 
 
@@ -390,7 +348,7 @@ asdf	\N	27	ggggg	$23.00	egreg	23
 -- Name: Category_CategoryId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Category_CategoryId_seq"', 17, true);
+SELECT pg_catalog.setval('petstore."Category_CategoryId_seq"', 25, true);
 
 
 --
@@ -399,7 +357,7 @@ SELECT pg_catalog.setval('petstore."Category_CategoryId_seq"', 17, true);
 -- Name: Comment_CommentId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Comment_CommentId_seq"', 16, true);
+SELECT pg_catalog.setval('petstore."Comment_CommentId_seq"', 20, true);
 
 
 --
@@ -408,7 +366,7 @@ SELECT pg_catalog.setval('petstore."Comment_CommentId_seq"', 16, true);
 -- Name: OrderItem_OrderItemId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 26, true);
+SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 32, true);
 
 
 --
@@ -417,7 +375,7 @@ SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 26, true);
 -- Name: Order_OrderId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 25, true);
+SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 29, true);
 
 
 --
@@ -426,7 +384,7 @@ SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 25, true);
 -- Name: Toy_ToyId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Toy_ToyId_seq"', 33, true);
+SELECT pg_catalog.setval('petstore."Toy_ToyId_seq"', 42, true);
 
 
 --
@@ -542,7 +500,7 @@ ALTER TABLE ONLY petstore."Toy"
     ADD CONSTRAINT "Toy_Category" FOREIGN KEY ("CategoryId") REFERENCES petstore."Category"("CategoryId") ON UPDATE SET NULL ON DELETE SET NULL;
 
 
--- Completed on 2020-01-29 19:59:22
+-- Completed on 2020-01-30 12:59:51
 
 --
 -- PostgreSQL database dump complete

@@ -60,8 +60,9 @@
               <p class="card-text">{{element.shortDescription}}</p>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Category: {{element.category}}</li>
-              <li class="list-group-item">Price: {{element.price}}</li>
+              <li class="list-group-item" *ngIf="element.category">Category: {{element.category}}</li>
+              <li class="list-group-item" *ngIf="!element.category">Category: None</li>
+              <li class="list-group-item">Price: {{element.price}} <i class="fas fa-dollar-sign"></i></li>
               <li class="list-group-item" *ngIf="!authService.isAuthenticated()">In cart:
                 {{this.service.numberOfItems(element.toyId)}}</li>
             </ul>
