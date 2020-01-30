@@ -48,7 +48,12 @@ namespace PetStore.API.Services.ToySystem
         {
             Toy toy = Mapper.Map<Toy>(toyUnit);
             Category category = Context.PSContext.Category.FirstOrDefault(x => x.CategoryId == toyUnit.CategoryId);
-            if (category != null) category.Toy.Add(toy); else Context.Table.Add(toy);
+            if (category != null) category.Toy.Add(toy);
+            else
+            {
+                toy.CategoryId = null;
+                Context.Table.Add(toy);
+            }
             await Context.SaveChangesAsync();
         }
 
@@ -62,6 +67,7 @@ namespace PetStore.API.Services.ToySystem
                 Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.CategoryId);
                 if (category == null) { toy.CategoryId = null; }
             }
+            else toy.CategoryId = null;
 
             Context.Table.Update(toy);
             await Context.SaveChangesAsync();
