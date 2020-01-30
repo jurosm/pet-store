@@ -395,5 +395,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-/PetStore.API/appsettings.json
