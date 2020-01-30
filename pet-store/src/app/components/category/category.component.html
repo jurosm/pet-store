@@ -1,4 +1,4 @@
-<form [formGroup]="categoryForm">
+<form [formGroup]="deleteCategoryForm">
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Select category to delete: </span>
@@ -17,9 +17,11 @@
     <input type="button" class="btn btn-primary btn-lg alert-danger" value="Delete"
       (click)="deleteCategory()" />
   </div>
+</form>
 
   <hr/>
 
+  <form [formGroup]="createCategoryForm">
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Category name: </span>
@@ -30,8 +32,12 @@
 
 
   <div class="d-flex justify-content-center mt-3">
-    <input type="button" class="btn btn-primary btn-lg" value="Create new"
+    <input type="button" class="btn btn-primary btn-lg" value="Create new" [disabled]="!createCategoryForm.valid"
       (click)="addNewCategory()" />
+  </div>
+
+  <div class="text-danger" *ngIf="createCategoryForm.controls.categoryName.errors">
+    Category name is required.
   </div>
 
 </form>

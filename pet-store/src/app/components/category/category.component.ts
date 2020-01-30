@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PetStoreService } from 'src/app/services/pet-store.service';
 import { Category } from 'src/app/models/categories/category';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoryName } from 'src/app/models/categories/categoryName';
 
 @Component({
@@ -12,13 +12,17 @@ import { CategoryName } from 'src/app/models/categories/categoryName';
 export class CategoryComponent implements OnInit {
  categories: Category[];
  category: Category;
- categoryForm: FormGroup;
+ deleteCategoryForm: FormGroup;
   categoryName: string;
+  createCategoryForm: FormGroup;
 
   constructor(public api: PetStoreService) {
-    this.categoryForm = new FormGroup({
-      categoryName: new FormControl(),
+    this.deleteCategoryForm = new FormGroup({
       categoryId: new FormControl()
+    });
+
+    this.createCategoryForm = new FormGroup({
+      categoryName: new FormControl(Validators.required)
     });
 
     this.category = new Category();
@@ -36,7 +40,7 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory() {
-    if(this.category.categoryId !== 0 && this.category.categoryId !== undefined){
+    if (this.category.categoryId !== 0 && this.category.categoryId !== undefined){
       this.api.deleteCategory(this.category.categoryId).subscribe(res => {
         this.getCategories();
       });
@@ -44,11 +48,13 @@ export class CategoryComponent implements OnInit {
   }
 
   addNewCategory() {
+    if(this.categoryName !== undefined) {
     if (this.categoryName.trim() !== '') {
       this.api.createCategory({name: this.categoryName}).subscribe(res => {
         this.getCategories();
       });
     }
   }
+}
 
 }
