@@ -6,7 +6,7 @@
         <p class="card-text">Description: {{toy?.description}}</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Price: {{toy?.price}}</li>
+        <li class="list-group-item">Price: {{toy?.price}} <i class="fas fa-dollar-sign"></i></li>
         <li class="list-group-item">This items in cart: {{this.service.numberOfItems(toy?.toyId)}}</li>
         <li class="list-group-item">Quantity: {{toy?.quantity - this.service.numberOfItems(toy?.toyId)}}</li>
       </ul>
