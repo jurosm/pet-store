@@ -19,8 +19,8 @@ namespace PetStore.API.Services.ToySystem
         ToyRepository ToyRepository;
         CategoryRepository CategoryRepository;
         IMapper Mapper;
-        public ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRepository categoryRepository) 
-        { 
+        public ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRepository categoryRepository)
+        {
             this.ToyRepository = toyRepository;
             this.CategoryRepository = categoryRepository;
             this.Mapper = mapper;
@@ -36,12 +36,12 @@ namespace PetStore.API.Services.ToySystem
 
             if (toys.Results != null)
             {
-                response.Items = toys.Results.Select( x => { return Mapper.Map<ToyUnit>(x); });
+                response.Items = toys.Results.Select(x => { return Mapper.Map<ToyUnit>(x); });
                 response.NumberOfPages = toys.PageCount;
                 return response;
             }
 
-            return new ToysResponse() { Items = null, NumberOfPages = 0, Categories = categories};
+            return new ToysResponse() { Items = null, NumberOfPages = 0, Categories = categories };
         }
 
         public async Task AddToyAsync(ToyData toyUnit)

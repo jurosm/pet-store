@@ -23,7 +23,7 @@ namespace PetStore.API.Filters.GlobalFilters
                 {
                     case Auth0.Core.Exceptions.ApiException _:
                         Auth0.Core.Exceptions.ApiException res = (context.Exception as Auth0.Core.Exceptions.ApiException);
-                        context.HttpContext.Response.StatusCode = res.ApiError.StatusCode; 
+                        context.HttpContext.Response.StatusCode = res.ApiError.StatusCode;
                         context.Result = new JsonResult(new MessageResponse { Message = res.ApiError.Message });
                         break;
 
@@ -35,7 +35,7 @@ namespace PetStore.API.Filters.GlobalFilters
                     case MessageException _:
                         context.HttpContext.Response.StatusCode = 400;
                         MessageException e = context.Exception as MessageException;
-                        context.Result = new JsonResult(new MessageResponse { Message = e.Message});
+                        context.Result = new JsonResult(new MessageResponse { Message = e.Message });
                         break;
 
                     default:

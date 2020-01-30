@@ -27,7 +27,7 @@ namespace PetStore.API.Services.CategorySystem
 
         public async Task AddAsync(CategoryUpdateRequest name)
         {
-            await CategoryRepository.CreateAsync(new Category() {Name = name.Name});
+            await CategoryRepository.CreateAsync(new Category() { Name = name.Name });
         }
 
         public async Task DeleteAsync(int id)
@@ -37,7 +37,7 @@ namespace PetStore.API.Services.CategorySystem
 
         public async Task EditAsync(int id, CategoryUpdateRequest request)
         {
-            await CategoryRepository.UpdateAsync(new Category() { Name = request.Name, CategoryId = id});
+            await CategoryRepository.UpdateAsync(new Category() { Name = request.Name, CategoryId = id });
         }
     }
 }

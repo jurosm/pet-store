@@ -33,7 +33,5 @@ namespace PetStore.API.Controllers
         {
             return Ok(await OrderService.Buy(orderRequest));
         }
-
-       
     }
 }

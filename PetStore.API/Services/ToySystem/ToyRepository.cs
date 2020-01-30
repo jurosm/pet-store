@@ -16,7 +16,8 @@ namespace PetStore.API.Services.ToySystem
     public class ToyRepository : Repository<Toy>
     {
         IMapper Mapper;
-        public ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : base(context) {
+        public ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : base(context)
+        {
             this.Mapper = mapper;
         }
 
@@ -24,13 +25,13 @@ namespace PetStore.API.Services.ToySystem
         {
             if (order == 1)
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <=0)).OrderBy(x => x.Price), page, pageSize);
-            } 
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderBy(x => x.Price), page, pageSize);
+            }
 
             else if (order == 2)
             {
                 return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
-            } 
+            }
 
             else
             {
@@ -59,7 +60,7 @@ namespace PetStore.API.Services.ToySystem
             if (toyData.CategoryId != null)
             {
                 Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.CategoryId);
-                if (category == null)  { toy.CategoryId = null; } //probati
+                if (category == null) { toy.CategoryId = null; }
             }
 
             Context.Table.Update(toy);
