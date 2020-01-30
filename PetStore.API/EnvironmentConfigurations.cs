@@ -13,6 +13,7 @@ namespace PetStore.API
         public string Auth0Domain;
         public string Auth0ClientId;
         public string Auth0ClientSecret;
+        public string DB_CONNECTION_STRING;
 
         public EnvironmentConfigurations()
         {

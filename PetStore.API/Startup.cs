@@ -26,23 +26,22 @@ namespace PetStore.API
             this.EnvVariables = new EnvironmentConfigurations();
         }
 
-        
-
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<EnvironmentConfigurations>();
-
-            services.AddMemoryCache();
-
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder.WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
+
+            services.AddSingleton<EnvironmentConfigurations>();
+
+            services.AddMemoryCache();
 
             services.AddRateLimitServices(Configuration.GetSection("IpRateLimiting"), Configuration.GetSection("IpRateLimitPolicies"));
 
@@ -69,12 +68,10 @@ namespace PetStore.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseIpRateLimiting();
-
             app.UseCors("CorsPolicy");
 
-            app.UseHttpsRedirection();
-          
+            app.UseIpRateLimiting();
+
             app.UseRouting();
 
             app.UseAuthentication();

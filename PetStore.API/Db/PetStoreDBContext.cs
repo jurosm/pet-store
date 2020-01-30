@@ -110,7 +110,7 @@ namespace PetStore.API.Db
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItem)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("OrderItem_Order");
 
                 entity.HasOne(d => d.Toy)
@@ -140,6 +140,7 @@ namespace PetStore.API.Db
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Toy)
                     .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("Toy_Category");
             });
 

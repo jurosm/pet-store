@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Db;
 using PetStore.API.Models.Request.Category;
 using PetStore.API.Models.Response.Category;
@@ -26,18 +27,21 @@ namespace PetStore.API.Controllers
             return CategoryService.GetAll();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await CategoryService.DeleteAsync(id);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task Add([FromBody] CategoryUpdateRequest name)
         {
             await CategoryService.AddAsync(name);
         }
 
+        [Authorize]
         [HttpPost("edit/{id}")]
         public async Task Edit(int id, [FromBody] CategoryUpdateRequest name)
         {

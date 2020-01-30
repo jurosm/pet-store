@@ -29,7 +29,7 @@
         "AUTH0_CLIENT_SECRET": "NSXlTNsuQqqMXfUfXgnelWhUL_wLqXWpSKfgGeYGwzz_BeF7EtbPKCbKpRXsJ4qL",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "applicationUrl": "http://localhost:5001;http://localhost:5000"
     },
     "Docker": {
       "commandName": "Docker",

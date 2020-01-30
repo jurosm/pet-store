@@ -17,6 +17,7 @@ namespace PetStore.API.Controllers
         {
             this.AuthService = authService;
         }
+
         [HttpPost("login")]
         public async Task<LoginResponse> Login([FromBody]LoginRequest loginRequest)
         {

@@ -5,7 +5,7 @@
 -- Dumped from database version 12.1
 -- Dumped by pg_dump version 12.1
 
--- Started on 2020-01-25 19:37:03
+-- Started on 2020-01-29 19:59:21
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -62,12 +62,53 @@ CREATE SEQUENCE petstore."Category_CategoryId_seq"
 ALTER TABLE petstore."Category_CategoryId_seq" OWNER TO postgres;
 
 --
--- TOC entry 2866 (class 0 OID 0)
+-- TOC entry 2881 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: Category_CategoryId_seq; Type: SEQUENCE OWNED BY; Schema: petstore; Owner: postgres
 --
 
 ALTER SEQUENCE petstore."Category_CategoryId_seq" OWNED BY petstore."Category"."CategoryId";
+
+
+--
+-- TOC entry 211 (class 1259 OID 16792)
+-- Name: Comment; Type: TABLE; Schema: petstore; Owner: postgres
+--
+
+CREATE TABLE petstore."Comment" (
+    "CommentId" integer NOT NULL,
+    "Text" text NOT NULL,
+    "ToyId" integer,
+    "DatePosted" date DEFAULT CURRENT_DATE NOT NULL,
+    "Author" character varying(20) NOT NULL
+);
+
+
+ALTER TABLE petstore."Comment" OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16790)
+-- Name: Comment_CommentId_seq; Type: SEQUENCE; Schema: petstore; Owner: postgres
+--
+
+CREATE SEQUENCE petstore."Comment_CommentId_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE petstore."Comment_CommentId_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2882 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: Comment_CommentId_seq; Type: SEQUENCE OWNED BY; Schema: petstore; Owner: postgres
+--
+
+ALTER SEQUENCE petstore."Comment_CommentId_seq" OWNED BY petstore."Comment"."CommentId";
 
 
 --
@@ -78,8 +119,8 @@ ALTER SEQUENCE petstore."Category_CategoryId_seq" OWNED BY petstore."Category"."
 CREATE TABLE petstore."Order" (
     "OrderDate" date DEFAULT CURRENT_DATE NOT NULL,
     "OrderId" integer NOT NULL,
-    "CustomerName" character varying(255) NOT NULL,
-    "CustomerSurname" character varying(255) NOT NULL,
+    "CustomerName" character varying(30) NOT NULL,
+    "CustomerSurname" character varying(30) NOT NULL,
     "ShippingAddress" character varying(255) NOT NULL,
     "IPInfoAddress" character varying(255) NOT NULL,
     "OrderStatus" character varying(255) NOT NULL,
@@ -97,7 +138,7 @@ ALTER TABLE petstore."Order" OWNER TO postgres;
 CREATE TABLE petstore."OrderItem" (
     "Quantity" integer NOT NULL,
     "OrderId" integer NOT NULL,
-    "ToyId" integer NOT NULL,
+    "ToyId" integer,
     "OrderItemId" integer NOT NULL
 );
 
@@ -121,7 +162,7 @@ CREATE SEQUENCE petstore."OrderItem_OrderItemId_seq"
 ALTER TABLE petstore."OrderItem_OrderItemId_seq" OWNER TO postgres;
 
 --
--- TOC entry 2867 (class 0 OID 0)
+-- TOC entry 2883 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: OrderItem_OrderItemId_seq; Type: SEQUENCE OWNED BY; Schema: petstore; Owner: postgres
 --
@@ -146,7 +187,7 @@ CREATE SEQUENCE petstore."Order_OrderId_seq"
 ALTER TABLE petstore."Order_OrderId_seq" OWNER TO postgres;
 
 --
--- TOC entry 2868 (class 0 OID 0)
+-- TOC entry 2884 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: Order_OrderId_seq; Type: SEQUENCE OWNED BY; Schema: petstore; Owner: postgres
 --
@@ -163,9 +204,9 @@ CREATE TABLE petstore."Toy" (
     "Description" text NOT NULL,
     "CategoryId" integer,
     "ToyId" integer NOT NULL,
-    "Name" character varying(255),
+    "Name" character varying(30),
     "Price" money NOT NULL,
-    "ShortDescription" character varying(10) NOT NULL,
+    "ShortDescription" character varying(50) NOT NULL,
     "Quantity" integer NOT NULL
 );
 
@@ -189,7 +230,7 @@ CREATE SEQUENCE petstore."Toy_ToyId_seq"
 ALTER TABLE petstore."Toy_ToyId_seq" OWNER TO postgres;
 
 --
--- TOC entry 2869 (class 0 OID 0)
+-- TOC entry 2885 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: Toy_ToyId_seq; Type: SEQUENCE OWNED BY; Schema: petstore; Owner: postgres
 --
@@ -198,7 +239,7 @@ ALTER SEQUENCE petstore."Toy_ToyId_seq" OWNED BY petstore."Toy"."ToyId";
 
 
 --
--- TOC entry 2712 (class 2604 OID 16678)
+-- TOC entry 2719 (class 2604 OID 16678)
 -- Name: Category CategoryId; Type: DEFAULT; Schema: petstore; Owner: postgres
 --
 
@@ -206,7 +247,15 @@ ALTER TABLE ONLY petstore."Category" ALTER COLUMN "CategoryId" SET DEFAULT nextv
 
 
 --
--- TOC entry 2710 (class 2604 OID 16653)
+-- TOC entry 2720 (class 2604 OID 16795)
+-- Name: Comment CommentId; Type: DEFAULT; Schema: petstore; Owner: postgres
+--
+
+ALTER TABLE ONLY petstore."Comment" ALTER COLUMN "CommentId" SET DEFAULT nextval('petstore."Comment_CommentId_seq"'::regclass);
+
+
+--
+-- TOC entry 2717 (class 2604 OID 16653)
 -- Name: Order OrderId; Type: DEFAULT; Schema: petstore; Owner: postgres
 --
 
@@ -214,7 +263,7 @@ ALTER TABLE ONLY petstore."Order" ALTER COLUMN "OrderId" SET DEFAULT nextval('pe
 
 
 --
--- TOC entry 2711 (class 2604 OID 16645)
+-- TOC entry 2718 (class 2604 OID 16645)
 -- Name: OrderItem OrderItemId; Type: DEFAULT; Schema: petstore; Owner: postgres
 --
 
@@ -222,7 +271,7 @@ ALTER TABLE ONLY petstore."OrderItem" ALTER COLUMN "OrderItemId" SET DEFAULT nex
 
 
 --
--- TOC entry 2708 (class 2604 OID 16666)
+-- TOC entry 2715 (class 2604 OID 16666)
 -- Name: Toy ToyId; Type: DEFAULT; Schema: petstore; Owner: postgres
 --
 
@@ -230,93 +279,158 @@ ALTER TABLE ONLY petstore."Toy" ALTER COLUMN "ToyId" SET DEFAULT nextval('petsto
 
 
 --
--- TOC entry 2856 (class 0 OID 16597)
+-- TOC entry 2869 (class 0 OID 16597)
 -- Dependencies: 205
 -- Data for Name: Category; Type: TABLE DATA; Schema: petstore; Owner: postgres
 --
 
 COPY petstore."Category" ("CategoryId", "Name") FROM stdin;
 4	none1
-2	abrada
 9	dance
-10	move
 11	jump
+13	Mocno
+14	Kul
+15	Kul
+16	cool
 \.
 
 
 --
--- TOC entry 2854 (class 0 OID 16561)
+-- TOC entry 2875 (class 0 OID 16792)
+-- Dependencies: 211
+-- Data for Name: Comment; Type: TABLE DATA; Schema: petstore; Owner: postgres
+--
+
+COPY petstore."Comment" ("CommentId", "Text", "ToyId", "DatePosted", "Author") FROM stdin;
+16	A very bad bad toy!	20	2020-01-29	zogi33
+\.
+
+
+--
+-- TOC entry 2867 (class 0 OID 16561)
 -- Dependencies: 203
 -- Data for Name: Order; Type: TABLE DATA; Schema: petstore; Owner: postgres
 --
 
 COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname", "ShippingAddress", "IPInfoAddress", "OrderStatus", "ExternalReferenceId") FROM stdin;
-2020-01-25	1	Brone	Malesevic	BA,Prnjavor	BAPrnjavor	succeeded	ch_1G4sdALOGOt5JdU3yL2EI8na
+2020-01-26	4	Matt	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4yG7LOGOt5JdU3VKp5VOVg
+2020-01-25	1	Brone	Malesevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4sdALOGOt5JdU3yL2EI8na
+2020-01-25	2	Mitar	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4uECLOGOt5JdU3wfNu846o
+2020-01-25	3	Mitar	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4vtMLOGOt5JdU3mqJGXEDr
+2020-01-26	5	Matt	Causevic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G4ykfLOGOt5JdU3ajF8SfbP
+2020-01-28	12	Petar	Petrovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5qiHLOGOt5JdU3nczgy2SS
+2020-01-28	13	Aleksandar	Gojkovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5qjMLOGOt5JdU3EYboxcN0
+2020-01-28	14	Miki	Manojlovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5wz7LOGOt5JdU3C7TbfT7n
+2020-01-28	15	asdfdsaf	dsafdsaf	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5x4PLOGOt5JdU3XZVBhzUO
+2020-01-28	16	fdsfdsa	adsf	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5x8JLOGOt5JdU3fspVJnOU
+2020-01-28	17	afds	fdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xC2LOGOt5JdU31fTLqdK6
+2020-01-28	18	afds	fdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xEMLOGOt5JdU37YWr16Tj
+2020-01-28	19	reg	rge	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xGWLOGOt5JdU3ifMSzjRN
+2020-01-28	20	dsaf	fdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xIaLOGOt5JdU3pwiFlmb5
+2020-01-28	21	gfdsadsaf	fdsafdsafdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xL2LOGOt5JdU3rmtGIDQl
+2020-01-28	22	asdf	asdfa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xPjLOGOt5JdU358b9nEPn
+2020-01-28	23	asdfsafdsa	dsadafdsafdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xSVLOGOt5JdU3yC7dhpGh
+2020-01-28	24	asdfsafdsa	dsadafdsafdsa	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G5xTpLOGOt5JdU3e9hXvrDV
+2020-01-29	25	Jared	Kushner	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G6HzKLOGOt5JdU3Ke3ZgMXo
 \.
 
 
 --
--- TOC entry 2855 (class 0 OID 16578)
+-- TOC entry 2868 (class 0 OID 16578)
 -- Dependencies: 204
 -- Data for Name: OrderItem; Type: TABLE DATA; Schema: petstore; Owner: postgres
 --
 
 COPY petstore."OrderItem" ("Quantity", "OrderId", "ToyId", "OrderItemId") FROM stdin;
-20	1	15	1
+1	2	\N	2
+1	3	\N	4
+1	4	\N	6
+3	5	\N	8
+1	18	20	17
+18	23	20	23
+2	12	\N	10
+2	13	\N	11
+3	16	\N	15
+1	21	\N	20
+1	17	\N	16
+1	22	\N	21
+2	2	\N	3
+2	3	\N	5
+6	4	\N	7
+6	5	\N	9
+2	13	\N	12
+1	19	\N	18
+4	14	\N	13
+33	23	\N	22
+3	15	\N	14
+4	24	\N	25
+1	20	\N	19
+3	24	\N	24
+5	25	31	26
 \.
 
 
 --
--- TOC entry 2853 (class 0 OID 16551)
+-- TOC entry 2866 (class 0 OID 16551)
 -- Dependencies: 202
 -- Data for Name: Toy; Type: TABLE DATA; Schema: petstore; Owner: postgres
 --
 
 COPY petstore."Toy" ("Description", "CategoryId", "ToyId", "Name", "Price", "ShortDescription", "Quantity") FROM stdin;
-Cute	\N	16	Dog plastic	$11.00	Obama	10
-Gne	\N	17	Cat	$3.00	Beric	27
-Nice!	4	15	Shame!	$23.00	Obarak	29
+asdf	\N	31	uros	$343.00	asdf	4338
+fdsa	\N	20	Rosko	$234.00	fdsa	37
+dsaffdsafdsa	\N	30	dsafdsa	$0.00	dsafdsa	0
+asdf	\N	27	ggggg	$23.00	egreg	23
 \.
 
 
 --
--- TOC entry 2870 (class 0 OID 0)
+-- TOC entry 2886 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: Category_CategoryId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Category_CategoryId_seq"', 11, true);
+SELECT pg_catalog.setval('petstore."Category_CategoryId_seq"', 17, true);
 
 
 --
--- TOC entry 2871 (class 0 OID 0)
+-- TOC entry 2887 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: Comment_CommentId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
+--
+
+SELECT pg_catalog.setval('petstore."Comment_CommentId_seq"', 16, true);
+
+
+--
+-- TOC entry 2888 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: OrderItem_OrderItemId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 1, true);
+SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 26, true);
 
 
 --
--- TOC entry 2872 (class 0 OID 0)
+-- TOC entry 2889 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: Order_OrderId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 1, true);
+SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 25, true);
 
 
 --
--- TOC entry 2873 (class 0 OID 0)
+-- TOC entry 2890 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: Toy_ToyId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Toy_ToyId_seq"', 17, true);
+SELECT pg_catalog.setval('petstore."Toy_ToyId_seq"', 33, true);
 
 
 --
--- TOC entry 2723 (class 2606 OID 16686)
+-- TOC entry 2732 (class 2606 OID 16686)
 -- Name: Category Category_pkey; Type: CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
@@ -325,7 +439,16 @@ ALTER TABLE ONLY petstore."Category"
 
 
 --
--- TOC entry 2719 (class 2606 OID 16663)
+-- TOC entry 2734 (class 2606 OID 16800)
+-- Name: Comment Comment_pkey; Type: CONSTRAINT; Schema: petstore; Owner: postgres
+--
+
+ALTER TABLE ONLY petstore."Comment"
+    ADD CONSTRAINT "Comment_pkey" PRIMARY KEY ("CommentId");
+
+
+--
+-- TOC entry 2728 (class 2606 OID 16663)
 -- Name: OrderItem OrderItem_pkey; Type: CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
@@ -334,7 +457,7 @@ ALTER TABLE ONLY petstore."OrderItem"
 
 
 --
--- TOC entry 2717 (class 2606 OID 16661)
+-- TOC entry 2726 (class 2606 OID 16661)
 -- Name: Order Order_pkey; Type: CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
@@ -343,7 +466,7 @@ ALTER TABLE ONLY petstore."Order"
 
 
 --
--- TOC entry 2714 (class 2606 OID 16675)
+-- TOC entry 2723 (class 2606 OID 16675)
 -- Name: Toy Toy_pkey; Type: CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
@@ -352,7 +475,15 @@ ALTER TABLE ONLY petstore."Toy"
 
 
 --
--- TOC entry 2715 (class 1259 OID 16610)
+-- TOC entry 2735 (class 1259 OID 16806)
+-- Name: fki_Comment_Toy; Type: INDEX; Schema: petstore; Owner: postgres
+--
+
+CREATE INDEX "fki_Comment_Toy" ON petstore."Comment" USING btree ("ToyId");
+
+
+--
+-- TOC entry 2724 (class 1259 OID 16610)
 -- Name: fki_OrderItem_Category; Type: INDEX; Schema: petstore; Owner: postgres
 --
 
@@ -360,7 +491,7 @@ CREATE INDEX "fki_OrderItem_Category" ON petstore."Toy" USING btree ("CategoryId
 
 
 --
--- TOC entry 2720 (class 1259 OID 16588)
+-- TOC entry 2729 (class 1259 OID 16588)
 -- Name: fki_OrderItem_Order; Type: INDEX; Schema: petstore; Owner: postgres
 --
 
@@ -368,7 +499,7 @@ CREATE INDEX "fki_OrderItem_Order" ON petstore."OrderItem" USING btree ("OrderId
 
 
 --
--- TOC entry 2721 (class 1259 OID 16594)
+-- TOC entry 2730 (class 1259 OID 16594)
 -- Name: fki_OrderItem_Toy; Type: INDEX; Schema: petstore; Owner: postgres
 --
 
@@ -376,25 +507,34 @@ CREATE INDEX "fki_OrderItem_Toy" ON petstore."OrderItem" USING btree ("ToyId");
 
 
 --
--- TOC entry 2725 (class 2606 OID 16730)
+-- TOC entry 2739 (class 2606 OID 16808)
+-- Name: Comment Comment_Toy; Type: FK CONSTRAINT; Schema: petstore; Owner: postgres
+--
+
+ALTER TABLE ONLY petstore."Comment"
+    ADD CONSTRAINT "Comment_Toy" FOREIGN KEY ("ToyId") REFERENCES petstore."Toy"("ToyId") ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2737 (class 2606 OID 16818)
 -- Name: OrderItem OrderItem_Order; Type: FK CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
 ALTER TABLE ONLY petstore."OrderItem"
-    ADD CONSTRAINT "OrderItem_Order" FOREIGN KEY ("OrderId") REFERENCES petstore."Order"("OrderId");
+    ADD CONSTRAINT "OrderItem_Order" FOREIGN KEY ("OrderId") REFERENCES petstore."Order"("OrderId") ON UPDATE SET NULL ON DELETE SET NULL;
 
 
 --
--- TOC entry 2726 (class 2606 OID 16735)
+-- TOC entry 2738 (class 2606 OID 16758)
 -- Name: OrderItem OrderItem_Toy; Type: FK CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
 ALTER TABLE ONLY petstore."OrderItem"
-    ADD CONSTRAINT "OrderItem_Toy" FOREIGN KEY ("ToyId") REFERENCES petstore."Toy"("ToyId");
+    ADD CONSTRAINT "OrderItem_Toy" FOREIGN KEY ("ToyId") REFERENCES petstore."Toy"("ToyId") ON UPDATE SET NULL ON DELETE SET NULL;
 
 
 --
--- TOC entry 2724 (class 2606 OID 16745)
+-- TOC entry 2736 (class 2606 OID 16813)
 -- Name: Toy Toy_Category; Type: FK CONSTRAINT; Schema: petstore; Owner: postgres
 --
 
@@ -402,7 +542,7 @@ ALTER TABLE ONLY petstore."Toy"
     ADD CONSTRAINT "Toy_Category" FOREIGN KEY ("CategoryId") REFERENCES petstore."Category"("CategoryId") ON UPDATE SET NULL ON DELETE SET NULL;
 
 
--- Completed on 2020-01-25 19:37:04
+-- Completed on 2020-01-29 19:59:22
 
 --
 -- PostgreSQL database dump complete

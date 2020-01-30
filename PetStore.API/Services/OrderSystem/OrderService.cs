@@ -67,7 +67,7 @@ namespace PetStore.API.Services.OrderSystem
 
         public IEnumerable<OrderListItem> GetAllOrders()
         {
-            return OrderRepository.ReadAll().Select(x => Mapper.Map<OrderListItem>(x));
+            return OrderRepository.ReadAll().OrderByDescending(x => x.OrderDate).Select(x => Mapper.Map<OrderListItem>(x));
         }
     }
 }

@@ -57,14 +57,7 @@ namespace PetStore.API.Services.ToySystem
         public ToyResponse GetToy(int id)
         {
             Toy toy = ToyRepository.GetToyById(id);
-            if (toy != null)
-            {
-                return Mapper.Map<ToyResponse>(toy);
-            }
-            else
-            {
-                throw new FileNotFoundException();
-            }
+            return toy != null ? Mapper.Map<ToyResponse>(toy) : throw new FileNotFoundException();
         }
 
         public async Task DeleteToyAsync(int id)

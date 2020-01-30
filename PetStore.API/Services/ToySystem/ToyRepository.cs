@@ -55,11 +55,13 @@ namespace PetStore.API.Services.ToySystem
         {
             Toy toy = Mapper.Map<Toy>(toyData);
             toy.ToyId = id;
+
             if (toyData.CategoryId != null)
             {
                 Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.CategoryId);
-                if (category != null) toy.Category = category; else { toy.Category = null; toy.CategoryId = null; }
+                if (category == null)  { toy.CategoryId = null; } //probati
             }
+
             Context.Table.Update(toy);
             await Context.SaveChangesAsync();
         }
