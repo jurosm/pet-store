@@ -10,26 +10,38 @@
         <a class="nav-link" routerLink="/" (click)="toggleNavbar()">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/toy/create" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Create toy</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/toy/create" *ngIf="authService.isAuthenticated()" (click)="toggleNavbar()">Create toy</a>
        </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/login" *ngIf="!service.isAuthenticated()" (click)="toggleNavbar()">Login</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/login" *ngIf="!authService.isAuthenticated()" (click)="toggleNavbar()">Login</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/orders" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Orders</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/orders" *ngIf="authService.isAuthenticated()" (click)="toggleNavbar()">Orders</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/category" *ngIf="service.isAuthenticated()" (click)="toggleNavbar()">Categories</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/category" *ngIf="authService.isAuthenticated()" (click)="toggleNavbar()">Categories</a>
       </li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
+
+      <li class="nav-item mr-3">
+        <div class="d-flex" *ngIf="!authService.isAuthenticated()" id="buy">
+          <button type="button" name="button" class="btn btn-primary" (click)="router.navigate(['/order'])">Pay</button>
+        </div>
+
+      </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/" *ngIf="service.isAuthenticated()" (click)="service.logout()" (click)="toggleNavbar()">Logout</a>
+<i class="fas fa-shopping-cart mb-2 mt-2" id="faIcon" style="color:#DDDDDD;" *ngIf="!authService.isAuthenticated()">{{orderService.numberOfItems()}}</i>
+</li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" routerLink="/" *ngIf="authService.isAuthenticated()" (click)="authService.logout()" (click)="toggleNavbar()">Logout</a>
        </li>
+
     </ul>
   </div>
 
