@@ -6,6 +6,7 @@
       <th scope="col">Customer surname</th>
       <th scope="col">Shipping address</th>
       <th scope="col">Order status</th>
+      <th scope="col">Order date</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
       <td>{{order.customerSurname}}</td>
       <td>{{order.shippingAddress}}</td>
       <td>{{order.orderStatus}}</td>
+      <td>{{order.orderDate | date}}</td>
     </tr>
   </tbody>
 </table>

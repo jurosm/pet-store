@@ -6,6 +6,9 @@ import { ToyInfo } from 'src/app/models/toy/toyInfo';
 import { Categories } from 'src/app/models/categories/categories';
 import { Category } from 'src/app/models/categories/category';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorResponse } from 'src/app/models/error/errorResponse';
+import * as Collections from 'typescript-collections';
+import { CollectionConverter } from 'src/app/helper/collectionConverter';
 
 @Component({
   selector: 'app-create-toy',
@@ -20,6 +23,10 @@ toy: Toy;
 category: Category;
 categories: Category[];
   isPostEditRoute: boolean;
+isCreatingSuccessful = false;
+validationServerError: Collections.Dictionary<string, string>;
+serverErrorMessage: string;
+
 
   constructor(private api: PetStoreService, private route: ActivatedRoute, private router: Router) {
     this.all = 'all';
@@ -37,6 +44,7 @@ categories: Category[];
     });
 
     this.toy = new Toy();
+    this.validationServerError = new Collections.Dictionary<string, string>();
   }
 
   ngOnInit() {
@@ -56,11 +64,20 @@ categories: Category[];
   }
 
   updateToy() {
-    this.api.updateToy(this.toy).subscribe();
+    this.api.updateToy(this.toy).subscribe(res => {
+      this.isCreatingSuccessful = true;
+    });
   }
 
   createToy() {
-    this.api.createToy(this.toy).subscribe();
+    this.api.createToy(this.toy).subscribe(res => {
+      this.isCreatingSuccessful = true;
+    }, err => {
+      if(err instanceof ErrorResponse) {
+        this.validationServerError = CollectionConverter.errorArrayToDictionary(err.errors);
+        this.serverErrorMessage = err.message;
+      }
+    });
   }
 
 }

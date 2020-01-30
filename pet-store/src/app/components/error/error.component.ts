@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorComponent implements OnInit {
 
+  imgPath = 'assets/images/500errorpage.png';
+
   constructor() { }
 
   ngOnInit() {
