@@ -1,27 +1,4 @@
-<form [formGroup]="deleteCategoryForm">
-  <div class="input-group mb-3">
-    <div class="input-group-append">
-      <span class="input-group-text">Select category to delete: </span>
-    </div>
-  <div>
-    <div class="form-control">
-    <select input="number" [(ngModel)]="category.categoryId" formControlName="categoryId" >
-      <option [value]=0 >None</option>
-      <option *ngFor="let category of categories" [value]=category.categoryId>{{category.name}}</option>
-    </select>
-  </div>
-  </div>
-  </div>
-
-  <div class="d-flex justify-content-center mt-3">
-    <input type="button" class="btn btn-primary btn-lg alert-danger" value="Delete"
-      (click)="deleteCategory()" />
-  </div>
-</form>
-
-  <hr/>
-
-  <form [formGroup]="createCategoryForm">
+<form [formGroup]="createCategoryForm">
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Category name: </span>
@@ -41,5 +18,30 @@
   </div>
 
 </form>
+
+  <hr/>
+
+  <form [formGroup]="deleteCategoryForm">
+    <div class="input-group mb-3">
+      <div class="input-group-append">
+        <span class="input-group-text">Select category to delete: </span>
+      </div>
+    <div>
+      <div class="form-control">
+      <select input="number" [(ngModel)]="category.categoryId" formControlName="categoryId" >
+        <option [value]=0 >None</option>
+        <option *ngFor="let category of categories" [value]=category.categoryId>{{category.name}}</option>
+      </select>
+    </div>
+    </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <input type="button" class="btn btn-primary btn-lg alert-danger" value="Delete"
+        (click)="deleteCategory()" />
+    </div>
+
+  </form>
+
 
 

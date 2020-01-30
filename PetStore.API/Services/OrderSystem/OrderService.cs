@@ -31,22 +31,19 @@ namespace PetStore.API.Services.OrderSystem
             this.StripeService = stripeService;
             this.Mapper = mapper;
         }
-        
+
+        public IEnumerable<OrderListItem> GetAllOrders()
+        {
+            return OrderRepository.ReadAll().OrderByDescending(x => x.OrderDate).Select(x => Mapper.Map<OrderListItem>(x));
+        }
+
         public async Task<OrderInfo> Buy(OrderRequest orderRequest)
         {
-            var address = Accessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            IPInfoResponse ipInfoAddress = await IPInfo.GetLocation(address);
-
             if (!OrderRepository.CheckValidOrder(orderRequest.OrderItems)) throw new MessageException("Invalid order");
-
             decimal amount = OrderRepository.PricePerOrder(orderRequest.OrderItems);
-            
+
             Order order = Mapper.Map<Order>(orderRequest);
-            orderRequest.OrderItems.ForEach(x => order.OrderItem.Add(Mapper.Map<OrderItem>(x)));
-            order.ShippingAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
-            order.IpinfoAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
-            order.OrderStatus = "pending";
-            await OrderRepository.CreateAsync(order);
+            await InitializeOrderAsync(orderRequest, order);
 
             string chargeId = StripeService.CreateCharge(orderRequest.TokenId, (long)amount);
             order.ExternalReferenceId = chargeId;
@@ -65,9 +62,17 @@ namespace PetStore.API.Services.OrderSystem
             return new OrderInfo() { Message = "Payment failed!" };
         }
 
-        public IEnumerable<OrderListItem> GetAllOrders()
+
+        private async Task InitializeOrderAsync(OrderRequest orderRequest, Order order)
         {
-            return OrderRepository.ReadAll().OrderByDescending(x => x.OrderDate).Select(x => Mapper.Map<OrderListItem>(x));
+            var address = Accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            IPInfoResponse ipInfoAddress = await IPInfo.GetLocation(address);
+     
+            orderRequest.OrderItems.ForEach(x => order.OrderItem.Add(Mapper.Map<OrderItem>(x)));
+            order.ShippingAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
+            order.IpinfoAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
+            order.OrderStatus = "pending";
+            await OrderRepository.CreateAsync(order);
         }
     }
 }

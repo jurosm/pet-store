@@ -20,7 +20,7 @@ namespace PetStore.API.Controllers
             this.ToyService = toyService;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public ToysResponse GetToysPage([FromQuery]int page=1, [FromQuery] int order = 0, [FromQuery] string match = "", [FromQuery] int categoryId = 0, [FromQuery] int pageSize = 5)
         {
             return ToyService.GetToysPage(pageSize, page, order, match, categoryId);

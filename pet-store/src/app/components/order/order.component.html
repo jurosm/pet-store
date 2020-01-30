@@ -11,6 +11,10 @@
     Name is required.
   </div>
 
+  <div class="text-danger">
+    {{validationServerError['CustomerName']}}
+    </div>
+
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Surname: </span>
@@ -22,6 +26,10 @@
   <div class="text-danger" *ngIf="orderForm.controls.customerSurname?.errors">
     Surname is required.
   </div>
+
+  <div class="text-danger">
+    {{validationServerError['CustomerSurname']}}
+    </div>
 
   <h4>Enter shipping address: </h4>
 
@@ -37,6 +45,9 @@
     Country is required.
   </div>
 
+  <div class="text-danger">
+    {{validationServerError['Country']}}
+    </div>
 
   <div class="input-group mb-3">
     <div class="input-group-append">
@@ -50,6 +61,10 @@
     City is required.
   </div>
 
+  <div class="text-danger">
+    {{validationServerError['City']}}
+    </div>
+
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Street address: </span>
@@ -61,6 +76,10 @@
   <div class="text-danger" *ngIf="orderForm.controls.streetAddress?.errors">
     Street address is required.
   </div>
+
+  <div class="text-danger">
+    {{validationServerError['StreetAddress']}}
+    </div>
 
   <stripe-card #stripeCard (catch)="onStripeError($event)" [(invalid)]="invalidError"
     (tokenChange)="setStripeToken($event)" (sourceChange)="setStripeSource($event)"></stripe-card>

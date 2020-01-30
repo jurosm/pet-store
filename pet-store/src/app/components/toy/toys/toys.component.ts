@@ -17,19 +17,15 @@ export class ToysComponent implements OnInit {
   searchForm: FormGroup;
   getToyParams: GetToysParams;
   toys: ToysResponse;
-  none: string;
-  asc: string;
-  desc: string;
-  all: string;
-  default: number;
   numberOfPagesList: number[];
   pageSizeList: number[];
   orderIsSuccessful: boolean;
   categories: Category[];
 
   constructor(public api: PetStoreService, public service: OrderService, public router: Router, public authService: AuthService) {
-    this.none = 'none'; this.asc = 'asc'; this.desc = 'desc'; this.all = 'all'; this.default = 1;
     this.pageSizeList = Array(9).fill(0).map((x, i) => i);
+    this.pageSizeList = this.pageSizeList.slice(2);
+
     this.searchForm = new FormGroup({
       order: new FormControl(),
       matchName: new FormControl(),
@@ -38,20 +34,20 @@ export class ToysComponent implements OnInit {
       pageSize: new FormControl()
     });
     this.toys = new ToysResponse();
-    this.getToyParams = {page: 1, pageSize: 6, matchName: '', order: 0, category: 0};
+    this.getToyParams = { page: 1, pageSize: 6, matchName: '', order: 0, category: 0 };
     this.getToys();
     this.getCategories();
-   }
+  }
 
   ngOnInit() {
   }
 
-   getToys() {
+  getToys() {
     this.api.getToys(this.getToyParams).subscribe(res => {
       this.toys = res;
       this.numberOfPagesList = Array(res.numberOfPages).fill(0).map((x, i) => i);
     }
-      );
+    );
   }
 
   paginate(page: number) {
@@ -59,7 +55,7 @@ export class ToysComponent implements OnInit {
     this.getToys();
   }
 
-  filter(){
+  filter() {
     this.getToyParams.page = 1;
     this.getToys();
   }
@@ -76,8 +72,8 @@ export class ToysComponent implements OnInit {
     });
   }
 
-  onKeyDown(event){
-    if(event.key === 'enter') {
+  onKeyDown(event) {
+    if (event.key === 'enter') {
       this.filter();
     }
 

@@ -1,28 +1,33 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top" >
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <a class="navbar-brand" href="#">Pet Store</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle" >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarCollapse"  [ngClass]="{ 'show': navbarOpen }">
+  <div class="collapse navbar-collapse" id="navbarCollapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" routerLink="/" (click)="toggleNavbar()">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/toy/create" *ngIf="authService.isAuthenticated()" (click)="toggleNavbar()">Create toy</a>
-       </li>
-
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/login" *ngIf="!authService.isAuthenticated()" (click)="toggleNavbar()">Login</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/toy/create" *ngIf="authService.isAuthenticated()"
+          (click)="toggleNavbar()">Create toy</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/orders" *ngIf="authService.isAuthenticated()" (click)="toggleNavbar()">Orders</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/login" *ngIf="!authService.isAuthenticated()"
+          (click)="toggleNavbar()">Login</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/category" *ngIf="authService.isAuthenticated()" (click)="toggleNavbar()">Categories</a>
+        <a class="nav-link" data-toggle="collapse" routerLink="/orders" *ngIf="authService.isAuthenticated()"
+          (click)="toggleNavbar()">Orders</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" routerLink="/category" *ngIf="authService.isAuthenticated()"
+          (click)="toggleNavbar()">Categories</a>
       </li>
 
     </ul>
@@ -35,12 +40,14 @@
 
       </li>
       <li class="nav-item">
-<i class="fas fa-shopping-cart mb-2 mt-2" id="faIcon" style="color:#DDDDDD;" *ngIf="!authService.isAuthenticated()">{{orderService.numberOfItems()}}</i>
-</li>
+        <i class="fas fa-shopping-cart mb-2 mt-2" id="faIcon" style="color:#DDDDDD;"
+          *ngIf="!authService.isAuthenticated()">{{orderService.numberOfItems()}}</i>
+      </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" routerLink="/" *ngIf="authService.isAuthenticated()" (click)="authService.logout()" (click)="toggleNavbar()">Logout</a>
-       </li>
+        <a class="nav-link" data-toggle="collapse" routerLink="/" *ngIf="authService.isAuthenticated()"
+          (click)="authService.logout()" (click)="toggleNavbar()">Logout</a>
+      </li>
 
     </ul>
   </div>

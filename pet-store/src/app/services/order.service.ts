@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../models/order/order';
 import { PetStoreService } from './pet-store.service';
-import * as Collections from 'typescript-collections';
-import { OrderItem } from '../models/order/orderItem';
 import { ErrorService } from './errorService';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class OrderService {
   order: Order;
   constructor(private service: PetStoreService, private errorService: ErrorService) {
     this.order = new Order();
     this.order.orderItems = [];
-   }
+  }
 
   buy() {
     return this.service.buy(this.order).pipe(
@@ -32,7 +31,7 @@ export class OrderService {
         return x;
       });
     } else {
-      this.order.orderItems.push({toyId: id, quantity: 1});
+      this.order.orderItems.push({ toyId: id, quantity: 1 });
     }
   }
 
