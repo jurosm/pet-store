@@ -3,9 +3,9 @@
 --
 
 -- Dumped from database version 12.1
--- Dumped by pg_dump version 12.0
+-- Dumped by pg_dump version 12.1
 
--- Started on 2020-01-30 12:59:50
+-- Started on 2020-01-30 15:13:30
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -308,8 +308,6 @@ COPY petstore."Comment" ("CommentId", "Text", "ToyId", "DatePosted", "Author") F
 --
 
 COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname", "ShippingAddress", "IPInfoAddress", "OrderStatus", "ExternalReferenceId") FROM stdin;
-2020-01-30	28	Marko	Markovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G6bJYLOGOt5JdU3sdCU8m1w
-2020-01-30	29	Jovan	Jovanovic	BA,Prnjavor	BA,Prnjavor	succeeded	ch_1G6bKELOGOt5JdU3vjH0Mmd4
 \.
 
 
@@ -320,10 +318,6 @@ COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname"
 --
 
 COPY petstore."OrderItem" ("Quantity", "OrderId", "ToyId", "OrderItemId") FROM stdin;
-2	28	40	29
-2	28	41	30
-3	29	41	31
-4	29	38	32
 \.
 
 
@@ -339,6 +333,9 @@ KYJEN HARD CORE FIRE HOSE SQUEAK 'N FETCH is made from fire hose material, makin
 Solid Rubber Dog Chew Training Ball Toys Tooth Cleaning Chew Ball Puppy Pet Play Training Chewing Toy With Rope Handle	23	42	Solid Rubber Dog Chew 	$36.00	Very nice toy!	68
 Over 100 years ago, in a very small town, Otis and Claude were building clever toys by hand. They used the best materials, and worked at their designs until they were extraordinary. Their handiwork lives on with Otis and Claude Fetching pet toys. The Ballistic Buddy line of toys utilize a strong fabric and simple designs to make a squeak toy that will last long.	24	39	Claude Ballistic Buddy	$48.00	Earth friendly - The new Barkin Black color	100
 Set your dog out on a wild chase with these tough flyers! DOG TOY RINGS are especially made tough for high flying. They give dogs a great chase & a good exercise at the same time! Dog Toy Rings are designed with triple-stitched seams, heavy duty rope & canvas for long-lasting use. Our ring toys have been thoughtfully designed for loads of doggy fun. They fly, are soft & flexible. WOOF! Comes in 3 characters: Chuck-A-Duck®, Heave-A Beaver® or Hurl-A- Squirrel® - or collect 'em all!	25	40	Fat Cat Classic 	$48.00	Earth friendly - The new Barkin Black color	98
+fdsa	\N	50	dsaf	$234.00	fdsa	423
+gd	\N	51	fdsg	$5.00	gfds	453
+fdsa	24	44	fdsa	$234.00	fdsa	43
 \.
 
 
@@ -384,7 +381,7 @@ SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 29, true);
 -- Name: Toy_ToyId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Toy_ToyId_seq"', 42, true);
+SELECT pg_catalog.setval('petstore."Toy_ToyId_seq"', 51, true);
 
 
 --
@@ -500,7 +497,7 @@ ALTER TABLE ONLY petstore."Toy"
     ADD CONSTRAINT "Toy_Category" FOREIGN KEY ("CategoryId") REFERENCES petstore."Category"("CategoryId") ON UPDATE SET NULL ON DELETE SET NULL;
 
 
--- Completed on 2020-01-30 12:59:51
+-- Completed on 2020-01-30 15:13:31
 
 --
 -- PostgreSQL database dump complete
