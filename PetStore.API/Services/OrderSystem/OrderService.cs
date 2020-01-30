@@ -69,7 +69,7 @@ namespace PetStore.API.Services.OrderSystem
             IPInfoResponse ipInfoAddress = await IPInfo.GetLocation(address);
      
             orderRequest.OrderItems.ForEach(x => order.OrderItem.Add(Mapper.Map<OrderItem>(x)));
-            order.ShippingAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
+            order.ShippingAddress = orderRequest.Country + "," + orderRequest.City + "," + orderRequest.StreetAddress;
             order.IpinfoAddress = ipInfoAddress.Country + "," + ipInfoAddress.City;
             order.OrderStatus = "pending";
             await OrderRepository.CreateAsync(order);
