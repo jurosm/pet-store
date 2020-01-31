@@ -5,7 +5,7 @@
 -- Dumped from database version 12.1
 -- Dumped by pg_dump version 12.0
 
--- Started on 2020-01-31 10:16:03
+-- Started on 2020-01-31 11:12:38
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -308,6 +308,9 @@ COPY petstore."Comment" ("CommentId", "Text", "ToyId", "DatePosted", "Author") F
 --
 
 COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname", "ShippingAddress", "IPInfoAddress", "OrderStatus", "ExternalReferenceId") FROM stdin;
+2020-01-31	30	Zoran	Markovic	Bih,Banja Luka,Cara Lazara 5	BA,Prnjavor	succeeded	ch_1G6wQmLOGOt5JdU3zZh8ANKN
+2020-01-31	31	Milos	Anicic	Srbija,Beograd,Akademska 5	BA,Prnjavor	succeeded	ch_1G6wS3LOGOt5JdU3btrKeBrq
+2020-01-31	32	Petar	Jokic	Srbija,Beograd,Admirala Geprata 24	BA,Prnjavor	succeeded	ch_1G6wTZLOGOt5JdU354Bi88gE
 \.
 
 
@@ -318,6 +321,12 @@ COPY petstore."Order" ("OrderDate", "OrderId", "CustomerName", "CustomerSurname"
 --
 
 COPY petstore."OrderItem" ("Quantity", "OrderId", "ToyId", "OrderItemId") FROM stdin;
+3	30	41	33
+3	30	39	34
+4	31	39	35
+5	31	50	36
+5	32	39	37
+3	32	40	38
 \.
 
 
@@ -329,17 +338,21 @@ COPY petstore."OrderItem" ("Quantity", "OrderId", "ToyId", "OrderItemId") FROM s
 
 COPY petstore."Toy" ("Description", "CategoryId", "ToyId", "Name", "Price", "ShortDescription", "Quantity") FROM stdin;
 OTIS & CLAUDE BALLISTIC BUDDY BONE DOG TOY is a simple, yet elegant toy for your dog. The Ballistic Buddy Bone Dog Toy has a squeaker in a classic bone shape that your dog will love. The toy is made with heavy duty nylon exteriors for high-durability and is sewn together for extra strength. The edging is reinforced and a PVC packing ensures your dog won't destroy this toy easily. The toy is lined with 100% polyester and comes in a bright red color with beautiful black fabric on the back	23	38	Chew ball	$48.00	Earth friendly - The new Barkin Black color	96
-KYJEN HARD CORE FIRE HOSE SQUEAK 'N FETCH is made from fire hose material, making it super durable. Fire hose material is designed for heavy-duty abrasion resistance, so this toy will be your dog's favorite for years! The tightly woven canvas shell and soft long-wearing rubber on the inside make this toy great for fetch. It's easy to throw and your dog will love to chew on the squeakers.	24	41	Kyjen Hard Core Fire Hose 	$52.00	Earth friendly - The new Barkin Black color	145
 Solid Rubber Dog Chew Training Ball Toys Tooth Cleaning Chew Ball Puppy Pet Play Training Chewing Toy With Rope Handle	23	42	Solid Rubber Dog Chew 	$36.00	Very nice toy!	68
-Over 100 years ago, in a very small town, Otis and Claude were building clever toys by hand. They used the best materials, and worked at their designs until they were extraordinary. Their handiwork lives on with Otis and Claude Fetching pet toys. The Ballistic Buddy line of toys utilize a strong fabric and simple designs to make a squeak toy that will last long.	24	39	Claude Ballistic Buddy	$48.00	Earth friendly - The new Barkin Black color	100
-Set your dog out on a wild chase with these tough flyers! DOG TOY RINGS are especially made tough for high flying. They give dogs a great chase & a good exercise at the same time! Dog Toy Rings are designed with triple-stitched seams, heavy duty rope & canvas for long-lasting use. Our ring toys have been thoughtfully designed for loads of doggy fun. They fly, are soft & flexible. WOOF! Comes in 3 characters: Chuck-A-Duck®, Heave-A Beaver® or Hurl-A- Squirrel® - or collect 'em all!	25	40	Fat Cat Classic 	$48.00	Earth friendly - The new Barkin Black color	98
-For the last 35 years and three generations, Safari Ltd. has been fostering curiosity, environmental conservation, and imagination in children around the world. We design and manufacture educational toys for school projects, play therapy sensory bin toys, animal toys, and even mythical creature figurines! We invite your family to take the Toys That Teach journey with us!\n	\N	50	Gummy crocodile	$234.00	One tree planted	423
+
+KYJEN HARD CORE FIRE HOSE SQUEAK 'N FETCH is made from fire hose material, making it super durable. Fire hose material is designed for heavy-duty abrasion resistance, so this toy will be your dog's favorite for years! The tightly woven canvas shell and soft long-wearing rubber on the inside make this toy great for fetch. It's easy to throw and your dog will love to chew on the squeakers.	24	41	Kyjen Hard Core Fire Hose 	$52.00	Earth friendly - The new Barkin Black color	142
+
 Factory made Classic Pet Furniture Three Platform Luxury Toys Cat Tree Tower	\N	51	Climbing frame tree	$5.00	Eco-friendly, stocked	453
 Natural sisal without used Jute, luxury sisal carped, E0 chipboard and MDF, all plush are used above 450 gram.	24	44	Pet Activity Center	$234.00	Factory made Classic Pet Furniture	43
 Cheap wholesale premium quality pet scratching posts cat tree toy 	25	52	Pawz	$111.00	Eco-friendly, stocked	56
 Classic Pet Product Small Cat Scratcher Toy, Cat Scratcher Post 	25	53	Cat Scratcher	$46.00	SISAL, Particle Board,Fur Plush and Sisal	150
 Multi-Purpose IQ Treat Ball Dog Toy Squeak Pet Interactive Food Dispensing Ball Slow Feeder Pet Puzzle while Eating for Cat Dog	\N	54	Cat tree scratcher	$35.00	Particle Board, Fur Plush	79
 Squeaky pet plush dog chew toy head stuffing china 	\N	55	Pet plush dog chew	$56.00	Plush fiber, 100% Polyester	250
+
+For the last 35 years and three generations, Safari Ltd. has been fostering curiosity, environmental conservation, and imagination in children around the world. We design and manufacture educational toys for school projects, play therapy sensory bin toys, animal toys, and even mythical creature figurines! We invite your family to take the Toys That Teach journey with us!\n	\N	50	Gummy crocodile	$234.00	One tree planted	418
+Over 100 years ago, in a very small town, Otis and Claude were building clever toys by hand. They used the best materials, and worked at their designs until they were extraordinary. Their handiwork lives on with Otis and Claude Fetching pet toys. The Ballistic Buddy line of toys utilize a strong fabric and simple designs to make a squeak toy that will last long.	24	39	Claude Ballistic Buddy	$48.00	Earth friendly - The new Barkin Black color	88
+Set your dog out on a wild chase with these tough flyers! DOG TOY RINGS are especially made tough for high flying. They give dogs a great chase & a good exercise at the same time! Dog Toy Rings are designed with triple-stitched seams, heavy duty rope & canvas for long-lasting use. Our ring toys have been thoughtfully designed for loads of doggy fun. They fly, are soft & flexible. WOOF! Comes in 3 characters: Chuck-A-Duck®, Heave-A Beaver® or Hurl-A- Squirrel® - or collect 'em all!	25	40	Fat Cat Classic 	$48.00	Earth friendly - The new Barkin Black color	95
+
 \.
 
 
@@ -367,7 +380,7 @@ SELECT pg_catalog.setval('petstore."Comment_CommentId_seq"', 20, true);
 -- Name: OrderItem_OrderItemId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 32, true);
+SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 38, true);
 
 
 --
@@ -376,7 +389,7 @@ SELECT pg_catalog.setval('petstore."OrderItem_OrderItemId_seq"', 32, true);
 -- Name: Order_OrderId_seq; Type: SEQUENCE SET; Schema: petstore; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 29, true);
+SELECT pg_catalog.setval('petstore."Order_OrderId_seq"', 32, true);
 
 
 --
@@ -501,7 +514,9 @@ ALTER TABLE ONLY petstore."Toy"
     ADD CONSTRAINT "Toy_Category" FOREIGN KEY ("CategoryId") REFERENCES petstore."Category"("CategoryId") ON UPDATE SET NULL ON DELETE SET NULL;
 
 
--- Completed on 2020-01-31 10:16:04
+
+-- Completed on 2020-01-31 11:12:38
+
 
 --
 -- PostgreSQL database dump complete
