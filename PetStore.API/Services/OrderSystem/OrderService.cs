@@ -61,8 +61,6 @@ namespace PetStore.API.Services.OrderSystem
 
             return new OrderInfo() { Message = "Payment failed!" };
         }
-
-
         private async Task InitializeOrderAsync(OrderRequest orderRequest, Order order)
         {
             var address = Accessor.HttpContext.Connection.RemoteIpAddress.ToString();
