@@ -8,6 +8,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { CreateToyComponent } from './components/admin/create-toy/create-toy.component';
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component';
 import { CategoryComponent } from './components/category/category.component';
+import { RouteGuard } from './guards/route.guard';
 
 
 const routes: Routes = [
@@ -16,10 +17,10 @@ const routes: Routes = [
   { path: '', component: ToysComponent },
   { path: 'toys/:id', component: ToyComponent },
   { path: 'error', component: ErrorComponent },
-  { path: 'toy/create', component: CreateToyComponent },
-  { path: 'toy/edit/:id', component: CreateToyComponent },
-  { path: 'orders', component: ListOrdersComponent },
-  { path: 'category', component: CategoryComponent }
+  { path: 'toy/create', component: CreateToyComponent, canActivate: [RouteGuard] },
+  { path: 'toy/edit/:id', component: CreateToyComponent, canActivate: [RouteGuard] },
+  { path: 'orders', component: ListOrdersComponent, canActivate: [RouteGuard] },
+  { path: 'category', component: CategoryComponent, canActivate: [RouteGuard] }
 ];
 
 @NgModule({
