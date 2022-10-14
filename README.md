@@ -1,6 +1,6 @@
 # Pet Store
 
-SPA toy shop application for pets!
+**SPA** toy shop application for pets!
 
 ## Features
 - .NET Core 3.1
