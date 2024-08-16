@@ -1,41 +1,33 @@
 ﻿using PetStore.API.Db;
 using PetStore.API.Services.CRUD;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PetStore.API.Helper.Pagination;
 using Microsoft.EntityFrameworkCore;
-using PetStore.API.Models.Response.Toy;
-using System.IO;
 using AutoMapper;
 using PetStore.API.Models.Request.Toy;
 
 namespace PetStore.API.Services.ToySystem
 {
-    public class ToyRepository : Repository<Toy>
+    public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Repository<Toy>(context)
     {
-        IMapper Mapper;
-        public ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : base(context)
-        {
-            this.Mapper = mapper;
-        }
+        readonly IMapper Mapper = mapper;
 
         public PagedResult<Toy> GetToysPaged(int pageSize, int page, int order, string match, int category)
         {
             if (order == 1)
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderBy(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderBy(x => x.Price), page, pageSize);
             }
 
             else if (order == 2)
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
             }
 
             else
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(match.ToLower()) && (x.CategoryId == category || x.Category == null || category <= 0)), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)), page, pageSize);
             }
         }
 

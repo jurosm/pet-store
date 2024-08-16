@@ -2,23 +2,16 @@
 using PetStore.API.Db;
 using PetStore.API.Models.Request.Category;
 using PetStore.API.Models.Response.Category;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PetStore.API.Services.CategorySystem
 {
-    public class CategoryService
+    public class CategoryService(CategoryRepository categoryRepository, IMapper mapper)
     {
-        IMapper Mapper;
-        CategoryRepository CategoryRepository;
-
-        public CategoryService(CategoryRepository categoryRepository, IMapper mapper)
-        {
-            this.Mapper = mapper;
-            this.CategoryRepository = categoryRepository;
-        }
+        private readonly IMapper Mapper = mapper;
+        private readonly CategoryRepository CategoryRepository = categoryRepository;
 
         public IEnumerable<CategoryUnit> GetAll()
         {

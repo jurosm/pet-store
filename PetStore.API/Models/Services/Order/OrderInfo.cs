@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PetStore.API.Models.Services.Order
+﻿namespace PetStore.API.Models.Services.Order
 {
     public class OrderInfo
     {

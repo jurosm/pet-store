@@ -2,11 +2,9 @@
 using PetStore.API.Db;
 using PetStore.API.Helper.Pagination;
 using PetStore.API.Models.Request.Toy;
-using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Category;
 using PetStore.API.Models.Response.Toy;
 using PetStore.API.Services.CategorySystem;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,23 +12,19 @@ using System.Threading.Tasks;
 
 namespace PetStore.API.Services.ToySystem
 {
-    public class ToyService
+    public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRepository categoryRepository)
     {
-        ToyRepository ToyRepository;
-        CategoryRepository CategoryRepository;
-        IMapper Mapper;
-        public ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRepository categoryRepository)
-        {
-            this.ToyRepository = toyRepository;
-            this.CategoryRepository = categoryRepository;
-            this.Mapper = mapper;
-        }
+        readonly ToyRepository ToyRepository = toyRepository;
+        readonly CategoryRepository CategoryRepository = categoryRepository;
+        readonly IMapper Mapper = mapper;
 
         public ToysResponse GetToysPage(int pageSize, int page, int order, string match, int category)
         {
             IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
-            ToysResponse response = new ToysResponse();
-            response.Categories = categories;
+            ToysResponse response = new()
+            {
+                Categories = categories
+            };
 
             PagedResult<Toy> toys = ToyRepository.GetToysPaged(pageSize, page, order, match, category);
 
@@ -64,6 +58,5 @@ namespace PetStore.API.Services.ToySystem
         {
             await ToyRepository.DeleteAsync(id);
         }
-
     }
 }

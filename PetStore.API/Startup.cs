@@ -10,23 +10,15 @@ using PetStore.API.Services.AuthenticationSystem;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using PetStore.API.Services.ExternalServices;
-using System;
 using AspNetCoreRateLimit;
 
 namespace PetStore.API
 {
-
-    public class Startup
+    public class Startup(IConfiguration configuration)
     {
-        private readonly EnvironmentConfigurations EnvVariables;
+        private readonly EnvironmentConfigurations EnvVariables = new();
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-            this.EnvVariables = new EnvironmentConfigurations();
-        }
-
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; } = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -76,7 +68,7 @@ namespace PetStore.API
             app.UseAuthentication();
 
             app.UseAuthorization();
-    
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

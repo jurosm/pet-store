@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PetStore.API.Models.Response.ExternalServices
+﻿namespace PetStore.API.Models.Response.ExternalServices
 {
     public class IPInfoResponse
     {

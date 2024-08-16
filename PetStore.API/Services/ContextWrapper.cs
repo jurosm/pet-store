@@ -1,25 +1,16 @@
 ﻿using PetStore.API.Db;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using PetStore.API.Helper;
 
 namespace PetStore.API.Services.CRUD
 {
 
-    public class ContextWrapper<T> where T : class
+    public class ContextWrapper<T>(PetStoreDBContext blogContext) where T : class
     {
-        public readonly PetStoreDBContext PSContext;
+        public readonly PetStoreDBContext PSContext = blogContext;
 
-        public ContextWrapper(PetStoreDBContext blogContext)
-        {
-            Table = Property<T>.AccessOnCompile(blogContext);
-            PSContext = blogContext;
-        }
-
-        public DbSet<T> Table { get; set; }
+        public DbSet<T> Table { get; set; } = Property<T>.AccessOnCompile(blogContext);
 
         public async Task SaveChangesAsync()
         {

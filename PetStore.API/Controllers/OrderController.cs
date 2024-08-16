@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Models.Request.Order;
-using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Order;
 using PetStore.API.Services.OrderSystem;
 
@@ -13,13 +10,9 @@ namespace PetStore.API.Controllers
 {
     [Route("/orders")]
 
-    public class OrderController : BaseApiController
+    public class OrderController(OrderService orderService) : BaseApiController
     {
-        private readonly OrderService OrderService;
-        public OrderController(OrderService orderService)
-        {
-            this.OrderService = orderService;
-        }
+        private readonly OrderService OrderService = orderService;
 
         [HttpGet]
         [Authorize]
@@ -29,7 +22,7 @@ namespace PetStore.API.Controllers
         }
 
         [HttpPost("buy")]
-        public async Task<IActionResult> Buy([FromBody]OrderRequest orderRequest)
+        public async Task<IActionResult> Buy([FromBody] OrderRequest orderRequest)
         {
             return Ok(await OrderService.Buy(orderRequest));
         }

@@ -7,7 +7,7 @@ namespace PetStore.API.Db
     {
         public Order()
         {
-            OrderItem = new HashSet<OrderItem>();
+            OrderItem = [];
         }
 
         public DateTime OrderDate { get; set; }

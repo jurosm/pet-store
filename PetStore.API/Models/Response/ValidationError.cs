@@ -1,22 +1,12 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetStore.API.Models.Response
 {
-    public class ValidationError
+    public class ValidationError(string field, string message)
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string Field { get; }
+        public string Field { get; } = field != string.Empty ? field : null;
 
-        public string Message { get; }
-
-        public ValidationError(string field, string message)
-        {
-            Field = field != string.Empty ? field : null;
-            Message = message;
-        }
+        public string Message { get; } = message;
     }
 }

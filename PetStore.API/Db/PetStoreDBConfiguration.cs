@@ -8,8 +8,8 @@ namespace CodeSpaceBlog.API.Db
     {
         public static void AddPetStoreDBServices(this IServiceCollection services, string connectionString)
         {
-           services.AddDbContext<PetStoreDBContext>(options =>
-            options.UseNpgsql(connectionString));
+            services.AddDbContext<PetStoreDBContext>(options =>
+             options.UseNpgsql(connectionString));
         }
     }
 }

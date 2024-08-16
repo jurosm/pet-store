@@ -1,14 +1,11 @@
 ﻿using PetStore.API.Db;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Reflection;
 
 namespace PetStore.API.Helper
 {
-    public class Property<T> where T:class
+    public class Property<T> where T : class
     {
         public static T Change(Action<T> action, T entity)
         {
@@ -24,6 +21,5 @@ namespace PetStore.API.Helper
             PropertyInfo prop = ContextType.GetProperty(typeParameterType.Name);
             return prop.GetValue(context) as DbSet<T>;
         }
-
     }
 }

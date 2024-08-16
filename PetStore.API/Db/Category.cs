@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PetStore.API.Db
 {
@@ -7,7 +6,7 @@ namespace PetStore.API.Db
     {
         public Category()
         {
-            Toy = new HashSet<Toy>();
+            Toy = [];
         }
 
         public int CategoryId { get; set; }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PetStore.API.Db
+﻿namespace PetStore.API.Db
 {
     public partial class OrderItem
     {

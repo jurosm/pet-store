@@ -1,25 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetStore.API.Db;
 using PetStore.API.Models.Request.Category;
 using PetStore.API.Models.Response.Category;
 using PetStore.API.Services.CategorySystem;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PetStore.API.Controllers
 {
     [Route("/categories")]
-    public class CategoryController : BaseApiController
+    public class CategoryController(CategoryService categoryService) : BaseApiController
     {
-        CategoryService CategoryService;
-
-        public CategoryController(CategoryService categoryService)
-        {
-            this.CategoryService = categoryService;
-        }
+        private readonly CategoryService CategoryService = categoryService;
 
         [HttpGet]
         public IEnumerable<CategoryUnit> GetAll()
