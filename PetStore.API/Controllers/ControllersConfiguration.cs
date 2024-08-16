@@ -2,10 +2,6 @@
 using PetStore.API.Models.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetStore.API.Controllers
 {
@@ -21,7 +17,7 @@ namespace PetStore.API.Controllers
             {
                 options.InvalidModelStateResponseFactory = context =>
                 {
-                    ModelErrorResponse mer = new ModelErrorResponse(context.ModelState);
+                    ModelErrorResponse mer = new(context.ModelState);
                     context.HttpContext.Response.StatusCode = 422;
                     return new JsonResult(mer);
                 };

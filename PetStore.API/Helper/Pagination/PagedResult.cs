@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetStore.API.Helper.Pagination
 {
@@ -11,11 +10,10 @@ namespace PetStore.API.Helper.Pagination
 
         public PagedResult() { }
 
-        public static PagedResult<T> GetPaged<T>(IQueryable<T> query,
-                              int page, int pageSize) where T : class
+        public static PagedResult<T> GetPaged(IQueryable<T> query,
+                              int page, int pageSize)
         {
             if (pageSize <= 0 || page <= 0) { pageSize = 6; page = 1; }
-
 
             var result = new PagedResult<T>
             {
@@ -31,15 +29,14 @@ namespace PetStore.API.Helper.Pagination
 
             if (skip + pageSize <= result.RowCount)
             {
-                result.Results = query.Skip(skip).Take(pageSize).ToList();
+                result.Results = [.. query.Skip(skip).Take(pageSize)];
             }
             else if (skip + pageSize > result.RowCount && skip < result.RowCount)
             {
-                result.Results = query.Skip(skip).ToList();
+                result.Results = [.. query.Skip(skip)];
             }
 
             return result;
-
         }
     }
 }

@@ -1,27 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Models.Request.Toy;
-using PetStore.API.Models.Response;
 using PetStore.API.Models.Response.Toy;
 using PetStore.API.Services.ToySystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PetStore.API.Controllers
 {
     [Route("/toys")]
-    public class ToyController : BaseApiController
+    public class ToyController(ToyService toyService) : BaseApiController
     {
-        ToyService ToyService;
-        public ToyController(ToyService toyService)
-        {
-            this.ToyService = toyService;
-        }
+        private readonly ToyService ToyService = toyService;
 
         [HttpGet]
-        public ToysResponse GetToysPage([FromQuery]int page = 1, [FromQuery] int order = 0, [FromQuery] string match = "", [FromQuery] int categoryId = 0, [FromQuery] int pageSize = 5)
+        public ToysResponse GetToysPage([FromQuery] int page = 1, [FromQuery] int order = 0, [FromQuery] string match = "", [FromQuery] int categoryId = 0, [FromQuery] int pageSize = 5)
         {
             return ToyService.GetToysPage(pageSize, page, order, match, categoryId);
         }
@@ -52,6 +44,5 @@ namespace PetStore.API.Controllers
         {
             await ToyService.AddToyAsync(toyUnit);
         }
-
     }
 }

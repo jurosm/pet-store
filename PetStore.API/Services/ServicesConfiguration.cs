@@ -5,10 +5,6 @@ using PetStore.API.Services.CommentsSystem;
 using PetStore.API.Services.CRUD;
 using PetStore.API.Services.OrderSystem;
 using PetStore.API.Services.ToySystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetStore.API.Services
 {

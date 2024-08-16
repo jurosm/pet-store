@@ -2,21 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PetStore.API.Db;
 using PetStore.API.Services.CRUD;
 using PetStore.API.Helper.Pagination;
 using System.Linq.Expressions;
 
 namespace PetStore.API.Services
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T>(ContextWrapper<T> context) : IRepository<T> where T : class
     {
-        public readonly ContextWrapper<T> Context;
-
-        public Repository(ContextWrapper<T> context)
-        {
-            Context = context;
-        }
+        public readonly ContextWrapper<T> Context = context;
 
         public PagedResult<T> ReadPage(int page, int pageSize)
         {
@@ -82,6 +76,5 @@ namespace PetStore.API.Services
         {
             await Context.SaveChangesAsync();
         }
-
     }
 }

@@ -2,11 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using PetStore.API.Exceptions.Services.Order;
 using PetStore.API.Models.Response;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetStore.API.Filters.GlobalFilters
 {
@@ -42,7 +38,6 @@ namespace PetStore.API.Filters.GlobalFilters
                         context.Result = new StatusCodeResult(500);
                         break;
                 }
-
             }
         }
     }
