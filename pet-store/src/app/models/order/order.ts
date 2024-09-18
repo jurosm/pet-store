@@ -1,4 +1,3 @@
-import * as Collections from 'typescript-collections';
 import { OrderItem } from './orderItem';
 
 export class Order {

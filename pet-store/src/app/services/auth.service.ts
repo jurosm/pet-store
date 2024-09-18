@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PetStoreService } from './pet-store.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -7,7 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  constructor(private jwtHelper: JwtHelperService, private service: PetStoreService) { }
+  constructor(private jwtHelper: JwtHelperService) { }
 
   isAuthenticated() {
     let token = localStorage.getItem('jwtToken');

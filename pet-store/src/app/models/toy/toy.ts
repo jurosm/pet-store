@@ -1,5 +1,3 @@
-import { Category } from '../categories/category';
-
 export class Toy {
   description: string;
   shortDescription: string;

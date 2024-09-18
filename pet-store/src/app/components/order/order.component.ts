@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StripeScriptTag, StripeToken, StripeSource, StripeCard, Stripe } from 'stripe-angular';
+import { StripeScriptTag, StripeSource, } from 'stripe-angular';
 import { OrderService } from 'src/app/services/order.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Order } from 'src/app/models/order/order';
@@ -49,7 +49,7 @@ export class OrderComponent implements OnInit {
     console.log('Validation Error', error);
   }
 
-  setStripeToken(token: StripeToken) {
+  setStripeToken(token: stripe.Token) {
     console.log('Stripe token', token);
     this.orderService.order.tokenId = token.id;
     this.orderService.buy().subscribe(res => {

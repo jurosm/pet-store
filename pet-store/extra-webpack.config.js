@@ -1,12 +1,5 @@
-const webpack = require('webpack')
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        API_URL: JSON.stringify(process.env.API_URL)
-      }
-    })
-  ]
-}
-
+  plugins: [new Dotenv({ systemvars: true })],
+};

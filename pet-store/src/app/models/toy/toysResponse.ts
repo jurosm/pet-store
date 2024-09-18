@@ -1,5 +1,4 @@
-import { ToysUnit } from './toysUnit';
-import { Categories } from '../categories/categories';
+import { ToysUnit } from "./toysUnit";
 
 export class ToysResponse {
   items: ToysUnit[];

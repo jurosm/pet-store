@@ -1,5 +1,4 @@
 import * as Collections from 'typescript-collections';
-import { ErrorResponse } from 'src/app/models/error/errorResponse';
 import { ErrorResponseUnit } from 'src/app/models/error/errorResponseUnit';
 
 export class CollectionConverter {
