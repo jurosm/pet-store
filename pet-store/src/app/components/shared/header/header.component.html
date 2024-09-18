@@ -31,9 +31,9 @@
       </li>
 
     </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav ms-auto me-3">
 
-      <li class="nav-item mr-3">
+      <li class="nav-item me-3">
         <div class="d-flex" *ngIf="!authService.isAuthenticated()" id="buy">
           <button type="button" name="button" class="btn btn-primary" (click)="router.navigate(['/order'])">Pay</button>
         </div>
