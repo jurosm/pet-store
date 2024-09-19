@@ -3,45 +3,56 @@
     <div class="input-group-append">
       <span class="input-group-text">Category name: </span>
     </div>
-    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="categoryName" formControlName="categoryName">
+    <input
+      type="text"
+      style="text-align: center"
+      name=""
+      class="form-control"
+      value=""
+      placeholder=""
+      required
+      [(ngModel)]="categoryName"
+      formControlName="categoryName" />
   </div>
 
-
   <div class="d-flex justify-content-center mt-3">
-    <input type="button" class="btn btn-primary btn-lg" value="Create new" [disabled]="!createCategoryForm.valid"
+    <input
+      type="button"
+      class="btn btn-primary btn-lg"
+      value="Create new"
+      [disabled]="!createCategoryForm.valid"
       (click)="addNewCategory()" />
   </div>
 
   <div class="text-danger" *ngIf="createCategoryForm.controls.categoryName.errors">
     Category name is required.
   </div>
-
 </form>
 
-  <hr/>
+<hr />
 
-  <form [formGroup]="deleteCategoryForm">
-    <div class="input-group mb-3">
-      <div class="input-group-append">
-        <span class="input-group-text">Select category to delete: </span>
-      </div>
+<form [formGroup]="deleteCategoryForm">
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <span class="input-group-text">Select category to delete: </span>
+    </div>
     <div>
       <div class="form-control">
-      <select input="number" [(ngModel)]="category.categoryId" formControlName="categoryId" >
-        <option [value]=0 >None</option>
-        <option *ngFor="let category of categories" [value]=category.categoryId>{{category.name}}</option>
-      </select>
+        <select input="number" [(ngModel)]="category.categoryId" formControlName="categoryId">
+          <option [value]="0">None</option>
+          <option *ngFor="let category of categories" [value]="category.categoryId">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
     </div>
-    </div>
-    </div>
+  </div>
 
-    <div class="d-flex justify-content-center mt-3">
-      <input type="button" class="btn btn-primary btn-lg alert-danger" value="Delete"
-        (click)="deleteCategory()" />
-    </div>
-
-  </form>
-
-
-
+  <div class="d-flex justify-content-center mt-3">
+    <input
+      type="button"
+      class="btn btn-primary btn-lg alert-danger"
+      value="Delete"
+      (click)="deleteCategory()" />
+  </div>
+</form>

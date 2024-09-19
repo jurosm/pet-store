@@ -3,24 +3,38 @@
     <div class="input-group-append">
       <span class="input-group-text">Name: </span>
     </div>
-    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="this.orderService.order.customerName" formControlName="customerName">
+    <input
+      type="text"
+      style="text-align: center"
+      name=""
+      class="form-control"
+      value=""
+      placeholder=""
+      required
+      [(ngModel)]="this.orderService.order.customerName"
+      formControlName="customerName" />
   </div>
 
-  <div class="text-danger" *ngIf="orderForm.controls.customerName?.errors">
-    Name is required.
-  </div>
+  <div class="text-danger" *ngIf="orderForm.controls.customerName?.errors">Name is required.</div>
 
   <div class="text-danger">
-    {{validationServerError['CustomerName']}}
-    </div>
+    {{ validationServerError['CustomerName'] }}
+  </div>
 
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Surname: </span>
     </div>
-    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="this.orderService.order.customerSurname" formControlName="customerSurname">
+    <input
+      type="text"
+      style="text-align: center"
+      name=""
+      class="form-control"
+      value=""
+      placeholder=""
+      required
+      [(ngModel)]="this.orderService.order.customerSurname"
+      formControlName="customerSurname" />
   </div>
 
   <div class="text-danger" *ngIf="orderForm.controls.customerSurname?.errors">
@@ -28,49 +42,69 @@
   </div>
 
   <div class="text-danger">
-    {{validationServerError['CustomerSurname']}}
-    </div>
+    {{ validationServerError['CustomerSurname'] }}
+  </div>
 
-  <h4>Enter shipping address: </h4>
+  <h4>Enter shipping address:</h4>
 
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Country: </span>
     </div>
-    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="this.orderService.order.country" formControlName="country">
+    <input
+      type="text"
+      style="text-align: center"
+      name=""
+      class="form-control"
+      value=""
+      placeholder=""
+      required
+      [(ngModel)]="this.orderService.order.country"
+      formControlName="country" />
   </div>
 
-  <div class="text-danger" *ngIf="orderForm.controls.country?.errors">
-    Country is required.
-  </div>
+  <div class="text-danger" *ngIf="orderForm.controls.country?.errors">Country is required.</div>
 
   <div class="text-danger">
-    {{validationServerError['Country']}}
-    </div>
+    {{ validationServerError['Country'] }}
+  </div>
 
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">City: </span>
     </div>
-    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="this.orderService.order.city" formControlName="city">
+    <input
+      type="text"
+      style="text-align: center"
+      name=""
+      class="form-control"
+      value=""
+      placeholder=""
+      required
+      [(ngModel)]="this.orderService.order.city"
+      formControlName="city" />
   </div>
 
-  <div class="text-danger" *ngIf="orderForm.controls.city?.errors">
-    City is required.
-  </div>
+  <div class="text-danger" *ngIf="orderForm.controls.city?.errors">City is required.</div>
 
   <div class="text-danger">
-    {{validationServerError['City']}}
-    </div>
+    {{ validationServerError['City'] }}
+  </div>
 
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Street address: </span>
     </div>
-    <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-      [(ngModel)]="this.orderService.order.streetAddress" formControlName="streetAddress">
+    <input
+      type="text"
+      style="text-align: center"
+      name=""
+      class="form-control"
+      value=""
+      placeholder=""
+      required
+      [(ngModel)]="this.orderService.order.streetAddress"
+      formControlName="streetAddress" />
   </div>
 
   <div class="text-danger" *ngIf="orderForm.controls.streetAddress?.errors">
@@ -78,33 +112,39 @@
   </div>
 
   <div class="text-danger">
-    {{validationServerError['StreetAddress']}}
-    </div>
+    {{ validationServerError['StreetAddress'] }}
+  </div>
 
-  <stripe-card #stripeCard (catch)="onStripeError($event)" [(invalid)]="invalidError"
-    (tokenChange)="setStripeToken($event)" (sourceChange)="setStripeSource($event)"></stripe-card>
+  <stripe-card
+    #stripeCard
+    (catch)="onStripeError($event)"
+    [(invalid)]="invalidError"
+    (tokenChange)="setStripeToken($event)"
+    (sourceChange)="setStripeSource($event)"></stripe-card>
 
-
-  <div *ngIf="invalidError" style="color:red">
+  <div *ngIf="invalidError" style="color: red">
     {{ invalidError.message }}
   </div>
 
-
   <div class="d-flex justify-content-center mt-3">
-    <input type="button" data-target="#carousel-div" class="btn btn-primary btn-lg" value="Submit"
-      (click)="stripeCard.createToken()" [disabled]="!orderForm.valid || !orderService.numberOfItems()" />
+    <input
+      type="button"
+      data-target="#carousel-div"
+      class="btn btn-primary btn-lg"
+      value="Submit"
+      (click)="stripeCard.createToken()"
+      [disabled]="!orderForm.valid || !orderService.numberOfItems()" />
   </div>
 
   <div class="d-flex justify-content-center mt-3">
     <div class="alert alert-success" role="alert" *ngIf="this.isSuccessful">
       Transaction is successful!
+    </div>
   </div>
-</div>
 
-<div class="d-flex justify-content-center mt-3">
-  <div class="alert alert-danger" role="alert" *ngIf="this.transactionIsNotSuccessful">
-    Transaction is not successful!
-</div>
-</div>
-
+  <div class="d-flex justify-content-center mt-3">
+    <div class="alert alert-danger" role="alert" *ngIf="this.transactionIsNotSuccessful">
+      Transaction is not successful!
+    </div>
+  </div>
 </div>

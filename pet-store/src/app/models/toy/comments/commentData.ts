@@ -1,5 +1,5 @@
 export class CommentData {
-  author: string;
-  text: string;
-  toyId: number;
+  author: string
+  text: string
+  toyId: number
 }

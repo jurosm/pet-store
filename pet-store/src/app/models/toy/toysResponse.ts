@@ -1,6 +1,6 @@
-import { ToysUnit } from "./toysUnit";
+import { ToysUnit } from './toysUnit'
 
 export class ToysResponse {
-  items: ToysUnit[];
-  numberOfPages: number;
+  items: ToysUnit[]
+  numberOfPages: number
 }

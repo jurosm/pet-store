@@ -1,5 +1,5 @@
-import { Category } from './category';
+import { Category } from './category'
 
 export class Categories {
-  categories: Category[];
+  categories: Category[]
 }

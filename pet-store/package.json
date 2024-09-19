@@ -42,9 +42,18 @@
     "@angular/compiler-cli": "~18.2.4",
     "@angular/language-service": "~18.2.4",
     "@types/node": "^18.19.50",
+    "angular-eslint": "18.3.1",
     "dotenv-webpack": "^8.1.0",
+    "eslint": "^9.9.1",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-firefox-launcher": "^2.1.3",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
     "ts-node": "~10.9.2",
     "tslint": "~6.1.3",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "typescript-eslint": "8.2.0"
   }
 }

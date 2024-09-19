@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "src/app/services/auth.service";
-import { OrderService } from "src/app/services/order.service";
-import { Router } from "@angular/router";
+import { Component } from '@angular/core'
+import { AuthService } from 'src/app/services/auth.service'
+import { OrderService } from 'src/app/services/order.service'
+import { Router } from '@angular/router'
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.css"],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
-  navbarOpen = false;
+export class HeaderComponent {
+  navbarOpen = false
 
   toggleNavbar(): void {
-    this.navbarOpen = !this.navbarOpen;
+    this.navbarOpen = !this.navbarOpen
   }
 
   constructor(
@@ -20,6 +20,4 @@ export class HeaderComponent implements OnInit {
     public orderService: OrderService,
     public router: Router
   ) {}
-
-  ngOnInit() {}
 }

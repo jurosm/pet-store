@@ -1,5 +1,5 @@
 export class CommentsUnit {
-  author: string;
-  text: string;
-  datePosted: Date;
+  author: string
+  text: string
+  datePosted: Date
 }

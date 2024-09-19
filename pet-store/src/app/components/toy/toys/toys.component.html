@@ -6,11 +6,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-control">
-            <select
-              [(ngModel)]="getToyParams.order"
-              formControlName="order"
-              (change)="filter()"
-            >
+            <select [(ngModel)]="getToyParams.order" formControlName="order" (change)="filter()">
               <option [ngValue]="0">Order by price</option>
               <option [ngValue]="1">Ascending</option>
               <option [ngValue]="2">Descending</option>
@@ -23,13 +19,9 @@
             <select
               [(ngModel)]="getToyParams.category"
               formControlName="category"
-              (change)="filter()"
-            >
+              (change)="filter()">
               <option [ngValue]="0">All categories</option>
-              <option
-                *ngFor="let category of categories"
-                [ngValue]="category.categoryId"
-              >
+              <option *ngFor="let category of categories" [ngValue]="category.categoryId">
                 {{ category.name }}
               </option>
             </select>
@@ -41,13 +33,9 @@
             <select
               [(ngModel)]="getToyParams.pageSize"
               formControlName="pageSize"
-              (change)="filter()"
-            >
+              (change)="filter()">
               <option [ngValue]="0">Choose page size</option>
-              <option
-                *ngFor="let number of pageSizeList"
-                [ngValue]="number + 1"
-              >
+              <option *ngFor="let number of pageSizeList" [ngValue]="number + 1">
                 {{ number + 1 }}
               </option>
             </select>
@@ -63,20 +51,13 @@
               aria-label="Search"
               [(ngModel)]="getToyParams.matchName"
               formControlName="matchName"
-              (keydown)="onKeyDown($event)"
-            />
+              (keydown)="onKeyDown($event)" />
           </li>
         </div>
 
         <div class="col-md-4">
           <li>
-            <button
-              class="btn btn-outline-success"
-              type="submit"
-              (click)="filter()"
-            >
-              Search
-            </button>
+            <button class="btn btn-outline-success" type="submit" (click)="filter()">Search</button>
           </li>
         </div>
       </div>
@@ -89,9 +70,7 @@
           <div class="card" style="width: 18rem">
             <div class="card-body">
               <h5 class="card-title">
-                <a [routerLink]="['/toys', element.toyId]"
-                  >Name: {{ element.name }}</a
-                >
+                <a [routerLink]="['/toys', element.toyId]">Name: {{ element.name }}</a>
               </h5>
               <p class="card-text">{{ element.shortDescription }}</p>
             </div>
@@ -99,44 +78,31 @@
               <li class="list-group-item" *ngIf="element.category">
                 Category: {{ element.category }}
               </li>
-              <li class="list-group-item" *ngIf="!element.category">
-                Category: None
-              </li>
+              <li class="list-group-item" *ngIf="!element.category">Category: None</li>
               <li class="list-group-item">
                 Price: {{ element.price }} <i class="fas fa-dollar-sign"></i>
               </li>
-              <li
-                class="list-group-item"
-                *ngIf="!authService.isAuthenticated()"
-              >
+              <li class="list-group-item" *ngIf="!authService.isAuthenticated()">
                 In cart: {{ this.service.numberOfItems(element.toyId) }}
               </li>
             </ul>
             <div class="card-body">
-              <div
-                class="d-flex justify-content-center mt-3"
-                *ngIf="authService.isAuthenticated()"
-              >
+              <div class="d-flex justify-content-center mt-3" *ngIf="authService.isAuthenticated()">
                 <button
                   type="button"
                   name="button"
                   class="btn btn-primary"
-                  (click)="router.navigate(['/toy/edit', element.toyId])"
-                >
+                  (click)="router.navigate(['/toy/edit', element.toyId])">
                   Edit
                 </button>
               </div>
 
-              <div
-                class="d-flex justify-content-center mt-3"
-                *ngIf="authService.isAuthenticated()"
-              >
+              <div class="d-flex justify-content-center mt-3" *ngIf="authService.isAuthenticated()">
                 <button
                   type="button"
                   name="button"
                   class="btn btn-primary"
-                  (click)="deleteToy(element.toyId)"
-                >
+                  (click)="deleteToy(element.toyId)">
                   Delete
                 </button>
               </div>
