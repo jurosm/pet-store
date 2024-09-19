@@ -8,13 +8,12 @@
     aria-controls="navbarCollapse"
     aria-expanded="false"
     aria-label="Toggle"
-    (click)="toggleNavbar()"
-  >
+    (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarCollapse" [ngClass]="{ show: navbarOpen }">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" routerLink="/" (click)="toggleNavbar()">Home</a>
       </li>
@@ -61,6 +60,17 @@
           >Categories</a
         >
       </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          routerLink="/"
+          *ngIf="authService.isAuthenticated()"
+          (click)="authService.logout()"
+          (click)="toggleNavbar()"
+          >Logout</a
+        >
+      </li>
     </ul>
     <ul class="nav ms-auto me-3">
       <li class="nav-item me-3">
@@ -69,7 +79,8 @@
             type="button"
             name="button"
             class="btn btn-primary"
-            (click)="router.navigate(['/order'])">
+            (click)="router.navigate(['/order'])"
+            (click)="toggleNavbar()">
             Pay
           </button>
         </div>
@@ -81,18 +92,6 @@
           style="color: #dddddd"
           *ngIf="!authService.isAuthenticated()"
           >{{ orderService.numberOfItems() }}</i
-        >
-      </li>
-
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          data-toggle="collapse"
-          routerLink="/"
-          *ngIf="authService.isAuthenticated()"
-          (click)="authService.logout()"
-          (click)="toggleNavbar()"
-          >Logout</a
         >
       </li>
     </ul>

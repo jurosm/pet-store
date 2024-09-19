@@ -30,7 +30,7 @@ export class ToysComponent {
   ) {
     this.pageSizeList = Array(9)
       .fill(0)
-      .map((x, i) => i)
+      .map((_x, i) => i)
     this.pageSizeList = this.pageSizeList.slice(2)
 
     this.searchForm = new FormGroup({
@@ -51,7 +51,7 @@ export class ToysComponent {
       this.toys = res
       this.numberOfPagesList = Array(res.numberOfPages)
         .fill(0)
-        .map((x, i) => i)
+        .map((_x, i) => i)
     })
   }
 
@@ -66,7 +66,7 @@ export class ToysComponent {
   }
 
   deleteToy(toyId: number) {
-    this.api.deleteToy(toyId).subscribe(res => {
+    this.api.deleteToy(toyId).subscribe(_res => {
       this.toys.items = this.toys.items.filter(el => el.toyId !== toyId)
     })
   }

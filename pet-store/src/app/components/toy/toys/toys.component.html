@@ -2,66 +2,62 @@
 
 <form [formGroup]="searchForm">
   <div class="container">
-    <ul class="nav nav-pills">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-control">
-            <select [(ngModel)]="getToyParams.order" formControlName="order" (change)="filter()">
-              <option [ngValue]="0">Order by price</option>
-              <option [ngValue]="1">Ascending</option>
-              <option [ngValue]="2">Descending</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-control">
-            <select
-              [(ngModel)]="getToyParams.category"
-              formControlName="category"
-              (change)="filter()">
-              <option [ngValue]="0">All categories</option>
-              <option *ngFor="let category of categories" [ngValue]="category.categoryId">
-                {{ category.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-control">
-            <select
-              [(ngModel)]="getToyParams.pageSize"
-              formControlName="pageSize"
-              (change)="filter()">
-              <option [ngValue]="0">Choose page size</option>
-              <option *ngFor="let number of pageSizeList" [ngValue]="number + 1">
-                {{ number + 1 }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <li>
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Search by name"
-              aria-label="Search"
-              [(ngModel)]="getToyParams.matchName"
-              formControlName="matchName"
-              (keydown)="onKeyDown($event)" />
-          </li>
-        </div>
-
-        <div class="col-md-4">
-          <li>
-            <button class="btn btn-outline-success" type="submit" (click)="filter()">Search</button>
-          </li>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-control">
+          <select [(ngModel)]="getToyParams.order" formControlName="order" (change)="filter()">
+            <option [ngValue]="0">Order by price</option>
+            <option [ngValue]="1">Ascending</option>
+            <option [ngValue]="2">Descending</option>
+          </select>
         </div>
       </div>
-    </ul>
+
+      <div class="col-md-3">
+        <div class="form-control">
+          <select
+            [(ngModel)]="getToyParams.category"
+            formControlName="category"
+            (change)="filter()">
+            <option [ngValue]="0">All categories</option>
+            <option *ngFor="let category of categories" [ngValue]="category.categoryId">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-control">
+          <select
+            [(ngModel)]="getToyParams.pageSize"
+            formControlName="pageSize"
+            (change)="filter()">
+            <option [ngValue]="0">Choose page size</option>
+            <option *ngFor="let number of pageSizeList" [ngValue]="number + 1">
+              {{ number + 1 }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Search by name"
+          aria-label="Search"
+          [(ngModel)]="getToyParams.matchName"
+          formControlName="matchName"
+          (keydown)="onKeyDown($event)" />
+      </div>
+
+      <div class="col-md-4">
+        <button class="btn btn-outline-success" type="submit" (click)="filter()">Search</button>
+      </div>
+    </div>
 
     <hr />
     <div class="row">
@@ -70,17 +66,17 @@
           <div class="card" style="width: 18rem">
             <div class="card-body">
               <h5 class="card-title">
-                <a [routerLink]="['/toys', element.toyId]">Name: {{ element.name }}</a>
+                <a [routerLink]="['/toys', element.toyId]">{{ element.name }}</a>
               </h5>
               <p class="card-text">{{ element.shortDescription }}</p>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item" *ngIf="element.category">
-                Category: {{ element.category }}
+                {{ element.category }}
               </li>
               <li class="list-group-item" *ngIf="!element.category">Category: None</li>
               <li class="list-group-item">
-                Price: {{ element.price }} <i class="fas fa-dollar-sign"></i>
+                {{ element.price }} <i class="fas fa-dollar-sign"></i>
               </li>
               <li class="list-group-item" *ngIf="!authService.isAuthenticated()">
                 In cart: {{ this.service.numberOfItems(element.toyId) }}

@@ -16,7 +16,8 @@
     "noImplicitAny": false,
     "typeRoots": ["node_modules/@types"],
     "lib": ["ES2022", "dom"],
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

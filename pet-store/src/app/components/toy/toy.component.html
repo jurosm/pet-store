@@ -2,11 +2,11 @@
   <div class="row text-center">
     <div class="card" style="width: 18rem">
       <div class="card-body">
-        <h5 class="card-title">Name: {{ toy?.name }}</h5>
-        <p class="card-text">Description: {{ toy?.description }}</p>
+        <h5 class="card-title">{{ toy?.name }}</h5>
+        <p class="card-text">{{ toy?.description }}</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Price: {{ toy?.price }} <i class="fas fa-dollar-sign"></i></li>
+        <li class="list-group-item">{{ toy?.price }} <i class="fas fa-dollar-sign"></i></li>
         <li class="list-group-item">
           This items in cart: {{ this.service.numberOfItems(toy?.toyId) }}
         </li>
