@@ -37,7 +37,7 @@ export class CategoryComponent {
 
   deleteCategory() {
     if (this.category.categoryId !== 0 && this.category.categoryId !== undefined) {
-      this.api.deleteCategory(this.category.categoryId).subscribe(res => {
+      this.api.deleteCategory(this.category.categoryId).subscribe(_res => {
         this.getCategories()
       })
     }
