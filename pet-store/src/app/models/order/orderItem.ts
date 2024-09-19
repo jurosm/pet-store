@@ -1,4 +1,4 @@
 export class OrderItem {
- toyId: number;
- quantity: number;
+  toyId: number
+  quantity: number
 }

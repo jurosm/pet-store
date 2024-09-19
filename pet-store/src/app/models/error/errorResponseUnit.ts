@@ -1,4 +1,4 @@
-export interface ErrorResponseUnit{
-  field: string;
-  message: string;
+export interface ErrorResponseUnit {
+  field: string
+  message: string
 }

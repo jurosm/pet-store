@@ -1,13 +1,14 @@
-declare var process: Process;
+declare var process: Process
 
-interface Process{
-  env: Env;
+interface Process {
+  env: Env
 }
 
-interface Env{
-  API_URL: string;
+interface Env {
+  STRIPE_KEY: string
+  API_URL: string
 }
 
-interface GlobalEnvironment{
-  process: Process;
+interface GlobalEnvironment {
+  process: Process
 }

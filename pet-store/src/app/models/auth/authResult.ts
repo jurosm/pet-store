@@ -1,3 +1,3 @@
 export class AuthResult {
-  jwtToken: string;
+  jwtToken: string
 }

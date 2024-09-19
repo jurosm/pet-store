@@ -6,49 +6,56 @@
       <div class="input-group-append">
         <span class="input-group-text">Name: </span>
       </div>
-      <input type="text" style="text-align:center;" name="" class="form-control" value="" placeholder="" required
-        [(ngModel)]="commentData.author" formControlName="author">
+      <input
+        type="text"
+        style="text-align: center"
+        name=""
+        class="form-control"
+        value=""
+        placeholder=""
+        required
+        [(ngModel)]="commentData.author"
+        formControlName="author" />
     </div>
 
-    <div class="text-danger" *ngIf="commentsForm.controls.author?.errors">
-      Author is required.
-    </div>
+    <div class="text-danger" *ngIf="commentsForm.controls.author?.errors">Author is required.</div>
 
     <div class="input-group mb-3">
       <div class="input-group-append">
         <span class="input-group-text">Description: </span>
       </div>
-      <textarea class="form-control" rows="5" [(ngModel)]="commentData.text" formControlName="text" required>
-    </textarea>
+      <textarea
+        class="form-control"
+        rows="5"
+        [(ngModel)]="commentData.text"
+        formControlName="text"
+        required>
+      </textarea>
     </div>
 
-    <div class="text-danger" *ngIf="commentsForm.controls.text?.errors">
-      Text is required.
-    </div>
+    <div class="text-danger" *ngIf="commentsForm.controls.text?.errors">Text is required.</div>
 
     <div class="d-flex justify-content-center mt-3">
-      <input type="button" class="btn btn-primary btn-lg" value="Submit" (click)="submitComment()"
+      <input
+        type="button"
+        class="btn btn-primary btn-lg"
+        value="Submit"
+        (click)="submitComment()"
         [disabled]="!commentsForm.valid" />
     </div>
-
   </form>
 
   <hr />
 
-  <h4>Comments: </h4>
+  <h4>Comments:</h4>
 
   <div>
     <div class="card mt-4" *ngFor="let element of comments">
-      <div class="card-header">
-        Author: {{element.author}}
-      </div>
-      <div class="card-body">
-        Text: {{element.text}}
-      </div>
+      <div class="card-header">Author: {{ element.author }}</div>
+      <div class="card-body">Text: {{ element.text }}</div>
       <div class="card-footer">
-        <small class="text-muted mr-0"> Posted : {{element.datePosted | date}} </small>
+        <small class="text-muted mr-0"> Posted : {{ element.datePosted | date }} </small>
       </div>
     </div>
   </div>
-
 </div>

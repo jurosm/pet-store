@@ -12,16 +12,11 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "types" : ["node"],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
-    "noUnusedLocals": true,
-
+    "types": ["node"],
+    "noImplicitAny": false,
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ES2022", "dom"],
+    "noUnusedLocals": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
