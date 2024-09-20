@@ -3,16 +3,18 @@
 **SPA** toy shop application for pets!
 
 ## Features
-- .NET Core 3.1
-- Angular  8.2.14
-- PostgreSQL 12 - petstoredb.sql file in PetStore.API folder
-- Docker 19.03.5
+
+- .NET 8
+- Angular 18
+- PostgreSQL
+- Docker
 - Auth0
-- Stripe testing 
+- Stripe testing
 
 ## Environment variables
 
 ### .NET Core
+
 - DB_CONNECTION_STRING
 - AUTH0_DOMAIN
 - AUTH0_AUDIENCE
@@ -21,7 +23,10 @@
 - STRIPE_SECRET
 
 ### Angular
-- API_URL
+
+- API_URL, base url of the pet store API
+- STRIPE_KEY, the stripe publishable key
 
 ## Licence
+
 MIT
