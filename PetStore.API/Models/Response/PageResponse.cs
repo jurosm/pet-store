@@ -9,7 +9,7 @@ namespace PetStore.API.Models.Response
 
         public PageResponse()
         {
-            this.Items = new List<T>();
+            Items = new List<T>();
         }
     }
 }

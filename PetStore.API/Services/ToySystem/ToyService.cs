@@ -14,23 +14,23 @@ namespace PetStore.API.Services.ToySystem
 {
     public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRepository categoryRepository)
     {
-        readonly ToyRepository ToyRepository = toyRepository;
-        readonly CategoryRepository CategoryRepository = categoryRepository;
-        readonly IMapper Mapper = mapper;
+        private readonly ToyRepository _toyRepository = toyRepository;
+        private readonly CategoryRepository _categoryRepository = categoryRepository;
+        private readonly IMapper _mapper = mapper;
 
         public ToysResponse GetToysPage(int pageSize, int page, ToyOrder order, string match, int? category)
         {
-            IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(Mapper.Map<CategoryUnit>);
+            IEnumerable<CategoryUnit> categories = _categoryRepository.ReadAll().Select(_mapper.Map<CategoryUnit>);
             ToysResponse response = new()
             {
                 Categories = categories
             };
 
-            PagedResult<Toy> toys = ToyRepository.GetToysPaged(pageSize, page, order, match, category);
+            PagedResult<Toy> toys = _toyRepository.GetToysPaged(pageSize, page, order, match, category);
 
             if (toys.Results != null)
             {
-                response.Items = toys.Results.Select(Mapper.Map<ToyUnit>);
+                response.Items = toys.Results.Select(_mapper.Map<ToyUnit>);
                 response.NumberOfPages = toys.PageCount;
                 return response;
             }
@@ -40,23 +40,23 @@ namespace PetStore.API.Services.ToySystem
 
         public async Task AddToyAsync(ToyData toyUnit)
         {
-            await ToyRepository.AddToyAsync(toyUnit);
+            await _toyRepository.AddToyAsync(toyUnit);
         }
 
         public async Task UpdateToyAsync(ToyData toy, int id)
         {
-            await ToyRepository.UpdateToyAsync(toy, id);
+            await _toyRepository.UpdateToyAsync(toy, id);
         }
 
         public ToyResponse GetToy(int id)
         {
-            Toy toy = ToyRepository.GetToyById(id);
-            return toy != null ? Mapper.Map<ToyResponse>(toy) : throw new FileNotFoundException();
+            Toy toy = _toyRepository.GetToyById(id);
+            return toy != null ? _mapper.Map<ToyResponse>(toy) : throw new FileNotFoundException();
         }
 
         public async Task DeleteToyAsync(int id)
         {
-            await ToyRepository.DeleteAsync(id);
+            await _toyRepository.DeleteAsync(id);
         }
     }
 }

@@ -12,19 +12,19 @@ namespace PetStore.API.Controllers
 
     public class OrderController(OrderService orderService) : BaseApiController
     {
-        private readonly OrderService OrderService = orderService;
+        private readonly OrderService _orderService = orderService;
 
         [HttpGet]
         [Authorize]
         public IEnumerable<OrderListItem> GetAllOrders()
         {
-            return OrderService.GetAllOrders();
+            return _orderService.GetAllOrders();
         }
 
         [HttpPost("buy")]
         public async Task<IActionResult> Buy([FromBody] OrderRequest orderRequest)
         {
-            return Ok(await OrderService.Buy(orderRequest));
+            return Ok(await _orderService.Buy(orderRequest));
         }
     }
 }

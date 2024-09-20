@@ -18,7 +18,7 @@ namespace PetStore.API.Services.ToySystem
 
     public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Repository<Toy>(context)
     {
-        readonly IMapper Mapper = mapper;
+        private readonly IMapper _mapper = mapper;
 
         public PagedResult<Toy> GetToysPaged(int pageSize, int page, ToyOrder order, string match, int? category)
         {
@@ -57,7 +57,7 @@ namespace PetStore.API.Services.ToySystem
 
         public async Task AddToyAsync(ToyData toyUnit)
         {
-            Toy toy = Mapper.Map<Toy>(toyUnit);
+            Toy toy = _mapper.Map<Toy>(toyUnit);
             Category category = Context.PSContext.Category.FirstOrDefault(x => x.CategoryId == toyUnit.CategoryId);
             if (category != null) category.Toy.Add(toy);
             else
@@ -70,7 +70,7 @@ namespace PetStore.API.Services.ToySystem
 
         public async Task UpdateToyAsync(ToyData toyData, int id)
         {
-            Toy toy = Mapper.Map<Toy>(toyData);
+            Toy toy = _mapper.Map<Toy>(toyData);
             toy.ToyId = id;
 
             if (toyData.CategoryId != null)

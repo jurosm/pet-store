@@ -10,27 +10,27 @@ namespace PetStore.API.Services.CategorySystem
 {
     public class CategoryService(CategoryRepository categoryRepository, IMapper mapper)
     {
-        private readonly IMapper Mapper = mapper;
-        private readonly CategoryRepository CategoryRepository = categoryRepository;
+        private readonly IMapper _mapper = mapper;
+        private readonly CategoryRepository _categoryRepository = categoryRepository;
 
         public IEnumerable<CategoryUnit> GetAll()
         {
-            return CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
+            return _categoryRepository.ReadAll().Select(_mapper.Map<CategoryUnit>);
         }
 
         public async Task AddAsync(CategoryUpdateRequest name)
         {
-            await CategoryRepository.CreateAsync(new Category() { Name = name.Name });
+            await _categoryRepository.CreateAsync(new Category() { Name = name.Name });
         }
 
         public async Task DeleteAsync(int id)
         {
-            await CategoryRepository.DeleteAsync(id);
+            await _categoryRepository.DeleteAsync(id);
         }
 
         public async Task EditAsync(int id, CategoryUpdateRequest request)
         {
-            await CategoryRepository.UpdateAsync(new Category() { Name = request.Name, CategoryId = id });
+            await _categoryRepository.UpdateAsync(new Category() { Name = request.Name, CategoryId = id });
         }
     }
 }

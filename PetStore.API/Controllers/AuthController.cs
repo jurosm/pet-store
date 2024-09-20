@@ -9,12 +9,12 @@ namespace PetStore.API.Controllers
     [Route("/auth")]
     public class AuthController(AuthService authService) : BaseApiController
     {
-        private readonly AuthService AuthService = authService;
+        private readonly AuthService _authService = authService;
 
         [HttpPost("login")]
         public async Task<LoginResponse> Login([FromBody] LoginRequest loginRequest)
         {
-            return await AuthService.LoginUser(loginRequest);
+            return await _authService.LoginUser(loginRequest);
         }
     }
 }

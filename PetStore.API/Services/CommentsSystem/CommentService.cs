@@ -10,17 +10,17 @@ namespace PetStore.API.Services.CommentsSystem
 {
     public class CommentService(CommentRepository commentRepository, IMapper mapper)
     {
-        private readonly CommentRepository CommentRepository = commentRepository;
-        private readonly IMapper Mapper = mapper;
+        private readonly CommentRepository _commentRepository = commentRepository;
+        private readonly IMapper _mapper = mapper;
 
         public IEnumerable<CommentsUnit> GetCommentsFromToy(int toyId)
         {
-            return CommentRepository.GetCommentsFromToy(toyId).Select(x => Mapper.Map<CommentsUnit>(x));
+            return _commentRepository.GetCommentsFromToy(toyId).Select(x => _mapper.Map<CommentsUnit>(x));
         }
 
         public async Task CreateCommentAsync(CommentData commentData)
         {
-            await CommentRepository.CreateAsync(Mapper.Map<Comment>(commentData));
+            await _commentRepository.CreateAsync(_mapper.Map<Comment>(commentData));
         }
     }
 }
