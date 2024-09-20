@@ -1,7 +1,7 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PetStore.API.Models.Response.ExternalServices;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Services.ExternalServices
 {

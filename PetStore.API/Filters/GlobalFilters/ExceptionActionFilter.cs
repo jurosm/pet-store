@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using PetStore.API.Exceptions.Services.Order;
 using PetStore.API.Models.Response;
-using System;
 using System.IO;
 
 namespace PetStore.API.Filters.GlobalFilters
@@ -35,7 +34,6 @@ namespace PetStore.API.Filters.GlobalFilters
                         break;
 
                     default:
-                        Console.WriteLine(context.Exception.Message);
                         context.Result = new StatusCodeResult(500);
                         break;
                 }

@@ -1,5 +1,5 @@
-﻿using PetStore.API.Db;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using PetStore.API.Db;
 using System;
 using System.Reflection;
 

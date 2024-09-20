@@ -1,7 +1,7 @@
-﻿using PetStore.API.Filters.GlobalFilters;
-using PetStore.API.Models.Response;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using PetStore.API.Filters.GlobalFilters;
+using PetStore.API.Models.Response;
 
 namespace PetStore.API.Controllers
 {

@@ -8,8 +8,8 @@ using PetStore.API.Models.Response.Order;
 using PetStore.API.Models.Services.Order;
 using PetStore.API.Services.ExternalServices;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Services.OrderSystem
 {

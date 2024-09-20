@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Models.Response.Order;
 using PetStore.API.Services.OrderSystem;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Controllers
 {

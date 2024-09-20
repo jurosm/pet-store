@@ -1,8 +1,8 @@
 ﻿using Auth0.AuthenticationApi;
-using System.Threading.Tasks;
+using Auth0.AuthenticationApi.Models;
 using PetStore.API.Models.Request.Auth;
 using PetStore.API.Models.Response.Auth;
-using Auth0.AuthenticationApi.Models;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Services.AuthenticationSystem
 {

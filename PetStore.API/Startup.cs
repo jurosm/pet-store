@@ -1,15 +1,15 @@
+using AspNetCoreRateLimit;
 using CodeSpaceBlog.API.Db;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PetStore.API.Controllers;
 using PetStore.API.Filters.GlobalFilters;
 using PetStore.API.Services;
 using PetStore.API.Services.AuthenticationSystem;
-using Microsoft.AspNetCore.Http;
 using PetStore.API.Services.ExternalServices;
-using AspNetCoreRateLimit;
 using System.Reflection;
 
 namespace PetStore.API

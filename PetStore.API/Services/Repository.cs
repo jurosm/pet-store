@@ -1,10 +1,10 @@
-﻿using System;
+﻿using PetStore.API.Helper.Pagination;
+using PetStore.API.Services.CRUD;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using PetStore.API.Services.CRUD;
-using PetStore.API.Helper.Pagination;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Services
 {

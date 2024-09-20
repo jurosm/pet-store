@@ -1,11 +1,11 @@
-﻿using PetStore.API.Db;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PetStore.API.Db;
+using PetStore.API.Helper.Pagination;
+using PetStore.API.Models.Request.Toy;
 using PetStore.API.Services.CRUD;
 using System.Linq;
 using System.Threading.Tasks;
-using PetStore.API.Helper.Pagination;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using PetStore.API.Models.Request.Toy;
 
 namespace PetStore.API.Services.ToySystem
 {
