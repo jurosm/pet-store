@@ -1,7 +1,7 @@
-﻿using PetStore.API.Db;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using PetStore.API.Db;
 using PetStore.API.Helper;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Services.CRUD
 {

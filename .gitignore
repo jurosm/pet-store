@@ -397,3 +397,5 @@ testem.log
 Thumbs.db
 
 docker-compose.yaml
+/PetStore.API/userLaunchSettings.json
+/PetStore.API/env.sh

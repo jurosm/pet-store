@@ -18,9 +18,9 @@ namespace PetStore.API.Services.ToySystem
         readonly CategoryRepository CategoryRepository = categoryRepository;
         readonly IMapper Mapper = mapper;
 
-        public ToysResponse GetToysPage(int pageSize, int page, int order, string match, int category)
+        public ToysResponse GetToysPage(int pageSize, int page, ToyOrder order, string match, int? category)
         {
-            IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
+            IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(Mapper.Map<CategoryUnit>);
             ToysResponse response = new()
             {
                 Categories = categories
@@ -30,7 +30,7 @@ namespace PetStore.API.Services.ToySystem
 
             if (toys.Results != null)
             {
-                response.Items = toys.Results.Select(x => { return Mapper.Map<ToyUnit>(x); });
+                response.Items = toys.Results.Select(Mapper.Map<ToyUnit>);
                 response.NumberOfPages = toys.PageCount;
                 return response;
             }

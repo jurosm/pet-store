@@ -1,33 +1,52 @@
-﻿using PetStore.API.Db;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PetStore.API.Db;
+using PetStore.API.Helper.Pagination;
+using PetStore.API.Models.Request.Toy;
 using PetStore.API.Services.CRUD;
 using System.Linq;
 using System.Threading.Tasks;
-using PetStore.API.Helper.Pagination;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using PetStore.API.Models.Request.Toy;
 
 namespace PetStore.API.Services.ToySystem
 {
+    public enum ToyOrder
+    {
+        None = 0,
+        Ascending = 1,
+        Descending = 2
+    }
+
     public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Repository<Toy>(context)
     {
         readonly IMapper Mapper = mapper;
 
-        public PagedResult<Toy> GetToysPaged(int pageSize, int page, int order, string match, int category)
+        public PagedResult<Toy> GetToysPaged(int pageSize, int page, ToyOrder order, string match, int? category)
         {
-            if (order == 1)
+            IQueryable<Toy> baseQuery = Context.Table.Include(x => x.Category);
+
+            if (!string.IsNullOrEmpty(match))
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderBy(x => x.Price), page, pageSize);
+                baseQuery = baseQuery.Where(x => EF.Functions.ILike(x.Name, match));
             }
 
-            else if (order == 2)
+            if (category.HasValue)
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
+                baseQuery = baseQuery.Where(x => x.CategoryId == category);
+            }
+
+            if (order == ToyOrder.Ascending)
+            {
+                return PagedResult<Toy>.GetPaged(baseQuery.OrderBy(x => x.Price), page, pageSize);
+            }
+
+            else if (order == ToyOrder.Descending)
+            {
+                return PagedResult<Toy>.GetPaged(baseQuery.OrderByDescending(x => x.Price), page, pageSize);
             }
 
             else
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)), page, pageSize);
+                return PagedResult<Toy>.GetPaged(baseQuery, page, pageSize);
             }
         }
 

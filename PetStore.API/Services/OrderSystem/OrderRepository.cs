@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using PetStore.API.Db;
 using PetStore.API.Models.Request.Order;
 using PetStore.API.Services.CRUD;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PetStore.API.Services.OrderSystem
 {

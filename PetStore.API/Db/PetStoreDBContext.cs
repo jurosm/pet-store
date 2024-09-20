@@ -35,7 +35,7 @@ namespace PetStore.API.Db
                 entity.ToTable("Comment", "petstore");
 
                 entity.HasIndex(e => e.ToyId)
-                    .HasName("fki_Comment_Toy");
+                    .HasDatabaseName("fki_Comment_Toy");
 
                 entity.Property(e => e.Author)
                     .IsRequired()
@@ -91,10 +91,10 @@ namespace PetStore.API.Db
                 entity.ToTable("OrderItem", "petstore");
 
                 entity.HasIndex(e => e.OrderId)
-                    .HasName("fki_OrderItem_Order");
+                    .HasDatabaseName("fki_OrderItem_Order");
 
                 entity.HasIndex(e => e.ToyId)
-                    .HasName("fki_OrderItem_Toy");
+                    .HasDatabaseName("fki_OrderItem_Toy");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItem)
@@ -114,7 +114,7 @@ namespace PetStore.API.Db
                 entity.ToTable("Toy", "petstore");
 
                 entity.HasIndex(e => e.CategoryId)
-                    .HasName("fki_OrderItem_Category");
+                    .HasDatabaseName("fki_OrderItem_Category");
 
                 entity.Property(e => e.Description).IsRequired();
 

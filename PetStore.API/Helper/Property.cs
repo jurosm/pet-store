@@ -1,5 +1,5 @@
-﻿using PetStore.API.Db;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using PetStore.API.Db;
 using System;
 using System.Reflection;
 
@@ -7,12 +7,6 @@ namespace PetStore.API.Helper
 {
     public class Property<T> where T : class
     {
-        public static T Change(Action<T> action, T entity)
-        {
-            action(entity);
-            return entity;
-        }
-
         public static DbSet<T> AccessOnCompile(PetStoreDBContext context)
         {
             Assembly executing = Assembly.GetExecutingAssembly();
