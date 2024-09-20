@@ -1,5 +1,4 @@
 using AspNetCoreRateLimit;
-using CodeSpaceBlog.API.Db;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +10,8 @@ using PetStore.API.Services;
 using PetStore.API.Services.AuthenticationSystem;
 using PetStore.API.Services.ExternalServices;
 using System.Reflection;
+using PetStoreService.Persistence;
+using PetStoreService.Application.Services.AuthenticationSystem;
 
 namespace PetStore.API
 {
@@ -30,6 +31,7 @@ namespace PetStore.API
                     .AllowAnyHeader());
             });
 
+            services.AddSingleton<AuthSettings>();
             services.AddSingleton<EnvironmentConfigurations>();
 
             services.AddMemoryCache();
@@ -52,7 +54,7 @@ namespace PetStore.API
 
             services.AddMyTOCServices();
 
-            services.AddAuth0AuthenticationServices(_envVariables.Auth0Domain, _envVariables.Auth0Audience);
+            services.AddAuth0AuthenticationServices(_envVariables.AuthSettings.Auth0Domain, _envVariables.AuthSettings.Auth0Audience);
 
             services.AddAuthorization();
 
