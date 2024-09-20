@@ -45,7 +45,7 @@ namespace PetStore.API.Services
 
         public IEnumerable<T> ReadAll()
         {
-            return Context.Table as IEnumerable<T>;
+            return Context.Table;
         }
 
         public T ReadOne(Expression<Func<T, bool>> predicate)
@@ -62,7 +62,7 @@ namespace PetStore.API.Services
 
         public async Task DeleteAsync(int id)
         {
-            var res = Context.Table.Remove(await Context.Table.FindAsync(id));
+            Context.Table.Remove(await Context.Table.FindAsync(id));
             await Context.SaveChangesAsync();
         }
 

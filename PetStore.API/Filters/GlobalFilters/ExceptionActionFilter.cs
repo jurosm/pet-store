@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using PetStore.API.Exceptions.Services.Order;
 using PetStore.API.Models.Response;
+using System;
 using System.IO;
 
 namespace PetStore.API.Filters.GlobalFilters
 {
     public class ExceptionActionFilter : ActionFilterAttribute, IExceptionFilter
     {
-        public ExceptionActionFilter() { }
         public void OnException(ExceptionContext context)
         {
             if (context.Exception != null)
@@ -18,9 +18,9 @@ namespace PetStore.API.Filters.GlobalFilters
                 switch (context.Exception)
                 {
                     case Auth0.Core.Exceptions.ApiException _:
-                        Auth0.Core.Exceptions.ApiException res = (context.Exception as Auth0.Core.Exceptions.ApiException);
-                        context.HttpContext.Response.StatusCode = res.ApiError.StatusCode;
-                        context.Result = new JsonResult(new MessageResponse { Message = res.ApiError.Message });
+                        Auth0.Core.Exceptions.ApiException res = context.Exception as Auth0.Core.Exceptions.ApiException;
+                        context.HttpContext.Response.StatusCode = 401;
+                        context.Result = new JsonResult(new MessageResponse { Message = res.Message });
                         break;
 
                     case FileNotFoundException _:
@@ -35,6 +35,7 @@ namespace PetStore.API.Filters.GlobalFilters
                         break;
 
                     default:
+                        Console.WriteLine(context.Exception.Message);
                         context.Result = new StatusCodeResult(500);
                         break;
                 }
