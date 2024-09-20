@@ -20,7 +20,6 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "DB_CONNECTION_STRING": "Server=localhost;Database=PetStoreDB;Username=postgres;Password=postgres",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5001;http://localhost:5000"

@@ -18,7 +18,7 @@ namespace PetStore.API.Services.ToySystem
         readonly CategoryRepository CategoryRepository = categoryRepository;
         readonly IMapper Mapper = mapper;
 
-        public ToysResponse GetToysPage(int pageSize, int page, int order, string match, int category)
+        public ToysResponse GetToysPage(int pageSize, int page, ToyOrder order, string match, int? category)
         {
             IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(Mapper.Map<CategoryUnit>);
             ToysResponse response = new()
