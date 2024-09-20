@@ -5,7 +5,6 @@ using PetStore.API.Models.Request.Toy;
 using PetStore.API.Models.Response.Category;
 using PetStore.API.Models.Response.Toy;
 using PetStore.API.Services.CategorySystem;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,9 +20,7 @@ namespace PetStore.API.Services.ToySystem
 
         public ToysResponse GetToysPage(int pageSize, int page, int order, string match, int category)
         {
-
-Console.WriteLine("lkajfkldjjf");
-            IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(x => Mapper.Map<CategoryUnit>(x));
+            IEnumerable<CategoryUnit> categories = CategoryRepository.ReadAll().Select(Mapper.Map<CategoryUnit>);
             ToysResponse response = new()
             {
                 Categories = categories

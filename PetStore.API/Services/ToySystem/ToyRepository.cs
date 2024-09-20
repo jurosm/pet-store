@@ -17,17 +17,17 @@ namespace PetStore.API.Services.ToySystem
         {
             if (order == 1)
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderBy(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => EF.Functions.ILike(x.Name, match) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderBy(x => x.Price), page, pageSize);
             }
 
             else if (order == 2)
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => EF.Functions.ILike(x.Name, match) && (x.CategoryId == category || x.Category == null || category <= 0)).OrderByDescending(x => x.Price), page, pageSize);
             }
 
             else
             {
-                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => x.Name.Contains(match, System.StringComparison.CurrentCultureIgnoreCase) && (x.CategoryId == category || x.Category == null || category <= 0)), page, pageSize);
+                return PagedResult<Toy>.GetPaged(Context.Table.Include(x => x.Category).Where(x => EF.Functions.ILike(x.Name, match) && (x.CategoryId == category || x.Category == null || category <= 0)), page, pageSize);
             }
         }
 

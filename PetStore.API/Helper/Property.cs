@@ -7,12 +7,6 @@ namespace PetStore.API.Helper
 {
     public class Property<T> where T : class
     {
-        public static T Change(Action<T> action, T entity)
-        {
-            action(entity);
-            return entity;
-        }
-
         public static DbSet<T> AccessOnCompile(PetStoreDBContext context)
         {
             Assembly executing = Assembly.GetExecutingAssembly();
