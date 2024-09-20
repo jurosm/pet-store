@@ -10,11 +10,11 @@ namespace PetStore.API.Services.OrderSystem
 {
     public class OrderRepository(ContextWrapper<Order> context, IMapper mapper) : Repository<Order>(context)
     {
-        private readonly IMapper Mapper = mapper;
+        private readonly IMapper _mapper = mapper;
 
         public bool CheckValidOrder(List<OrderItemRequest> orderItems)
         {
-            List<OrderItemRequest> toys = [.. Context.PSContext.Toy.Select(x => Mapper.Map<OrderItemRequest>(x))];
+            List<OrderItemRequest> toys = [.. Context.PSContext.Toy.Select(_mapper.Map<OrderItemRequest>)];
             return orderItems.All(x => toys.Any(y => (y.ToyId == x.ToyId) && (y.Quantity >= x.Quantity)));
         }
 

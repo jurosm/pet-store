@@ -11,33 +11,33 @@ namespace PetStore.API.Controllers
     [Route("/categories")]
     public class CategoryController(CategoryService categoryService) : BaseApiController
     {
-        private readonly CategoryService CategoryService = categoryService;
+        private readonly CategoryService _categoryService = categoryService;
 
         [HttpGet]
         public IEnumerable<CategoryUnit> GetAll()
         {
-            return CategoryService.GetAll();
+            return _categoryService.GetAll();
         }
 
         [Authorize]
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            await CategoryService.DeleteAsync(id);
+            await _categoryService.DeleteAsync(id);
         }
 
         [Authorize]
         [HttpPost]
         public async Task Add([FromBody] CategoryUpdateRequest name)
         {
-            await CategoryService.AddAsync(name);
+            await _categoryService.AddAsync(name);
         }
 
         [Authorize]
         [HttpPost("edit/{id}")]
         public async Task Edit(int id, [FromBody] CategoryUpdateRequest name)
         {
-            await CategoryService.EditAsync(id, name);
+            await _categoryService.EditAsync(id, name);
         }
     }
 }

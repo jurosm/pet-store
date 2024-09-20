@@ -10,18 +10,18 @@ namespace PetStore.API.Controllers
     [Route("/comments")]
     public class CommentController(CommentService commentService) : BaseApiController
     {
-        private readonly CommentService CommentService = commentService;
+        private readonly CommentService _commentService = commentService;
 
         [HttpGet("{toyId}")]
         public IEnumerable<CommentsUnit> GetComments(int toyId)
         {
-            return CommentService.GetCommentsFromToy(toyId);
+            return _commentService.GetCommentsFromToy(toyId);
         }
 
         [HttpPost]
         public async Task CreateComment([FromBody] CommentData commentData)
         {
-            await CommentService.CreateCommentAsync(commentData);
+            await _commentService.CreateCommentAsync(commentData);
         }
     }
 }

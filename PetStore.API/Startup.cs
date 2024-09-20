@@ -16,7 +16,7 @@ namespace PetStore.API
 {
     public class Startup(IConfiguration configuration)
     {
-        private readonly EnvironmentConfigurations EnvVariables = new();
+        private readonly EnvironmentConfigurations _envVariables = new();
 
         public IConfiguration Configuration { get; } = configuration;
 
@@ -40,7 +40,7 @@ namespace PetStore.API
 
             services.AddScoped<ExceptionActionFilter>();
 
-            services.AddExternalServices(EnvVariables.StripeSecret);
+            services.AddExternalServices(_envVariables.StripeSecret);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -48,11 +48,11 @@ namespace PetStore.API
 
             services.AddCors();
 
-            services.AddPetStoreDBServices(EnvVariables.DBConnectionString);
+            services.AddPetStoreDBServices(_envVariables.DBConnectionString);
 
             services.AddMyTOCServices();
 
-            services.AddAuth0AuthenticationServices(EnvVariables.Auth0Domain, EnvVariables.Auth0Audience);
+            services.AddAuth0AuthenticationServices(_envVariables.Auth0Domain, _envVariables.Auth0Audience);
 
             services.AddAuthorization();
 
