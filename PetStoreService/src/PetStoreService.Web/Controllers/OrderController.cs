@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PetStoreService.Web.Controllers
 {
-    [Route("/orders")]
+    [Route("/order")]
 
     public class OrderController(OrderService orderService) : BaseApiController
     {
@@ -16,9 +16,9 @@ namespace PetStoreService.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public IEnumerable<OrderListItem> GetAllOrders()
+        public ActionResult<IEnumerable<OrderListItem>> GetAllOrders()
         {
-            return _orderService.GetAllOrders();
+            return Ok(_orderService.GetAllOrders());
         }
 
         [HttpPost("buy")]
