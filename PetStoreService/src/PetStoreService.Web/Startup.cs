@@ -22,6 +22,9 @@ public class Startup(IConfiguration configuration)
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
         services.AddHttpLogging(options => { });
         services.AddCors(options =>
         {
@@ -59,6 +62,9 @@ public class Startup(IConfiguration configuration)
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
         app.UseHttpLogging();
 
         app.UseCors("CorsPolicy");
