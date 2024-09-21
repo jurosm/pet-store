@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-using PetStoreService.Persistence;
-using PetStoreService.Application.Services.AuthenticationSystem;
-using PetStoreService.Web.Filters.GlobalFilters;
-using PetStoreService.Web.Controllers;
-using PetStoreService.Application.Services.ExternalServices;
-using PetStoreService.Application.Services;
 using PetStoreService.Application.Models.Response.Toy;
+using PetStoreService.Application.Services;
+using PetStoreService.Application.Services.AuthenticationSystem;
+using PetStoreService.Application.Services.ExternalServices;
+using PetStoreService.Persistence;
+using PetStoreService.Web.Controllers;
+using PetStoreService.Web.Filters.GlobalFilters;
+using System.Reflection;
 
 namespace PetStoreService.Web;
 
