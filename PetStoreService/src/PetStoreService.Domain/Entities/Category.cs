@@ -1,17 +1,14 @@
-﻿using System.Collections.Generic;
+﻿namespace PetStoreService.Domain.Entities;
 
-namespace PetStoreService.Domain.Entities
+public partial class Category
 {
-    public partial class Category
+    public Category()
     {
-        public Category()
-        {
-            Toy = [];
-        }
-
-        public int CategoryId { get; set; }
-        public string Name { get; set; }
-
-        public virtual ICollection<Toy> Toy { get; set; }
+        Toy = [];
     }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public virtual ICollection<Toy> Toy { get; set; }
 }

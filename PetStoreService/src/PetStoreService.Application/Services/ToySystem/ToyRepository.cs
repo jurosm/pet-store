@@ -49,13 +49,13 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
 
     public Toy GetToyById(int id)
     {
-        return Context.Table.Include(x => x.Category).FirstOrDefault(x => x.ToyId == id);
+        return Context.Table.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
     }
 
-    public async Task AddToyAsync(ToyData toyUnit)
+    public async Task<Toy> AddToyAsync(ToyData toyUnit)
     {
         Toy toy = _mapper.Map<Toy>(toyUnit);
-        Category category = Context.PSContext.Category.FirstOrDefault(x => x.CategoryId == toyUnit.CategoryId);
+        Category category = Context.PSContext.Category.FirstOrDefault(x => x.Id == toyUnit.CategoryId);
         if (category != null) category.Toy.Add(toy);
         else
         {
@@ -63,21 +63,25 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
             Context.Table.Add(toy);
         }
         await Context.SaveChangesAsync();
+
+        return toy;
     }
 
-    public async Task UpdateToyAsync(ToyData toyData, int id)
+    public async Task<Toy> UpdateToyAsync(ToyData toyData, int id)
     {
         Toy toy = _mapper.Map<Toy>(toyData);
-        toy.ToyId = id;
+        toy.Id = id;
 
         if (toyData.CategoryId != null)
         {
-            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.CategoryId == toyData.CategoryId);
+            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.Id == toyData.CategoryId);
             if (category == null) { toy.CategoryId = null; }
         }
         else toy.CategoryId = null;
 
         Context.Table.Update(toy);
         await Context.SaveChangesAsync();
+
+        return toy;
     }
 }
