@@ -1,5 +1,4 @@
-﻿
-using Auth0.AuthenticationApi;
+﻿using Auth0.AuthenticationApi;
 using Auth0.AuthenticationApi.Models;
 using Microsoft.AspNetCore.Identity.Data;
 using PetStoreService.Application.Models.Response.Auth;

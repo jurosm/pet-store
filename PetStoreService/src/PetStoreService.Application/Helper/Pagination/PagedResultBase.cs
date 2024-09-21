@@ -17,5 +17,4 @@
             get { return Math.Min(CurrentPage * PageSize, RowCount); }
         }
     }
-
 }

@@ -1,5 +1,4 @@
-﻿
-namespace PetStoreService.Application.Helper.Pagination;
+﻿namespace PetStoreService.Application.Helper.Pagination;
 
 public class PagedResult<T> : PagedResultBase where T : class
 {
