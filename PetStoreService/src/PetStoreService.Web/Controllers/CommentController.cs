@@ -2,26 +2,28 @@
 using PetStoreService.Application.Models.Request.Comment;
 using PetStoreService.Application.Models.Response.Comment;
 using PetStoreService.Application.Services.CommentsSystem;
+using PetStoreService.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PetStoreService.Web.Controllers
 {
-    [Route("/comments")]
+    [Route("/comment")]
     public class CommentController(CommentService commentService) : BaseApiController
     {
         private readonly CommentService _commentService = commentService;
 
-        [HttpGet("{toyId}")]
-        public IEnumerable<CommentsUnit> GetComments(int toyId)
+        [HttpGet]
+        public ActionResult<IEnumerable<CommentsUnit>> GetComments([FromQuery] int toyId)
         {
-            return _commentService.GetCommentsFromToy(toyId);
+            return Ok(_commentService.GetCommentsFromToy(toyId));
         }
 
         [HttpPost]
-        public async Task CreateComment([FromBody] CommentData commentData)
+        public async Task<ActionResult<Comment>> CreateComment([FromBody] CommentData commentData)
         {
-            await _commentService.CreateCommentAsync(commentData);
+            var comment = await _commentService.CreateCommentAsync(commentData);
+            return CreatedAtAction(nameof(CreateComment), comment);
         }
     }
 }

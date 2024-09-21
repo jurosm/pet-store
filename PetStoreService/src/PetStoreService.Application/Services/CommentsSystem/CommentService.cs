@@ -15,8 +15,9 @@ public class CommentService(CommentRepository commentRepository, IMapper mapper)
         return _commentRepository.GetCommentsFromToy(toyId).Select(x => _mapper.Map<CommentsUnit>(x));
     }
 
-    public async Task CreateCommentAsync(CommentData commentData)
+    public async Task<Comment> CreateCommentAsync(CommentData commentData)
     {
-        await _commentRepository.CreateAsync(_mapper.Map<Comment>(commentData));
+        var comment = await _commentRepository.CreateAsync(_mapper.Map<Comment>(commentData));
+        return comment;
     }
 }
