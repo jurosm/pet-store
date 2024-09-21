@@ -3,41 +3,44 @@ using Microsoft.AspNetCore.Mvc;
 using PetStoreService.Application.Models.Request.Category;
 using PetStoreService.Application.Models.Response.Category;
 using PetStoreService.Application.Services.CategorySystem;
+using PetStoreService.Domain.Entities;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PetStoreService.Web.Controllers
 {
-    [Route("/categories")]
+    [Route("/category")]
     public class CategoryController(CategoryService categoryService) : BaseApiController
     {
         private readonly CategoryService _categoryService = categoryService;
 
         [HttpGet]
-        public IEnumerable<CategoryUnit> GetAll()
+        public ActionResult<IEnumerable<CategoryUnit>> GetAll()
         {
-            return _categoryService.GetAll();
+            return Ok(_categoryService.GetAll());
         }
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             await _categoryService.DeleteAsync(id);
+            return new StatusCodeResult((int)HttpStatusCode.NoContent);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task Add([FromBody] CategoryUpdateRequest name)
+        public async Task<ActionResult<Category>> Add([FromBody] CategoryUpdateRequest name)
         {
-            await _categoryService.AddAsync(name);
+            return CreatedAtAction(nameof(Add), await _categoryService.AddAsync(name));
         }
 
         [Authorize]
-        [HttpPost("edit/{id}")]
-        public async Task Edit(int id, [FromBody] CategoryUpdateRequest name)
+        [HttpPost("{id}")]
+        public async Task<ActionResult> Edit(int id, [FromBody] CategoryUpdateRequest name)
         {
-            await _categoryService.EditAsync(id, name);
+            return Ok(await _categoryService.EditAsync(id, name));
         }
     }
 }

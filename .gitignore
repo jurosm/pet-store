@@ -399,3 +399,6 @@ Thumbs.db
 docker-compose.yaml
 /PetStore.API/userLaunchSettings.json
 *env.sh
+
+*coverage.cobertura.xml
+*coveragereport

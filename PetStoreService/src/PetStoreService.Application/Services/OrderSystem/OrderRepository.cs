@@ -16,7 +16,7 @@ public class OrderRepository(ContextWrapper<Order> context, IMapper mapper) : Re
 
     public decimal PricePerOrder(List<OrderItemRequest> orderItems)
     {
-        return orderItems.Sum(x => Context.PSContext.Toy.ToList().Find(y => y.ToyId == x.ToyId).Price * x.Quantity);
+        return orderItems.Sum(x => Context.PSContext.Toy.ToList().Find(y => y.Id == x.ToyId).Price * x.Quantity);
     }
 
     public async Task RemoveItemsAsync(List<OrderItemRequest> orderItems)

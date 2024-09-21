@@ -15,9 +15,9 @@ public class CategoryService(CategoryRepository categoryRepository, IMapper mapp
         return _categoryRepository.ReadAll().Select(_mapper.Map<CategoryUnit>);
     }
 
-    public async Task AddAsync(CategoryUpdateRequest name)
+    public Task<Category> AddAsync(CategoryUpdateRequest name)
     {
-        await _categoryRepository.CreateAsync(new Category() { Name = name.Name });
+        return _categoryRepository.CreateAsync(new Category() { Name = name.Name });
     }
 
     public async Task DeleteAsync(int id)
@@ -25,8 +25,8 @@ public class CategoryService(CategoryRepository categoryRepository, IMapper mapp
         await _categoryRepository.DeleteAsync(id);
     }
 
-    public async Task EditAsync(int id, CategoryUpdateRequest request)
+    public Task<Category> EditAsync(int id, CategoryUpdateRequest request)
     {
-        await _categoryRepository.UpdateAsync(new Category() { Name = request.Name, CategoryId = id });
+        return _categoryRepository.UpdateAsync(new Category() { Name = request.Name, Id = id });
     }
 }
