@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\PetStoreService.Domain\PetStoreService.Domain.csproj" />
+    <ProjectReference Include="..\PetStoreService.Infrastructure\PetStoreService.Infrastructure.csproj" />
+    <ProjectReference Include="..\PetStoreService.Persistence\PetStoreService.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
