@@ -1,82 +1,77 @@
-using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PetStore.API.Controllers;
-using PetStore.API.Filters.GlobalFilters;
-using PetStore.API.Services;
-using PetStore.API.Services.AuthenticationSystem;
-using PetStore.API.Services.ExternalServices;
 using System.Reflection;
 using PetStoreService.Persistence;
 using PetStoreService.Application.Services.AuthenticationSystem;
+using PetStoreService.Web.Filters.GlobalFilters;
+using PetStoreService.Web.Controllers;
+using PetStoreService.Application.Services.ExternalServices;
+using PetStoreService.Application.Services;
+using PetStoreService.Application.Models.Response.Toy;
 
-namespace PetStore.API
+namespace PetStoreService.Web;
+
+public class Startup(IConfiguration configuration)
 {
-    public class Startup(IConfiguration configuration)
+    private readonly EnvironmentConfigurations _envVariables = new();
+
+    public IConfiguration Configuration { get; } = configuration;
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        private readonly EnvironmentConfigurations _envVariables = new();
-
-        public IConfiguration Configuration { get; } = configuration;
-
-        public void ConfigureServices(IServiceCollection services)
+        services.AddHttpLogging(options => { });
+        services.AddCors(options =>
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
+            options.AddPolicy("CorsPolicy",
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+        });
 
-            services.AddSingleton<AuthSettings>();
-            services.AddSingleton<EnvironmentConfigurations>();
+        services.AddSingleton<AuthSettings>();
+        services.AddSingleton<EnvironmentConfigurations>();
 
-            services.AddMemoryCache();
+        services.AddMemoryCache();
 
-            services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+        services.AddScoped<ExceptionActionFilter>();
 
-            services.AddRateLimitServices(Configuration.GetSection("IpRateLimiting"), Configuration.GetSection("IpRateLimitPolicies"));
+        services.AddExternalServices(_envVariables.StripeSecret);
 
-            services.AddScoped<ExceptionActionFilter>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddExternalServices(_envVariables.StripeSecret);
+        services.AddAutoMapper([Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(ToyResponse))]);
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddCors();
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddPetStoreDBServices();
 
-            services.AddCors();
+        services.AddMyTOCServices();
 
-            services.AddPetStoreDBServices(_envVariables.DBConnectionString);
+        services.AddAuth0AuthenticationServices(_envVariables.AuthSettings.Auth0Domain, _envVariables.AuthSettings.Auth0Audience);
 
-            services.AddMyTOCServices();
+        services.AddAuthorization();
 
-            services.AddAuth0AuthenticationServices(_envVariables.AuthSettings.Auth0Domain, _envVariables.AuthSettings.Auth0Audience);
+        services.AddMyControllersServices();
+    }
 
-            services.AddAuthorization();
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseHttpLogging();
 
-            services.AddMyControllersServices();
-        }
+        app.UseCors("CorsPolicy");
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        app.UseRouting();
+
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
         {
-            app.UseCors("CorsPolicy");
-
-            app.UseIpRateLimiting();
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+            endpoints.MapControllers();
+        });
     }
 }

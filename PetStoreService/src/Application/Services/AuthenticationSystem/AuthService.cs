@@ -1,34 +1,32 @@
 ﻿
 using Auth0.AuthenticationApi;
 using Auth0.AuthenticationApi.Models;
-using PetStore.API.Models.Request.Auth;
-using PetStore.API.Models.Response.Auth;
-using PetStoreService.Application.Services.AuthenticationSystem;
+using Microsoft.AspNetCore.Identity.Data;
+using PetStoreService.Application.Models.Response.Auth;
 
-namespace PetStore.API.Services.AuthenticationSystem
+namespace PetStoreService.Application.Services.AuthenticationSystem;
+
+public class AuthService(AuthSettings authSettings)
 {
-    public class AuthService(AuthSettings authSettings)
+    private readonly string _audience = authSettings.Auth0Audience;
+    private readonly string _clientId = authSettings.Auth0ClientId;
+    private readonly string _clientSecret = authSettings.Auth0ClientSecret;
+    private readonly string _domain = authSettings.Auth0Domain;
+
+    public async Task<LoginResponse> LoginUser(LoginRequest login)
     {
-        private readonly string _audience = authSettings.Auth0Audience;
-        private readonly string _clientId = authSettings.Auth0ClientId;
-        private readonly string _clientSecret = authSettings.Auth0ClientSecret;
-        private readonly string _domain = authSettings.Auth0Domain;
+        AuthenticationApiClient auth = new(_domain);
 
-        public async Task<LoginResponse> LoginUser(LoginRequest login)
+        var res = await auth.GetTokenAsync(new ResourceOwnerTokenRequest()
         {
-            AuthenticationApiClient auth = new(_domain);
+            Audience = _audience,
+            ClientId = _clientId,
+            ClientSecret = _clientSecret,
+            Username = login.Email,
+            Password = login.Password,
+            Scope = "openid profile email offline_access"
+        });
 
-            var res = await auth.GetTokenAsync(new ResourceOwnerTokenRequest()
-            {
-                Audience = _audience,
-                ClientId = _clientId,
-                ClientSecret = _clientSecret,
-                Username = login.Email,
-                Password = login.Password,
-                Scope = "openid profile email offline_access"
-            });
-
-            return new LoginResponse { JwtToken = res.AccessToken };
-        }
+        return new LoginResponse { JwtToken = res.AccessToken };
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PetStore.API.Helper.Pagination
+﻿namespace PetStoreService.Application.Helper.Pagination
 {
     public abstract class PagedResultBase
     {

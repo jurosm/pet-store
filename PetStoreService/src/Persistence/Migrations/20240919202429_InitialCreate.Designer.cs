@@ -21,7 +21,7 @@ namespace PetStoreService.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PetStore.API.Db.Category", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,7 @@ namespace PetStoreService.Persistence.Migrations
                     b.ToTable("Category", "petstore");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Comment", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace PetStoreService.Persistence.Migrations
                     b.ToTable("Comment", "petstore");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Order", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
@@ -120,7 +120,7 @@ namespace PetStoreService.Persistence.Migrations
                     b.ToTable("Order", "petstore");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.OrderItem", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.OrderItem", b =>
                 {
                     b.Property<int>("OrderItemId")
                         .ValueGeneratedOnAdd()
@@ -148,7 +148,7 @@ namespace PetStoreService.Persistence.Migrations
                     b.ToTable("OrderItem", "petstore");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Toy", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Toy", b =>
                 {
                     b.Property<int>("ToyId")
                         .ValueGeneratedOnAdd()
@@ -186,9 +186,9 @@ namespace PetStoreService.Persistence.Migrations
                     b.ToTable("Toy", "petstore");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Comment", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("PetStore.API.Db.Toy", "Toy")
+                    b.HasOne("PetStoreService.Domain.Entities.Toy", "Toy")
                         .WithMany("Comment")
                         .HasForeignKey("ToyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -197,16 +197,16 @@ namespace PetStoreService.Persistence.Migrations
                     b.Navigation("Toy");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.OrderItem", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.OrderItem", b =>
                 {
-                    b.HasOne("PetStore.API.Db.Order", "Order")
+                    b.HasOne("PetStoreService.Domain.Entities.Order", "Order")
                         .WithMany("OrderItem")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired()
                         .HasConstraintName("OrderItem_Order");
 
-                    b.HasOne("PetStore.API.Db.Toy", "Toy")
+                    b.HasOne("PetStoreService.Domain.Entities.Toy", "Toy")
                         .WithMany("OrderItem")
                         .HasForeignKey("ToyId")
                         .OnDelete(DeleteBehavior.SetNull)
@@ -217,9 +217,9 @@ namespace PetStoreService.Persistence.Migrations
                     b.Navigation("Toy");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Toy", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Toy", b =>
                 {
-                    b.HasOne("PetStore.API.Db.Category", "Category")
+                    b.HasOne("PetStoreService.Domain.Entities.Category", "Category")
                         .WithMany("Toy")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.SetNull)
@@ -228,17 +228,17 @@ namespace PetStoreService.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Category", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Toy");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Order", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Order", b =>
                 {
                     b.Navigation("OrderItem");
                 });
 
-            modelBuilder.Entity("PetStore.API.Db.Toy", b =>
+            modelBuilder.Entity("PetStoreService.Domain.Entities.Toy", b =>
                 {
                     b.Navigation("Comment");
 

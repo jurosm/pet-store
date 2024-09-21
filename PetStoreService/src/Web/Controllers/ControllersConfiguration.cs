@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using PetStore.API.Filters.GlobalFilters;
-using PetStore.API.Models.Response;
+using PetStoreService.Web.Filters.GlobalFilters;
+using PetStoreService.Web.Helper;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     public static class ControllersConfiguration
     {

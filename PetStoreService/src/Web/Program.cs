@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using PetStore.API;
+using PetStoreService.Web;
 
 CreateHostBuilder(args).Build().Run();
 

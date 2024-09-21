@@ -1,7 +1,6 @@
-﻿namespace PetStore.API.Models.Request.Category
+﻿namespace PetStoreService.Application.Models.Request.Category;
+
+public class CategoryUpdateRequest
 {
-    public class CategoryUpdateRequest
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

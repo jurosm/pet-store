@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetStore.API.Models.Request.Category;
-using PetStore.API.Models.Response.Category;
-using PetStore.API.Services.CategorySystem;
+using PetStoreService.Application.Models.Request.Category;
+using PetStoreService.Application.Models.Response.Category;
+using PetStoreService.Application.Services.CategorySystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     [Route("/categories")]
     public class CategoryController(CategoryService categoryService) : BaseApiController

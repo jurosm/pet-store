@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     [Route("/[controller]")]
     [ApiController]

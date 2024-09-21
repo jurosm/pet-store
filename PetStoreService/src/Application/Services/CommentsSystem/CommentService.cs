@@ -1,26 +1,22 @@
 ﻿using AutoMapper;
-using PetStore.API.Models.Request.Comment;
-using PetStore.API.Models.Response.Comment;
+using PetStoreService.Application.Models.Request.Comment;
+using PetStoreService.Application.Models.Response.Comment;
 using PetStoreService.Domain.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace PetStore.API.Services.CommentsSystem
+namespace PetStoreService.Application.Services.CommentsSystem;
+
+public class CommentService(CommentRepository commentRepository, IMapper mapper)
 {
-    public class CommentService(CommentRepository commentRepository, IMapper mapper)
+    private readonly CommentRepository _commentRepository = commentRepository;
+    private readonly IMapper _mapper = mapper;
+
+    public IEnumerable<CommentsUnit> GetCommentsFromToy(int toyId)
     {
-        private readonly CommentRepository _commentRepository = commentRepository;
-        private readonly IMapper _mapper = mapper;
+        return _commentRepository.GetCommentsFromToy(toyId).Select(x => _mapper.Map<CommentsUnit>(x));
+    }
 
-        public IEnumerable<CommentsUnit> GetCommentsFromToy(int toyId)
-        {
-            return _commentRepository.GetCommentsFromToy(toyId).Select(x => _mapper.Map<CommentsUnit>(x));
-        }
-
-        public async Task CreateCommentAsync(CommentData commentData)
-        {
-            await _commentRepository.CreateAsync(_mapper.Map<Comment>(commentData));
-        }
+    public async Task CreateCommentAsync(CommentData commentData)
+    {
+        await _commentRepository.CreateAsync(_mapper.Map<Comment>(commentData));
     }
 }

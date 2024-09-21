@@ -1,7 +1,6 @@
-﻿namespace PetStore.API.Models.Response
+﻿namespace PetStoreService.Application.Models.Response;
+
+public class MessageResponse
 {
-    public class MessageResponse
-    {
-        public string Message { get; set; }
-    }
+    public string Message { get; set; }
 }

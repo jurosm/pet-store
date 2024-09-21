@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetStore.API.Models.Request.Order;
-using PetStore.API.Models.Response.Order;
-using PetStore.API.Services.OrderSystem;
+using PetStoreService.Application.Models.Request.Order;
+using PetStoreService.Application.Models.Response.Order;
+using PetStoreService.Application.Services.OrderSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     [Route("/orders")]
 

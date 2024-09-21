@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using PetStore.API.Models.Request.Comment;
-using PetStore.API.Models.Request.Order;
-using PetStore.API.Models.Request.Toy;
-using PetStore.API.Models.Response.Category;
-using PetStore.API.Models.Response.Comment;
-using PetStore.API.Models.Response.Order;
-using PetStore.API.Models.Response.Toy;
+using PetStoreService.Application.Models.Request.Comment;
+using PetStoreService.Application.Models.Request.Order;
+using PetStoreService.Application.Models.Request.Toy;
+using PetStoreService.Application.Models.Response.Category;
+using PetStoreService.Application.Models.Response.Comment;
+using PetStoreService.Application.Models.Response.Order;
+using PetStoreService.Application.Models.Response.Toy;
 using PetStoreService.Domain.Entities;
 
 namespace PetStoreService.Application.Helper.Mapper

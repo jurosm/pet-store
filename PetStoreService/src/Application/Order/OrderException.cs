@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace PetStoreService.Application.Exceptions.Services.Order;
 
-namespace PetStore.API.Exceptions.Services.Order
+public class MessageException(string message) : Exception
 {
-    public class MessageException(string message) : Exception
-    {
-        public override string Message { get; } = message;
-    }
+    public override string Message { get; } = message;
 }

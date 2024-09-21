@@ -8,8 +8,7 @@ namespace PetStoreService.Application
     {
         public static DbSet<T> AccessOnCompile(PetStoreDBContext context)
         {
-            Assembly executing = Assembly.GetExecutingAssembly();
-            Type ContextType = executing.GetType("PetStore.API.Db.PetStoreDBContext");
+            Type ContextType = Type.GetType("PetStoreService.Persistence.PetStoreDBContext, Persistence");
             Type typeParameterType = typeof(T);
             PropertyInfo prop = ContextType.GetProperty(typeParameterType.Name);
             return prop.GetValue(context) as DbSet<T>;

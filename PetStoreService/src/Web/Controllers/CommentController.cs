@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PetStore.API.Models.Request.Comment;
-using PetStore.API.Models.Response.Comment;
-using PetStore.API.Services.CommentsSystem;
+using PetStoreService.Application.Models.Request.Comment;
+using PetStoreService.Application.Models.Response.Comment;
+using PetStoreService.Application.Services.CommentsSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     [Route("/comments")]
     public class CommentController(CommentService commentService) : BaseApiController

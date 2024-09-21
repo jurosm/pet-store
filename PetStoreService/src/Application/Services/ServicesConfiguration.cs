@@ -1,32 +1,30 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PetStore.API.Services.CategorySystem;
-using PetStore.API.Services.CommentsSystem;
-using PetStore.API.Services.CRUD;
-using PetStore.API.Services.OrderSystem;
-using PetStore.API.Services.ToySystem;
+using PetStoreService.Application.Services.CategorySystem;
+using PetStoreService.Application.Services.CommentsSystem;
+using PetStoreService.Application.Services.OrderSystem;
+using PetStoreService.Application.Services.ToySystem;
 using PetStoreService.Domain.Entities;
 
-namespace PetStore.API.Services
+namespace PetStoreService.Application.Services;
+
+public static class ServicesConfiguration
 {
-    public static class ServicesConfiguration
+    public static void AddMyTOCServices(this IServiceCollection services)
     {
-        public static void AddMyTOCServices(this IServiceCollection services)
-        {
-            services.AddScoped<ContextWrapper<Category>>();
-            services.AddScoped<CategoryRepository>();
-            services.AddScoped<CategoryService>();
+        services.AddScoped<ContextWrapper<Category>>();
+        services.AddScoped<CategoryRepository>();
+        services.AddScoped<CategoryService>();
 
-            services.AddTransient<ContextWrapper<Toy>>();
-            services.AddScoped<ToyRepository>();
-            services.AddScoped<ToyService>();
+        services.AddTransient<ContextWrapper<Toy>>();
+        services.AddScoped<ToyRepository>();
+        services.AddScoped<ToyService>();
 
-            services.AddTransient<ContextWrapper<Order>>();
-            services.AddScoped<OrderRepository>();
-            services.AddScoped<OrderService>();
+        services.AddTransient<ContextWrapper<Order>>();
+        services.AddScoped<OrderRepository>();
+        services.AddScoped<OrderService>();
 
-            services.AddTransient<ContextWrapper<Comment>>();
-            services.AddScoped<CommentRepository>();
-            services.AddScoped<CommentService>();
-        }
+        services.AddTransient<ContextWrapper<Comment>>();
+        services.AddScoped<CommentRepository>();
+        services.AddScoped<CommentService>();
     }
 }

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using PetStore.API.Exceptions.Services.Order;
-using PetStore.API.Models.Response;
+using PetStoreService.Application.Exceptions.Services.Order;
+using PetStoreService.Application.Models.Response;
 using System.IO;
 
-namespace PetStore.API.Filters.GlobalFilters
+namespace PetStoreService.Web.Filters.GlobalFilters
 {
     public class ExceptionActionFilter : ActionFilterAttribute, IExceptionFilter
     {

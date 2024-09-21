@@ -1,4 +1,4 @@
-﻿namespace PetStore.API.Models.Services.Order
+﻿namespace PetStoreService.Application.Models.Services.Order
 {
     public class OrderInfo
     {

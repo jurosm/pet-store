@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PetStore.API.Models.Request.Auth;
-using PetStore.API.Models.Response.Auth;
-using PetStore.API.Services.AuthenticationSystem;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using PetStoreService.Application.Models.Response.Auth;
+using PetStoreService.Application.Services.AuthenticationSystem;
 using System.Threading.Tasks;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     [Route("/auth")]
     public class AuthController(AuthService authService) : BaseApiController

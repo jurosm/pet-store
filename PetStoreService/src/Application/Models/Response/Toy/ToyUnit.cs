@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PetStore.API.Models.Response.Toy
+namespace PetStoreService.Application.Models.Response.Toy;
+
+public class ToyUnit
 {
-    public class ToyUnit
-    {
-        [Required]
-        public string ShortDescription { get; set; }
-        public string Category { get; set; }
-        public int ToyId { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public decimal Price { get; set; }
-    }
+    [Required]
+    public string ShortDescription { get; set; }
+    public string Category { get; set; }
+    public int ToyId { get; set; }
+    [Required]
+    public string Name { get; set; }
+    [Required]
+    public decimal Price { get; set; }
 }

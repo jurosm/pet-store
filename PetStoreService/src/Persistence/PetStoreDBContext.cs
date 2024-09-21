@@ -138,5 +138,10 @@ namespace PetStoreService.Persistence
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql(new DatabaseSettings().getConnectionString());
+        }
     }
 }

@@ -1,10 +1,7 @@
-﻿
-using PetStore.API.Services.CRUD;
-using PetStoreService.Domain.Entities;
+﻿using PetStoreService.Domain.Entities;
 
-namespace PetStore.API.Services.CategorySystem
+namespace PetStoreService.Application.Services.CategorySystem;
+
+public class CategoryRepository(ContextWrapper<Category> context) : Repository<Category>(context)
 {
-    public class CategoryRepository(ContextWrapper<Category> context) : Repository<Category>(context)
-    {
-    }
 }

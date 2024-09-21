@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PetStore.API.Models.Response
+namespace PetStoreService.Web.Helper
 {
     public class ModelErrorResponse(ModelStateDictionary modelState)
     {

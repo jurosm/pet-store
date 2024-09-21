@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetStore.API.Models.Request.Toy;
-using PetStore.API.Models.Response.Toy;
-using PetStore.API.Services.ToySystem;
+using PetStoreService.Application.Models.Request.Toy;
+using PetStoreService.Application.Models.Response.Toy;
+using PetStoreService.Application.Services.ToySystem;
 using System.Threading.Tasks;
 
-namespace PetStore.API.Controllers
+namespace PetStoreService.Web.Controllers
 {
     [Route("/toys")]
     public class ToyController(ToyService toyService) : BaseApiController

@@ -1,10 +1,8 @@
-﻿using PetStore.API.Models.Response.Category;
-using System.Collections.Generic;
+﻿using PetStoreService.Application.Models.Response.Category;
 
-namespace PetStore.API.Models.Response.Toy
+namespace PetStoreService.Application.Models.Response.Toy;
+
+public class ToysResponse : PageResponse<ToyUnit>
 {
-    public class ToysResponse : PageResponse<ToyUnit>
-    {
-        public IEnumerable<CategoryUnit> Categories { get; set; }
-    }
+    public IEnumerable<CategoryUnit> Categories { get; set; }
 }

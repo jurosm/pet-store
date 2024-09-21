@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PetStore.API.Models.Response
+namespace PetStoreService.Web.Helper
 {
     public class ValidationError(string field, string message)
     {

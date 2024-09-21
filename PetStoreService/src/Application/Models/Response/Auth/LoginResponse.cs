@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace PetStore.API.Models.Response.Auth
+namespace PetStoreService.Application.Models.Response.Auth;
+
+public class LoginResponse
 {
-    public class LoginResponse
-    {
-        [JsonProperty("jwtToken")]
-        public string JwtToken { get; set; }
-    }
+    [JsonProperty("jwtToken")]
+    public string JwtToken { get; set; }
 }
