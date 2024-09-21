@@ -34,14 +34,14 @@ public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRep
         return new ToysResponse() { Items = null, NumberOfPages = 0, Categories = categories };
     }
 
-    public async Task AddToyAsync(ToyData toyUnit)
+    public Task<Toy> AddToyAsync(ToyData toyUnit)
     {
-        await _toyRepository.AddToyAsync(toyUnit);
+        return _toyRepository.AddToyAsync(toyUnit);
     }
 
-    public async Task UpdateToyAsync(ToyData toy, int id)
+    public Task<Toy> UpdateToyAsync(ToyData toy, int id)
     {
-        await _toyRepository.UpdateToyAsync(toy, id);
+        return _toyRepository.UpdateToyAsync(toy, id);
     }
 
     public ToyResponse GetToy(int id)

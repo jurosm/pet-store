@@ -10,7 +10,7 @@ public class ToyChangeRequest
     [Required]
     public string Description { get; set; }
     public CategoryUnit Category { get; set; }
-    public int ToyId { get; set; }
+    public int Id { get; set; }
     [Required]
     public string Name { get; set; }
     [Required]

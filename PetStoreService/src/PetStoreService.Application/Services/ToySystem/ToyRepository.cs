@@ -52,7 +52,7 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
         return Context.Table.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
     }
 
-    public async Task AddToyAsync(ToyData toyUnit)
+    public async Task<Toy> AddToyAsync(ToyData toyUnit)
     {
         Toy toy = _mapper.Map<Toy>(toyUnit);
         Category category = Context.PSContext.Category.FirstOrDefault(x => x.Id == toyUnit.CategoryId);
@@ -63,9 +63,11 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
             Context.Table.Add(toy);
         }
         await Context.SaveChangesAsync();
+
+        return toy;
     }
 
-    public async Task UpdateToyAsync(ToyData toyData, int id)
+    public async Task<Toy> UpdateToyAsync(ToyData toyData, int id)
     {
         Toy toy = _mapper.Map<Toy>(toyData);
         toy.Id = id;
@@ -79,5 +81,7 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
 
         Context.Table.Update(toy);
         await Context.SaveChangesAsync();
+
+        return toy;
     }
 }
