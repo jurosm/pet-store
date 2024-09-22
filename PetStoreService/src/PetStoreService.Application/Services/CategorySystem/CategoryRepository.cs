@@ -1,7 +1,8 @@
 ﻿using PetStoreService.Domain.Entities;
+using PetStoreService.Persistence;
 
 namespace PetStoreService.Application.Services.CategorySystem;
 
-public class CategoryRepository(ContextWrapper<Category> context) : Repository<Category>(context)
+public class CategoryRepository(PetStoreDBContext context) : Repository<Category>(context)
 {
 }

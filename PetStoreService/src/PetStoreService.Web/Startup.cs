@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PetStoreService.Application.Interfaces.Payment;
 using PetStoreService.Application.Models.Response.Toy;
 using PetStoreService.Application.Services;
 using PetStoreService.Application.Services.AuthenticationSystem;
 using PetStoreService.Application.Services.ExternalServices;
+using PetStoreService.Infrastructure.Payment;
 using PetStoreService.Persistence;
 using PetStoreService.Web.Controllers;
 using PetStoreService.Web.Filters.GlobalFilters;
@@ -41,7 +43,8 @@ public class Startup(IConfiguration configuration)
 
         services.AddScoped<ExceptionActionFilter>();
 
-        services.AddExternalServices(_envVariables.StripeSecret);
+        services.AddExternalServices();
+        services.AddScoped<IPaymentService, StripePaymentService>();
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

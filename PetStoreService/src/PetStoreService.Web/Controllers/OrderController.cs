@@ -24,7 +24,7 @@ namespace PetStoreService.Web.Controllers
         [HttpPost("buy")]
         public async Task<IActionResult> Buy([FromBody] OrderRequest orderRequest)
         {
-            return Ok(await _orderService.Buy(orderRequest));
+            return Ok(await _orderService.Create(orderRequest));
         }
     }
 }

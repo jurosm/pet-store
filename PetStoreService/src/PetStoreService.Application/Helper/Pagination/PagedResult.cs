@@ -4,8 +4,6 @@ public class PagedResult<T> : PagedResultBase where T : class
 {
     public IEnumerable<T> Results { get; set; }
 
-    public PagedResult() { }
-
     public static PagedResult<T> GetPaged(IQueryable<T> query,
                           int page, int pageSize)
     {
