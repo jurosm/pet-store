@@ -10,9 +10,9 @@ public class CategoryService(CategoryRepository categoryRepository, IMapper mapp
     private readonly IMapper _mapper = mapper;
     private readonly CategoryRepository _categoryRepository = categoryRepository;
 
-    public IEnumerable<CategoryUnit> GetAll()
+    public async Task<IEnumerable<CategoryUnit>> GetAllAsync()
     {
-        return _categoryRepository.ReadAll().Select(_mapper.Map<CategoryUnit>);
+        return (await _categoryRepository.ReadAllAsync()).Select(_mapper.Map<CategoryUnit>);
     }
 
     public Task<Category> AddAsync(CategoryUpdateRequest name)

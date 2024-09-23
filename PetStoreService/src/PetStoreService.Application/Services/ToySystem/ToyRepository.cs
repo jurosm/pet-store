@@ -18,7 +18,7 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
 {
     private readonly IMapper _mapper = mapper;
 
-    public PagedResult<Toy> GetToysPaged(int pageSize, int page, ToyOrder order, string match, int? category)
+    public Task<PagedResult<Toy>> GetToysPaged(int pageSize, int page, ToyOrder order, string match, int? category)
     {
         IQueryable<Toy> baseQuery = Table.Include(x => x.Category);
 
@@ -48,20 +48,20 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
         }
     }
 
-    public Toy GetToyById(int id)
+    public Task<Toy?> GetToyById(int id)
     {
-        return Table.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+        return Table.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Toy> AddToyAsync(ToyData toyUnit)
     {
         Toy toy = _mapper.Map<Toy>(toyUnit);
-        Category category = Context.Category.FirstOrDefault(x => x.Id == toyUnit.CategoryId);
+        Category? category = await Context.Category.FirstOrDefaultAsync(x => x.Id == toyUnit.CategoryId);
         if (category != null) category.Toy.Add(toy);
         else
         {
             toy.CategoryId = null;
-            Table.Add(toy);
+            await Table.AddAsync(toy);
         }
         await Context.SaveChangesAsync();
 
@@ -75,7 +75,7 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
 
         if (toyData.CategoryId != null)
         {
-            Category category = await Context.Category.FirstOrDefaultAsync(x => x.Id == toyData.CategoryId);
+            Category? category = await Context.Category.FirstOrDefaultAsync(x => x.Id == toyData.CategoryId);
             if (category == null) { toy.CategoryId = null; }
         }
         else toy.CategoryId = null;

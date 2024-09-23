@@ -16,9 +16,9 @@ namespace PetStoreService.Web.Controllers
         private readonly CategoryService _categoryService = categoryService;
 
         [HttpGet]
-        public ActionResult<IEnumerable<CategoryUnit>> GetAll()
+        public async Task<ActionResult<IEnumerable<CategoryUnit>>> GetAll()
         {
-            return Ok(_categoryService.GetAll());
+            return Ok(await _categoryService.GetAllAsync());
         }
 
         [Authorize]

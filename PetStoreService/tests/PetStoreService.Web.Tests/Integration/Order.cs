@@ -83,4 +83,39 @@ public class OrderTests : TestBase
 
         Assert.Equal(System.Net.HttpStatusCode.BadRequest, createOrderRes.StatusCode);
     }
+
+    [Fact]
+    public async void CreateOrder_ToyQuantityExceededParallel_ShouldReturnBadRequest()
+    {
+        var client = _factory.CreateClient();
+        var authHeader = await Auth.Login(client);
+
+        client.DefaultRequestHeaders.Authorization = authHeader;
+
+        var toy = await ToyHelper.CreateToy(client);
+
+        var orderRequest = new OrderRequest
+        {
+            City = "City",
+            Country = "Country",
+            CustomerName = "CustomerName",
+            CustomerSurname = "CustomerSurname",
+            OrderItems =
+            [
+                new OrderItemRequest
+                {
+                    ToyId = toy.Id,
+                    Quantity = toy.Quantity
+                }
+            ],
+            StreetAddress = "StreetAddress"
+        };
+
+        StringContent request = new(JsonConvert.SerializeObject(orderRequest), Encoding.UTF8, "application/json");
+
+        var results = await Task.WhenAll([client.PostAsync("/order", request), client.PostAsync("/order", request)]);
+
+        Assert.Contains(results, res => res.StatusCode == System.Net.HttpStatusCode.Created);
+        Assert.Contains(results, res => res.StatusCode == System.Net.HttpStatusCode.BadRequest);
+    }
 }

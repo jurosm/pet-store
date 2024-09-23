@@ -14,9 +14,9 @@ namespace PetStoreService.Web.Controllers
         private readonly CommentService _commentService = commentService;
 
         [HttpGet]
-        public ActionResult<IEnumerable<CommentsUnit>> GetComments([FromQuery] int toyId)
+        public async Task<ActionResult<IEnumerable<CommentsUnit>>> GetComments([FromQuery] int toyId)
         {
-            return Ok(_commentService.GetCommentsFromToy(toyId));
+            return Ok(await _commentService.GetCommentsFromToy(toyId));
         }
 
         [HttpPost]

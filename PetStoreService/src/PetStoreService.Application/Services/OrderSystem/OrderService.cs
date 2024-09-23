@@ -15,12 +15,12 @@ public class OrderService(IHttpContextAccessor accessor, OrderRepository orderRe
     private readonly IPaymentService _stripeService = stripeService;
     private readonly IMapper _mapper = mapper;
 
-    public IEnumerable<OrderListItem> GetAllOrders()
+    public async Task<IEnumerable<OrderListItem>> GetAllOrdersAsync()
     {
-        return _orderRepository.ReadAll().OrderByDescending(x => x.OrderDate).Select(x => _mapper.Map<OrderListItem>(x));
+        return (await _orderRepository.ReadAllAsync()).OrderByDescending(x => x.OrderDate).Select(x => _mapper.Map<OrderListItem>(x));
     }
 
-    public async Task<OrderInfo> Create(OrderRequest orderRequest)
+    public async Task<OrderInfo> CreateAsync(OrderRequest orderRequest)
     {
         Order order = _mapper.Map<Order>(orderRequest);
 
