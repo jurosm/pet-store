@@ -22,7 +22,16 @@ public class StripePaymentService : IPaymentService
             },
         };
         var service = new PaymentIntentService();
-        var paymentIntent = await service.CreateAsync(options);
+        PaymentIntent paymentIntent;
+        try
+        {
+            paymentIntent = await service.CreateAsync(options);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw new Exception(ex.Message);
+        }
 
         return new PaymentIntentResponse
         {

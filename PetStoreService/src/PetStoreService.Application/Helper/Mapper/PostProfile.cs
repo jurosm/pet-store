@@ -33,7 +33,10 @@ namespace PetStoreService.Application.Helper.Mapper
             CreateMap<OrderRequest, Order>().ForMember(dest =>
             dest.ShippingAddress, opt =>
             opt.MapFrom(src =>
-                src.Country + "," + src.City + "," + src.StreetAddress));
+                src.Country + "," + src.City + "," + src.StreetAddress))
+                .ForMember(dest => dest.OrderItem,
+                opt => opt.MapFrom(src => src.OrderItems.Select(oir => new OrderItem() { ToyId = oir.ToyId, Quantity = oir.Quantity }).ToList()))
+                .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => OrderStatus.Draft));
 
             CreateMap<Order, OrderListItem>().ReverseMap();
 

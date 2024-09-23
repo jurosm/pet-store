@@ -8,10 +8,6 @@ public class OrderRequest
     public List<OrderItemRequest> OrderItems { get; set; }
 
     [Required]
-    [MaxLength(50, ErrorMessage = "Maximum length is 50")]
-    public string TokenId { get; set; }
-
-    [Required]
     [MaxLength(30, ErrorMessage = "Maximum length is 30")]
     public string CustomerName { get; set; }
 

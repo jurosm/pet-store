@@ -20,6 +20,5 @@ public static class AuthenticationServicesConfiguration
             options.Audience = audience;
             options.SaveToken = true;
         });
-
     }
 }

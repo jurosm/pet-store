@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PetStoreService.Application.Interfaces.IdentityManager;
 using PetStoreService.Application.Interfaces.Payment;
 using PetStoreService.Application.Models.Response.Toy;
 using PetStoreService.Application.Services;
 using PetStoreService.Application.Services.AuthenticationSystem;
 using PetStoreService.Application.Services.ExternalServices;
+using PetStoreService.Infrastructure.Auth0IdentityManager;
 using PetStoreService.Infrastructure.Payment;
 using PetStoreService.Persistence;
 using PetStoreService.Web.Controllers;
@@ -37,6 +39,7 @@ public class Startup(IConfiguration configuration)
         });
 
         services.AddSingleton<AuthSettings>();
+        services.AddSingleton<IIdentityManager, Auth0IdentityManager>();
         services.AddSingleton<EnvironmentConfigurations>();
 
         services.AddMemoryCache();
@@ -48,7 +51,7 @@ public class Startup(IConfiguration configuration)
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-        services.AddAutoMapper([Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(ToyResponse))]);
+        services.AddAutoMapper(Assembly.GetAssembly(typeof(ToyResponse)));
 
         services.AddCors();
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetStoreService.Application.Models.Request.Order;
 using PetStoreService.Application.Models.Response.Order;
 using PetStoreService.Application.Services.OrderSystem;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,10 +22,21 @@ namespace PetStoreService.Web.Controllers
             return Ok(_orderService.GetAllOrders());
         }
 
-        [HttpPost("buy")]
-        public async Task<IActionResult> Buy([FromBody] OrderRequest orderRequest)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] OrderRequest orderRequest)
         {
-            return Ok(await _orderService.Create(orderRequest));
+            try
+            {
+                var order = await _orderService.Create(orderRequest);
+
+                return base.CreatedAtAction(nameof(Create), order);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
         }
     }
 }

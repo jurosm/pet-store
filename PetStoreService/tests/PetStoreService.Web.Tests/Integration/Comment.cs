@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using PetStoreService.Domain.Entities;
 using PetStoreService.Web.Tests.Fixtures;
-using PetStoreService.Web.Tests.Integration.Helper;
+using PetStoreService.Web.Tests.Helper;
 using System.Text;
 
 namespace PetStoreService.Web.Tests.Integration;

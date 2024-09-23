@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using PetStoreService.Domain.Entities;
+using PetStoreService.Web.Tests.Helper;
 using PetStoreService.Web.Tests.Integration.Fixtures;
-using PetStoreService.Web.Tests.Integration.Helper;
 using System.Text;
 
 namespace PetStoreService.Web.Tests.Integration;
@@ -59,5 +59,30 @@ public class ToyTests : TestBase
         var deleteToyRes = await client.DeleteAsync($"/toy/{toyId}");
 
         Assert.Equal(System.Net.HttpStatusCode.NoContent, deleteToyRes.StatusCode);
+    }
+
+    [Fact]
+    public async void FetchToys_NoQuery_ReturnsOk()
+    {
+        var client = _factory.CreateClient();
+
+        var getToysRes = await client.GetAsync($"/toy");
+
+        Assert.Equal(System.Net.HttpStatusCode.OK, getToysRes.StatusCode);
+    }
+
+    [Fact]
+    public async void FetchSingleToy_ValidToyId_ReturnsOk()
+    {
+        var client = _factory.CreateClient();
+        var authHeader = await Auth.Login(client);
+
+        client.DefaultRequestHeaders.Authorization = authHeader;
+
+        var toy = await ToyHelper.CreateToy(client);
+
+        var getToyRes = await client.GetAsync($"/toy/{toy.Id}");
+
+        Assert.Equal(System.Net.HttpStatusCode.OK, getToyRes.StatusCode);
     }
 }
