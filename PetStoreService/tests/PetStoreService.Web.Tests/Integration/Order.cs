@@ -51,4 +51,36 @@ public class OrderTests : TestBase
 
         Assert.Equal(System.Net.HttpStatusCode.Created, createOrderRes.StatusCode);
     }
+
+    [Fact]
+    public async void CreateOrder_ToyQuantityExceeded_ShouldReturnBadRequest()
+    {
+        var client = _factory.CreateClient();
+        var authHeader = await Auth.Login(client);
+
+        client.DefaultRequestHeaders.Authorization = authHeader;
+
+        var toy = await ToyHelper.CreateToy(client);
+
+        var orderRequest = new OrderRequest
+        {
+            City = "City",
+            Country = "Country",
+            CustomerName = "CustomerName",
+            CustomerSurname = "CustomerSurname",
+            OrderItems =
+            [
+                new OrderItemRequest
+                {
+                    ToyId = toy.Id,
+                    Quantity = 10000000
+                }
+            ],
+            StreetAddress = "StreetAddress"
+        };
+
+        var createOrderRes = await client.PostAsync("/order", new StringContent(JsonConvert.SerializeObject(orderRequest), Encoding.UTF8, "application/json"));
+
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, createOrderRes.StatusCode);
+    }
 }
