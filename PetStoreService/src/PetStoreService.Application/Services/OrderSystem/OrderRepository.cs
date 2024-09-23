@@ -7,50 +7,50 @@ namespace PetStoreService.Application.Services.OrderSystem;
 
 public class OrderRepository(PetStoreDBContext context) : Repository<Order>(context)
 {
-    public bool CheckValidOrder(ICollection<OrderItem> orderItems)
+    public static bool CheckValidOrder(ICollection<OrderItem> orderItems, ICollection<Toy> toys)
     {
-        var toys = Context.Toy.Where(t => orderItems.Select(oi => oi.ToyId).Contains(t.Id)).ToList();
         return toys.All(toy => orderItems.Any(oi => (oi.ToyId == toy.Id) && (oi.Quantity <= toy.Quantity)));
     }
 
-    public decimal PricePerOrder(ICollection<OrderItem> orderItems)
+    public static decimal PricePerOrder(ICollection<OrderItem> orderItems, List<Toy> toys)
     {
-        return orderItems.Sum(x => Context.Toy.ToList().Find(y => y.Id == x.ToyId).Price * x.Quantity);
+        return orderItems.Sum(x => toys.Find(y => y.Id == x.ToyId)!.Price * x.Quantity);
     }
 
     public async Task RemoveItemsAsync(ICollection<OrderItem> orderItems)
     {
-        orderItems.ToList().ForEach(async x =>
+        foreach (var orderItem in orderItems)
         {
-            Toy? toy = await Context.Toy.FindAsync(x.ToyId);
+            Toy? toy = await Context.Toy.FindAsync(orderItem.ToyId);
             if (toy == null)
             {
                 throw new Exception("Toy not found");
             }
-            toy.Quantity -= x.Quantity;
-        });
-
-        await Context.SaveChangesAsync();
+            toy.Quantity -= orderItem.Quantity;
+        }
     }
 
     public async Task<decimal> CreateOrderAndRemoveItems(Order order)
     {
-        using var transaction = Context.Database.BeginTransaction();
+        await using var transaction = await Context.Database.BeginTransactionAsync();
 
-        if (!CheckValidOrder(order.OrderItem)) throw new MessageException("Invalid order");
+        string toyIds = string.Join(",", order.OrderItem.Select(oi => oi.ToyId));
+        var toys = await Context.Toy.FromSqlRaw($"select * from petstore.\"Toy\" where petstore.\"Toy\".\"Id\" in ({toyIds}) for update").ToListAsync();
 
-        decimal amount = PricePerOrder(order.OrderItem);
+        if (!CheckValidOrder(order.OrderItem, toys)) throw new MessageException("Invalid order");
+
+        await RemoveItemsAsync(order.OrderItem);
+
+        decimal amount = PricePerOrder(order.OrderItem, toys);
 
         // Todo: This should be nullable
         order.ExternalReferenceId = string.Empty;
 
         await CreateAsync(order);
 
-        await RemoveItemsAsync(order.OrderItem);
-
         await Context.SaveChangesAsync();
 
-        transaction.Commit();
+        await transaction.CommitAsync();
 
         return amount;
     }

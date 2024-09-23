@@ -15,15 +15,15 @@ namespace PetStoreService.Web.Controllers
         private readonly ToyService _toyService = toyService;
 
         [HttpGet]
-        public ActionResult<ToysResponse> GetToysPage([FromQuery] int? categoryId, [FromQuery] string match, [FromQuery] int page = 1, [FromQuery] ToyOrder order = 0, [FromQuery] int pageSize = 5)
+        public async Task<ActionResult<ToysResponse>> GetToysPage([FromQuery] int? categoryId, [FromQuery] string match, [FromQuery] int page = 1, [FromQuery] ToyOrder order = 0, [FromQuery] int pageSize = 5)
         {
-            return Ok(_toyService.GetToysPage(pageSize, page, order, match, categoryId));
+            return Ok(await _toyService.GetToysPageAsync(pageSize, page, order, match, categoryId));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ToyResponse> GetToy(int id)
+        public async Task<ActionResult<ToyResponse>> GetToy(int id)
         {
-            return Ok(_toyService.GetToy(id));
+            return Ok(await _toyService.GetToyAsync(id));
         }
 
         [HttpDelete("{id}")]

@@ -17,9 +17,9 @@ namespace PetStoreService.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult<IEnumerable<OrderListItem>> GetAllOrders()
+        public async Task<ActionResult<IEnumerable<OrderListItem>>> GetAllOrders()
         {
-            return Ok(_orderService.GetAllOrders());
+            return Ok(await _orderService.GetAllOrdersAsync());
         }
 
         [HttpPost]
@@ -27,7 +27,7 @@ namespace PetStoreService.Web.Controllers
         {
             try
             {
-                var order = await _orderService.Create(orderRequest);
+                var order = await _orderService.CreateAsync(orderRequest);
 
                 return base.CreatedAtAction(nameof(Create), order);
             }
@@ -36,7 +36,6 @@ namespace PetStoreService.Web.Controllers
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
         }
     }
 }

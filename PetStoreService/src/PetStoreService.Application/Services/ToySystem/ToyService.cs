@@ -14,15 +14,17 @@ public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRep
     private readonly CategoryRepository _categoryRepository = categoryRepository;
     private readonly IMapper _mapper = mapper;
 
-    public ToysResponse GetToysPage(int pageSize, int page, ToyOrder order, string match, int? category)
+    public async Task<ToysResponse> GetToysPageAsync(int pageSize, int page, ToyOrder order, string match, int? category)
     {
-        IEnumerable<CategoryUnit> categories = _categoryRepository.ReadAll().Select(_mapper.Map<CategoryUnit>);
+        var dbCategories = await _categoryRepository.ReadAllAsync();
+
+        IEnumerable<CategoryUnit> categories = dbCategories.Select(_mapper.Map<CategoryUnit>);
         ToysResponse response = new()
         {
             Categories = categories
         };
 
-        PagedResult<Toy> toys = _toyRepository.GetToysPaged(pageSize, page, order, match, category);
+        PagedResult<Toy> toys = await _toyRepository.GetToysPaged(pageSize, page, order, match, category);
 
         if (toys.Results != null)
         {
@@ -44,9 +46,9 @@ public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRep
         return _toyRepository.UpdateToyAsync(toy, id);
     }
 
-    public ToyResponse GetToy(int id)
+    public async Task<ToyResponse> GetToyAsync(int id)
     {
-        Toy toy = _toyRepository.GetToyById(id);
+        Toy? toy = await _toyRepository.GetToyById(id);
         return toy != null ? _mapper.Map<ToyResponse>(toy) : throw new FileNotFoundException();
     }
 

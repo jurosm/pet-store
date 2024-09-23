@@ -10,9 +10,9 @@ public class CommentService(CommentRepository commentRepository, IMapper mapper)
     private readonly CommentRepository _commentRepository = commentRepository;
     private readonly IMapper _mapper = mapper;
 
-    public IEnumerable<CommentsUnit> GetCommentsFromToy(int toyId)
+    public async Task<IEnumerable<CommentsUnit>> GetCommentsFromToy(int toyId)
     {
-        return _commentRepository.GetCommentsFromToy(toyId).Select(x => _mapper.Map<CommentsUnit>(x));
+        return (await _commentRepository.GetCommentsFromToy(toyId)).Select(_mapper.Map<CommentsUnit>);
     }
 
     public async Task<Comment> CreateCommentAsync(CommentData commentData)

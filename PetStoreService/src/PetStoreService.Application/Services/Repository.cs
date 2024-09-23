@@ -11,14 +11,10 @@ public class Repository<T>(PetStoreDBContext context) : IRepository<T> where T :
 
     public DbSet<T> Table { get; set; } = Property<T>.AccessOnCompile(context);
 
-    public PagedResult<T> ReadPage(int page, int pageSize)
-    {
-        return PagedResult<T>.GetPaged(Table.AsQueryable(), page, pageSize);
-    }
 
     public async Task<T> CreateAsync(T entity)
     {
-        Table.Add(entity);
+        await Table.AddAsync(entity);
         await Context.SaveChangesAsync();
         return entity;
     }
@@ -42,14 +38,14 @@ public class Repository<T>(PetStoreDBContext context) : IRepository<T> where T :
         }
     }
 
-    public IEnumerable<T> ReadAll()
+    public Task<List<T>> ReadAllAsync()
     {
-        return Table;
+        return Table.ToListAsync();
     }
 
-    public T ReadOne(Expression<Func<T, bool>> predicate)
+    public Task<T?> ReadOneAsync(Expression<Func<T, bool>> predicate)
     {
-        return Table.FirstOrDefault(predicate);
+        return Table.FirstOrDefaultAsync(predicate);
     }
 
     public async Task<T> UpdateAsync(T entity)
@@ -61,8 +57,17 @@ public class Repository<T>(PetStoreDBContext context) : IRepository<T> where T :
 
     public async Task DeleteAsync(int id)
     {
-        Table.Remove(await Table.FindAsync(id));
-        await Context.SaveChangesAsync();
+        T? entity = await Table.FindAsync(id);
+
+        if (entity != null)
+        {
+            Table.Remove(entity);
+            await Context.SaveChangesAsync();
+        }
+        else
+        {
+            throw new FileNotFoundException("Entity not found");
+        }
     }
 
     public async Task PutAsync(int id, T entity)
