@@ -3,10 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PetStoreService.Application.Interfaces.IdentityManager;
+using PetStoreService.Application.Interfaces.Payment;
 using PetStoreService.Application.Models.Response.Toy;
 using PetStoreService.Application.Services;
 using PetStoreService.Application.Services.AuthenticationSystem;
 using PetStoreService.Application.Services.ExternalServices;
+using PetStoreService.Infrastructure.Auth0IdentityManager;
+using PetStoreService.Infrastructure.Payment;
 using PetStoreService.Persistence;
 using PetStoreService.Web.Controllers;
 using PetStoreService.Web.Filters.GlobalFilters;
@@ -22,6 +26,9 @@ public class Startup(IConfiguration configuration)
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
         services.AddHttpLogging(options => { });
         services.AddCors(options =>
         {
@@ -32,17 +39,19 @@ public class Startup(IConfiguration configuration)
         });
 
         services.AddSingleton<AuthSettings>();
+        services.AddSingleton<IIdentityManager, Auth0IdentityManager>();
         services.AddSingleton<EnvironmentConfigurations>();
 
         services.AddMemoryCache();
 
         services.AddScoped<ExceptionActionFilter>();
 
-        services.AddExternalServices(_envVariables.StripeSecret);
+        services.AddExternalServices();
+        services.AddScoped<IPaymentService, StripePaymentService>();
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-        services.AddAutoMapper([Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(ToyResponse))]);
+        services.AddAutoMapper(Assembly.GetAssembly(typeof(ToyResponse)));
 
         services.AddCors();
 
@@ -59,6 +68,9 @@ public class Startup(IConfiguration configuration)
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
         app.UseHttpLogging();
 
         app.UseCors("CorsPolicy");

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using PetStoreService.Application.Models.Request.Auth;
+using PetStoreService.Web.Tests.Mocks;
 using System.Text;
 
 namespace PetStoreService.Web.Tests.Integration;
@@ -11,11 +12,9 @@ public class AuthTests : TestBase
     {
         var client = _factory.CreateClient();
 
-        var loginRes = await client.PostAsync("/auth/login", new StringContent(JsonConvert.SerializeObject(new LoginRequest
-        {
-            Email = EnvironmentVariables.Auth0Username,
-            Password = EnvironmentVariables.Auth0Password
-        }), Encoding.UTF8, "application/json"));
+        var validReq = MockIdentityManager.ValidRequest;
+
+        var loginRes = await client.PostAsync("/auth/login", new StringContent(JsonConvert.SerializeObject(validReq), Encoding.UTF8, "application/json"));
 
         Assert.Equal(System.Net.HttpStatusCode.OK, loginRes.StatusCode);
     }
@@ -25,11 +24,8 @@ public class AuthTests : TestBase
     {
         var client = _factory.CreateClient();
 
-        var loginRes = await client.PostAsync("/auth/login", new StringContent(JsonConvert.SerializeObject(new LoginRequest
-        {
-            Email = "hehe@gmail.com",
-            Password = EnvironmentVariables.Auth0Password
-        }), Encoding.UTF8, "application/json"));
+        var invalidReq = MockIdentityManager.InvalidRequest;
+        var loginRes = await client.PostAsync("/auth/login", new StringContent(JsonConvert.SerializeObject(invalidReq), Encoding.UTF8, "application/json"));
 
         Assert.Equal(System.Net.HttpStatusCode.Unauthorized, loginRes.StatusCode);
     }

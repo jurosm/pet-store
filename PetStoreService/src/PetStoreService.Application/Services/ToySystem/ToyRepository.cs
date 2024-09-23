@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PetStoreService.Application.Helper.Pagination;
 using PetStoreService.Application.Models.Request.Toy;
 using PetStoreService.Domain.Entities;
+using PetStoreService.Persistence;
 
 namespace PetStoreService.Application.Services.ToySystem;
 
@@ -13,13 +14,13 @@ public enum ToyOrder
     Descending = 2
 }
 
-public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Repository<Toy>(context)
+public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Repository<Toy>(context)
 {
     private readonly IMapper _mapper = mapper;
 
     public PagedResult<Toy> GetToysPaged(int pageSize, int page, ToyOrder order, string match, int? category)
     {
-        IQueryable<Toy> baseQuery = Context.Table.Include(x => x.Category);
+        IQueryable<Toy> baseQuery = Table.Include(x => x.Category);
 
         if (!string.IsNullOrEmpty(match))
         {
@@ -49,18 +50,18 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
 
     public Toy GetToyById(int id)
     {
-        return Context.Table.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+        return Table.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
     }
 
     public async Task<Toy> AddToyAsync(ToyData toyUnit)
     {
         Toy toy = _mapper.Map<Toy>(toyUnit);
-        Category category = Context.PSContext.Category.FirstOrDefault(x => x.Id == toyUnit.CategoryId);
+        Category category = Context.Category.FirstOrDefault(x => x.Id == toyUnit.CategoryId);
         if (category != null) category.Toy.Add(toy);
         else
         {
             toy.CategoryId = null;
-            Context.Table.Add(toy);
+            Table.Add(toy);
         }
         await Context.SaveChangesAsync();
 
@@ -74,12 +75,12 @@ public class ToyRepository(ContextWrapper<Toy> context, IMapper mapper) : Reposi
 
         if (toyData.CategoryId != null)
         {
-            Category category = await Context.PSContext.Category.FirstOrDefaultAsync(x => x.Id == toyData.CategoryId);
+            Category category = await Context.Category.FirstOrDefaultAsync(x => x.Id == toyData.CategoryId);
             if (category == null) { toy.CategoryId = null; }
         }
         else toy.CategoryId = null;
 
-        Context.Table.Update(toy);
+        Table.Update(toy);
         await Context.SaveChangesAsync();
 
         return toy;

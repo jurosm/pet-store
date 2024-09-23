@@ -12,7 +12,7 @@ public class ToyFixture
             Description = new Bogus.Faker().Lorem.Sentence(),
             Price = decimal.Parse(new Bogus.Faker().Commerce.Price()),
             ShortDescription = new Bogus.Faker().Commerce.ProductName(),
-            Quantity = new Bogus.Faker().Random.Int(),
+            Quantity = new Bogus.Faker().Random.Int(1, 1000),
         };
     }
 }

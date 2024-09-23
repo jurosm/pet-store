@@ -10,12 +10,14 @@
   <ItemGroup>
     <PackageReference Include="IpInfo.Api.Client" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PetStoreService.Application\PetStoreService.Application.csproj" />
     <ProjectReference Include="..\PetStoreService.Persistence\PetStoreService.Persistence.csproj" />
     <ProjectReference Include="..\PetStoreService.Domain\PetStoreService.Domain.csproj" />
+    <ProjectReference Include="..\PetStoreService.Infrastructure\PetStoreService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
