@@ -5,11 +5,11 @@ namespace PetStoreService.Application.Models.Response.Toy;
 public class ToyUnit
 {
     [Required]
-    public string ShortDescription { get; set; }
-    public string Category { get; set; }
+    public required string ShortDescription { get; set; }
+    public required string Category { get; set; }
     public int Id { get; set; }
     [Required]
-    public string Name { get; set; }
+    public required string Name { get; set; }
     [Required]
     public decimal Price { get; set; }
 }

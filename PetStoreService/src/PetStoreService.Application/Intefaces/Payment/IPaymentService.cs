@@ -14,6 +14,6 @@ public class PaymentIntentRequest
 
 public class PaymentIntentResponse
 {
-    public string ClientSecret { get; set; }
-    public string PaymentIntentId { get; set; }
+    public required string ClientSecret { get; set; }
+    public required string PaymentIntentId { get; set; }
 }

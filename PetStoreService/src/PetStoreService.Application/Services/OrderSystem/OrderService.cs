@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using PetStoreService.Application.Interfaces.Payment;
 using PetStoreService.Application.Models.Request.Order;
 using PetStoreService.Application.Models.Response.Order;
@@ -8,9 +7,8 @@ using PetStoreService.Domain.Entities;
 
 namespace PetStoreService.Application.Services.OrderSystem;
 
-public class OrderService(IHttpContextAccessor accessor, OrderRepository orderRepository, IPaymentService stripeService, IMapper mapper)
+public class OrderService(OrderRepository orderRepository, IPaymentService stripeService, IMapper mapper)
 {
-    private readonly IHttpContextAccessor _accessor = accessor;
     private readonly OrderRepository _orderRepository = orderRepository;
     private readonly IPaymentService _stripeService = stripeService;
     private readonly IMapper _mapper = mapper;
@@ -25,7 +23,7 @@ public class OrderService(IHttpContextAccessor accessor, OrderRepository orderRe
         Order order = _mapper.Map<Order>(orderRequest);
 
         // Todo: IpinfoAddress should be nullable
-        order.IpinfoAddress = _accessor.HttpContext?.Connection.RemoteIpAddress?.ToString() ?? string.Empty;
+        order.IpinfoAddress = string.Empty;
 
         var amount = await _orderRepository.CreateOrderAndRemoveItems(order);
 

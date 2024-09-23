@@ -26,14 +26,9 @@ public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRep
 
         PagedResult<Toy> toys = await _toyRepository.GetToysPaged(pageSize, page, order, match, category);
 
-        if (toys.Results != null)
-        {
-            response.Items = toys.Results.Select(_mapper.Map<ToyUnit>);
-            response.NumberOfPages = toys.PageCount;
-            return response;
-        }
-
-        return new ToysResponse() { Items = null, NumberOfPages = 0, Categories = categories };
+        response.Items = toys.Results!.Select(_mapper.Map<ToyUnit>);
+        response.NumberOfPages = toys.PageCount;
+        return response;
     }
 
     public Task<Toy> AddToyAsync(ToyData toyUnit)

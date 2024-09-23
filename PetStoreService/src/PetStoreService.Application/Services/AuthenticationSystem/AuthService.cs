@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
-using PetStoreService.Application.Interfaces.IdentityManager;
+﻿using PetStoreService.Application.Interfaces.IdentityManager;
+using PetStoreService.Application.Models.Request.Auth;
 using PetStoreService.Application.Models.Response.Auth;
 
 namespace PetStoreService.Application.Services.AuthenticationSystem;

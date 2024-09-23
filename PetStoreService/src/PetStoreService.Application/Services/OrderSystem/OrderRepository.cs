@@ -21,11 +21,7 @@ public class OrderRepository(PetStoreDBContext context) : Repository<Order>(cont
     {
         foreach (var orderItem in orderItems)
         {
-            Toy? toy = await Context.Toy.FindAsync(orderItem.ToyId);
-            if (toy == null)
-            {
-                throw new Exception("Toy not found");
-            }
+            Toy? toy = await Context.Toy.FindAsync(orderItem.ToyId) ?? throw new Exception("Toy not found");
             toy.Quantity -= orderItem.Quantity;
         }
     }
@@ -35,7 +31,9 @@ public class OrderRepository(PetStoreDBContext context) : Repository<Order>(cont
         await using var transaction = await Context.Database.BeginTransactionAsync();
 
         string toyIds = string.Join(",", order.OrderItem.Select(oi => oi.ToyId));
+#pragma warning disable EF1002 // Risk of vulnerability to SQL injection.
         var toys = await Context.Toy.FromSqlRaw($"select * from petstore.\"Toy\" where petstore.\"Toy\".\"Id\" in ({toyIds}) for update").ToListAsync();
+#pragma warning restore EF1002 // Risk of vulnerability to SQL injection.
 
         if (!CheckValidOrder(order.OrderItem, toys)) throw new MessageException("Invalid order");
 
@@ -47,8 +45,6 @@ public class OrderRepository(PetStoreDBContext context) : Repository<Order>(cont
         order.ExternalReferenceId = string.Empty;
 
         await CreateAsync(order);
-
-        await Context.SaveChangesAsync();
 
         await transaction.CommitAsync();
 

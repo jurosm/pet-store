@@ -9,9 +9,9 @@ public class AuthSettings
 
     public AuthSettings()
     {
-        Auth0Audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE");
-        Auth0Domain = Environment.GetEnvironmentVariable("AUTH0_DOMAIN");
-        Auth0ClientId = Environment.GetEnvironmentVariable("AUTH0_CLIENT_ID");
-        Auth0ClientSecret = Environment.GetEnvironmentVariable("AUTH0_CLIENT_SECRET");
+        Auth0Audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE") ?? throw new ArgumentNullException("AUTH0_AUDIENCE");
+        Auth0Domain = Environment.GetEnvironmentVariable("AUTH0_DOMAIN") ?? throw new ArgumentNullException("AUTH0_DOMAIN");
+        Auth0ClientId = Environment.GetEnvironmentVariable("AUTH0_CLIENT_ID") ?? throw new ArgumentNullException("AUTH0_CLIENT_ID");
+        Auth0ClientSecret = Environment.GetEnvironmentVariable("AUTH0_CLIENT_SECRET") ?? throw new ArgumentNullException("AUTH0_CLIENT_SECRET");
     }
 }
