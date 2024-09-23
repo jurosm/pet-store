@@ -1,21 +1,20 @@
 ﻿using Newtonsoft.Json;
-using PetStoreService.Application.Models.Response.ExternalServices;
+using PetStoreService.Application.Interfaces.IpInfoService;
 
-namespace PetStoreService.Application.Services.ExternalServices;
+namespace PetStoreService.Infrastructure.IpInfoService;
 
-public class IPInfoService
+public class IPInfoService : IIpInfoService
 {
     private readonly HttpClient _client;
     public IPInfoService()
     {
         _client = new HttpClient();
     }
-    public async Task<IPInfoResponse> GetLocation(string ipAddress)
+    public async Task<IPInfoResponse?> GetLocation(IPInfoRequest request)
     {
-        if (ipAddress == "::1")
+        if (request.Ip == "::1")
         {
-            HttpClient client = new();
-            _ = await (await client.GetAsync("https://api.ipify.org/")).Content.ReadAsStringAsync();
+            return null;
         }
 
         HttpResponseMessage httpResponse = await _client.GetAsync("https://ipinfo.io/");

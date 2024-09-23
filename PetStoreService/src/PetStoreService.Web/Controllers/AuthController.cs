@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿
 using Microsoft.AspNetCore.Mvc;
+using PetStoreService.Application.Models.Request.Auth;
 using PetStoreService.Application.Models.Response.Auth;
 using PetStoreService.Application.Services.AuthenticationSystem;
 using System.Threading.Tasks;
