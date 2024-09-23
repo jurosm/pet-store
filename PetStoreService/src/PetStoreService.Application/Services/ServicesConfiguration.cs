@@ -3,7 +3,6 @@ using PetStoreService.Application.Services.CategorySystem;
 using PetStoreService.Application.Services.CommentsSystem;
 using PetStoreService.Application.Services.OrderSystem;
 using PetStoreService.Application.Services.ToySystem;
-using PetStoreService.Domain.Entities;
 
 namespace PetStoreService.Application.Services;
 

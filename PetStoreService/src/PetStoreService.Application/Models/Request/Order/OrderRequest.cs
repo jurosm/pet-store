@@ -5,25 +5,25 @@ namespace PetStoreService.Application.Models.Request.Order;
 public class OrderRequest
 {
     [Required]
-    public List<OrderItemRequest> OrderItems { get; set; }
+    public required List<OrderItemRequest> OrderItems { get; set; }
 
     [Required]
     [MaxLength(30, ErrorMessage = "Maximum length is 30")]
-    public string CustomerName { get; set; }
+    public required string CustomerName { get; set; }
 
     [Required]
     [MaxLength(30, ErrorMessage = "Maximum length is 30")]
-    public string CustomerSurname { get; set; }
+    public required string CustomerSurname { get; set; }
 
     [Required]
     [MaxLength(50, ErrorMessage = "Maximum length is 50")]
-    public string Country { get; set; }
+    public required string Country { get; set; }
 
     [Required]
     [MaxLength(50, ErrorMessage = "Maximum length is 50")]
-    public string City { get; set; }
+    public required string City { get; set; }
 
     [Required]
     [MaxLength(80, ErrorMessage = "Maximum length is 80")]
-    public string StreetAddress { get; set; }
+    public required string StreetAddress { get; set; }
 }

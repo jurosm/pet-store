@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PetStoreService.Application.Helper.Pagination;
+using PetStoreService.Application.Helper;
 using PetStoreService.Persistence;
 using System.Linq.Expressions;
 
@@ -9,7 +9,7 @@ public class Repository<T>(PetStoreDBContext context) : IRepository<T> where T :
 {
     protected readonly PetStoreDBContext Context = context;
 
-    public DbSet<T> Table { get; set; } = Property<T>.AccessOnCompile(context);
+    public DbSet<T> Table { get; set; } = Property<T>.AccessOnCompile(context)!;
 
 
     public async Task<T> CreateAsync(T entity)
