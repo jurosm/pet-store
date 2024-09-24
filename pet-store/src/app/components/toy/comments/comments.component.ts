@@ -15,7 +15,7 @@ export class CommentsComponent {
   commentData: CommentData
   commentsForm: FormGroup
 
-  constructor(private api: PetStoreService, private route: ActivatedRoute) {
+  constructor(private readonly api: PetStoreService, private readonly route: ActivatedRoute) {
     this.commentsForm = new FormGroup({
       text: new FormControl(Validators.required),
       author: new FormControl(Validators.required),

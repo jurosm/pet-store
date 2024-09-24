@@ -42,14 +42,18 @@ export class OrderComponent {
     console.log('Validation Error', error)
   }
 
+  /**
+   * Updates the token on the order and creates the order on the backend
+   * @param token Token returned from Stripe
+   */
   setStripeToken(token: stripe.Token) {
-    console.log('Stripe token', token)
-    this.orderService.order.tokenId = token.id
-    this.orderService.buy().subscribe({
+    console.log('Set Stripe token', token)
+    this.orderService.updateStripeToken(token.id)
+    this.orderService.create().subscribe({
       next: _res => {
         this.isSuccessful = true
         this.transactionIsNotSuccessful = false
-        this.orderService.order.orderItems = []
+        this.orderService.reinitializeOrderItems()
       },
       error: err => {
         this.transactionIsNotSuccessful = true
@@ -62,7 +66,7 @@ export class OrderComponent {
   }
 
   setStripeSource(source: StripeSource) {
-    console.log('Stripe source', source)
+    console.log('Set Stripe source', source)
   }
 
   onStripeError(error: Error) {

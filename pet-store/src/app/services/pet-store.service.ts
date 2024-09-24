@@ -28,7 +28,7 @@ export class PetStoreService {
     this.url = environment.apiUrl
   }
 
-  buy(order: Order) {
+  create(order: Order) {
     return this.httpClient.post(`${this.url}/order`, order)
   }
 

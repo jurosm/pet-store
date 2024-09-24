@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Order } from '../models/order/order'
+import { Order, OrderContact } from '../models/order/order'
 import { PetStoreService } from './pet-store.service'
 import { ErrorService } from './errorService'
 import { catchError } from 'rxjs/operators'
@@ -8,14 +8,21 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root',
 })
 export class OrderService {
-  private readonly order: Order
-  constructor(private service: PetStoreService, private errorService: ErrorService) {
+  private order: Order
+  constructor(private readonly service: PetStoreService, private readonly errorService: ErrorService) {
     this.order = new Order()
     this.order.orderItems = []
   }
 
-  buy() {
-    return this.service.buy(this.order).pipe(catchError(this.errorService.handlerError))
+  submitOrderContact(contact: OrderContact) {
+    this.order = { ...this.order, ...contact }
+  }
+
+  /**
+   * Creates an order on the backend
+   */
+  create() {
+    return this.service.create(this.order).pipe(catchError(this.errorService.handlerError))
   }
 
   addToCart(id: number) {
@@ -55,5 +62,13 @@ export class OrderService {
       return 0
     }
     return this.order.orderItems.reduce((sum, item) => (sum += item.quantity), 0)
+  }
+
+  updateStripeToken(token: string) {
+    this.order.tokenId = token
+  }
+
+  reinitializeOrderItems() {
+    this.order.orderItems = []
   }
 }

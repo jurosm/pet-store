@@ -13,10 +13,10 @@ import { AuthService } from 'src/app/services/auth.service'
 export class ToyComponent {
   toy: Toy
   constructor(
-    private route: ActivatedRoute,
-    private api: PetStoreService,
-    public service: OrderService,
-    public authService: AuthService
+    private readonly route: ActivatedRoute,
+    private readonly api: PetStoreService,
+    public readonly service: OrderService,
+    public readonly authService: AuthService
   ) {
     this.route.paramMap.subscribe(params =>
       this.api.getToy(params.get('id')).subscribe(res => {

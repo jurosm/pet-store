@@ -23,10 +23,10 @@ export class ToysComponent {
   categories: Category[]
 
   constructor(
-    public api: PetStoreService,
-    public service: OrderService,
-    public router: Router,
-    public authService: AuthService
+    public readonly api: PetStoreService,
+    public readonly service: OrderService,
+    public readonly router: Router,
+    public readonly authService: AuthService
   ) {
     this.pageSizeList = Array(9)
       .fill(0)
