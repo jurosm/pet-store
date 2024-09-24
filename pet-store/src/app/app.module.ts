@@ -9,10 +9,10 @@ import { HeaderComponent } from './components/shared/header/header.component'
 import { FooterComponent } from './components/shared/footer/footer.component'
 import { OrderComponent } from './components/order/order.component'
 
-import { Module as StripeModule } from 'stripe-angular'
+import { StripeModule } from 'stripe-angular'
 import { OrderService } from './services/order.service'
 import { PetStoreService } from './services/pet-store.service'
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http'
 import { ToysComponent } from './components/toy/toys/toys.component'
 import { ToyComponent } from './components/toy/toy.component'
 import { AuthService } from './services/auth.service'
@@ -46,7 +46,6 @@ import { CategoryComponent } from './components/category/category.component'
     RouterModule,
     FontAwesomeModule,
     AppRoutingModule,
-    HttpClientModule,
     StripeModule.forRoot(),
     JwtModule,
     FormsModule,
@@ -64,6 +63,7 @@ import { CategoryComponent } from './components/category/category.component'
       useClass: TokenInterceptor,
       multi: true,
     },
+    provideHttpClient(),
   ],
   bootstrap: [AppComponent],
 })
