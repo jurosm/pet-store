@@ -9,7 +9,6 @@ import { HeaderComponent } from './components/shared/header/header.component'
 import { FooterComponent } from './components/shared/footer/footer.component'
 import { OrderComponent } from './components/order/order.component'
 
-import { StripeModule } from 'stripe-angular'
 import { OrderService } from './services/order.service'
 import { PetStoreService } from './services/pet-store.service'
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http'
@@ -25,12 +24,15 @@ import { CreateToyComponent } from './components/admin/create-toy/create-toy.com
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component'
 import { CommentsComponent } from './components/toy/comments/comments.component'
 import { CategoryComponent } from './components/category/category.component'
+import { OrderConfirmComponent } from './components/order/order-confirm/order-confirm.component'
+import { OrderCompleteComponent } from './components/order/order-complete/order-complete.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    OrderConfirmComponent,
     OrderComponent,
     ToysComponent,
     ToyComponent,
@@ -40,13 +42,13 @@ import { CategoryComponent } from './components/category/category.component'
     ListOrdersComponent,
     CommentsComponent,
     CategoryComponent,
+    OrderCompleteComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     FontAwesomeModule,
     AppRoutingModule,
-    StripeModule.forRoot(),
     JwtModule,
     FormsModule,
     ReactiveFormsModule,

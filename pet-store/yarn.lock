@@ -1868,6 +1868,11 @@
   resolved "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
+"@stripe/stripe-js@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/@stripe/stripe-js/-/stripe-js-4.5.0.tgz"
+  integrity sha512-dMOzc58AOlsF20nYM/avzV8RFhO/vgYTY7ajLMH6mjlnZysnOHZxsECQvjEmL8Q/ukPwHkOnxSPW/QGCCnp7XA==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.11"
   resolved "https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.11.tgz"
@@ -2096,11 +2101,6 @@
   integrity sha512-MK9V6NzAS1+Ud7JV9lJLFqW85VbC9dq3LmwZCuBe4wBDgKC0Kj/jd8Xl+nSviU+Qc3+m7umHHyHg//2KSa0a0Q==
   dependencies:
     "@types/node" "*"
-
-"@types/stripe-v3@^3.1.23":
-  version "3.1.33"
-  resolved "https://registry.npmjs.org/@types/stripe-v3/-/stripe-v3-3.1.33.tgz"
-  integrity sha512-fIE7F7alypCrnIMsk4naprHf8kXEvPM2Q9FGdL/3TDeGM0xlHohdVWkwuaEZ2tKzXB9QQKoS8k+ocLkPjZajwQ==
 
 "@types/wrap-ansi@^3.0.0":
   version "3.0.0"
@@ -6724,13 +6724,6 @@ strip-json-comments@^3.1.1, strip-json-comments@3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
-
-stripe-angular@^1.9.3:
-  version "1.9.3"
-  resolved "https://registry.npmjs.org/stripe-angular/-/stripe-angular-1.9.3.tgz"
-  integrity sha512-GO7Qom9hnhRt+6TadV7UplsiSt/yHXfzSJ5fjpdpF/Z3eSCWFyQ7XLBwoEJKcW1klhSHC2zvD3A6U93FnDSZXQ==
-  dependencies:
-    tslib "^2.3.0"
 
 supports-color@^5.3.0:
   version "5.5.0"

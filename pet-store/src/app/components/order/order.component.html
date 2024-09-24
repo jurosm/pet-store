@@ -110,13 +110,6 @@
     {{ validationServerError['StreetAddress'] }}
   </div>
 
-  <stripe-card
-    #stripeCard
-    (catch)="onStripeError($event)"
-    [(invalid)]="invalidError"
-    (tokenChange)="setStripeToken($event)"
-    (sourceChange)="setStripeSource($event)"></stripe-card>
-
   <div *ngIf="invalidError" style="color: red">
     {{ invalidError.message }}
   </div>
@@ -127,7 +120,6 @@
       data-target="#carousel-div"
       class="btn btn-primary btn-lg"
       value="Submit"
-      (click)="stripeCard.createToken()"
       [disabled]="!orderForm.valid || !orderService.numberOfItems()" />
   </div>
 

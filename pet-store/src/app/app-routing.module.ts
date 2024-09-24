@@ -9,6 +9,8 @@ import { CreateToyComponent } from './components/admin/create-toy/create-toy.com
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component'
 import { CategoryComponent } from './components/category/category.component'
 import { RouteGuard } from './guards/route.guard'
+import { OrderConfirmComponent } from './components/order/order-confirm/order-confirm.component'
+import { OrderCompleteComponent } from './components/order/order-complete/order-complete.component'
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'toy/edit/:id', component: CreateToyComponent, canActivate: [RouteGuard] },
   { path: 'orders', component: ListOrdersComponent, canActivate: [RouteGuard] },
   { path: 'category', component: CategoryComponent, canActivate: [RouteGuard] },
+  { path: 'order/confirm', component: OrderConfirmComponent },
+  { path: 'order/complete', component: OrderCompleteComponent },
 ]
 
 @NgModule({
