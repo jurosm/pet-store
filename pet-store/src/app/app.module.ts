@@ -12,7 +12,7 @@ import { OrderComponent } from './components/order/order.component'
 import { StripeModule } from 'stripe-angular'
 import { OrderService } from './services/order.service'
 import { PetStoreService } from './services/pet-store.service'
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http'
 import { ToysComponent } from './components/toy/toys/toys.component'
 import { ToyComponent } from './components/toy/toy.component'
 import { AuthService } from './services/auth.service'
@@ -46,7 +46,6 @@ import { CategoryComponent } from './components/category/category.component'
     RouterModule,
     FontAwesomeModule,
     AppRoutingModule,
-    HttpClientModule,
     StripeModule.forRoot(),
     JwtModule,
     FormsModule,
@@ -64,6 +63,7 @@ import { CategoryComponent } from './components/category/category.component'
       useClass: TokenInterceptor,
       multi: true,
     },
+    provideHttpClient(),
   ],
   bootstrap: [AppComponent],
 })

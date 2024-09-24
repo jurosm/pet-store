@@ -49,7 +49,7 @@ export class PetStoreService {
     if (getToysParams.category !== 0) {
       params = params.set('categoryId', getToysParams.category.toString())
     }
-    if (getToysParams.matchName !== '') {
+    if (getToysParams.matchName.trim().length > 0) {
       params = params.set('match', getToysParams.matchName)
     }
 
