@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root',
 })
 export class OrderService {
-  order: Order
+  private readonly order: Order
   constructor(private service: PetStoreService, private errorService: ErrorService) {
     this.order = new Order()
     this.order.orderItems = []
