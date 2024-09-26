@@ -95,11 +95,11 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "pet-store:build"
+            "buildTarget": "pet-store:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pet-store:build:production"
+              "buildTarget": "pet-store:build:production"
             }
           }
         },
