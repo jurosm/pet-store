@@ -1,21 +1,25 @@
-import { TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
+
 import { LoginComponent } from './login.component'
+import { provideHttpClient } from '@angular/common/http'
 
 describe('LoginComponent', () => {
+  let component: LoginComponent
+  let fixture: ComponentFixture<LoginComponent>
   beforeEach(() => {
     TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [LoginComponent],
-    }).compileComponents()
+    })
+
+    fixture = TestBed.createComponent(LoginComponent)
+    component = fixture.debugElement.componentInstance
   })
   it('it should create the LoginComponent', () => {
-    const fixture = TestBed.createComponent(LoginComponent)
-    const app = fixture.debugElement.componentInstance()
-    expect(app).toBeTruthy()
+    expect(component).toBeTruthy()
   })
   afterAll(() => {
-    TestBed.resetTestingModule()
-  })
-  afterEach(() => {
     TestBed.resetTestingModule()
   })
 })
