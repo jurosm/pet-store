@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ErrorResponse } from 'src/app/models/error/errorResponse'
+import { ErrorResponse } from '../../../../../src/app/models/error/errorResponse'
 import { faUser, faKey, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { LoginModel } from '../../../models/auth/loginModel'
 import { PetStoreService } from '../../../services/pet-store.service'

@@ -3,6 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing'
 
 import { LoginComponent } from './login.component'
 import { provideHttpClient } from '@angular/common/http'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 describe('LoginComponent', () => {
   let component: LoginComponent
@@ -11,6 +12,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       providers: [provideHttpClient(), provideHttpClientTesting()],
       declarations: [LoginComponent],
+      imports: [FontAwesomeModule],
     })
 
     fixture = TestBed.createComponent(LoginComponent)
