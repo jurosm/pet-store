@@ -2,7 +2,6 @@
 
 namespace PetStoreService.Web.Controllers
 {
-    [Route("/[controller]")]
     [ApiController]
     public class BaseApiController : ControllerBase
     {

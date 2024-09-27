@@ -40,13 +40,13 @@ export class PetStoreService {
 
   getToys(getToysParams: GetToysParams): Observable<ToysResponse> {
     let params = new HttpParams()
-      .set('page', getToysParams.page.toString())
-      .set('pageSize', getToysParams.pageSize.toString())
+      .set('offset', getToysParams.offset.toString())
+      .set('limit', getToysParams.limit.toString())
 
     if (getToysParams.order !== 0) {
       params = params.set('order', getToysParams.order.toString())
     }
-    if (getToysParams.category !== 0) {
+    if (getToysParams.category !== undefined && getToysParams.category !== 0) {
       params = params.set('categoryId', getToysParams.category.toString())
     }
     if (getToysParams.matchName.trim().length > 0) {
@@ -78,7 +78,7 @@ export class PetStoreService {
 
   updateToy(toy: Toy) {
     return this.httpClient
-      .put<Toy>(`${this.url}/toy/${toy.toyId}`, toy)
+      .put<Toy>(`${this.url}/toy/${toy.id}`, toy)
       .pipe(catchError(this.errorService.handlerError))
   }
 

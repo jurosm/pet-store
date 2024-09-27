@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { PetStoreService } from 'src/app/services/pet-store.service'
 import { OrderService } from 'src/app/services/order.service'
 import { GetToysParams } from 'src/app/models/toy/getToysParams'
@@ -13,14 +13,14 @@ import { Category } from 'src/app/models/categories/category'
   templateUrl: './toys.component.html',
   styleUrls: ['./toys.component.css'],
 })
-export class ToysComponent {
+export class ToysComponent implements OnInit {
   searchForm: FormGroup
   getToyParams: GetToysParams
   toys: ToysResponse
-  numberOfPagesList: number[]
   pageSizeList: number[]
   orderIsSuccessful: boolean
   categories: Category[]
+  page: number = 1
 
   constructor(
     public readonly api: PetStoreService,
@@ -41,33 +41,37 @@ export class ToysComponent {
       pageSize: new FormControl(),
     })
     this.toys = new ToysResponse()
-    this.getToyParams = { page: 1, pageSize: 6, matchName: '', order: 0, category: 0 }
+    this.getToyParams = { offset: 1, limit: 6, matchName: '', order: 0, category: 0 }
+  }
+  ngOnInit(): void {
     this.getToys()
     this.getCategories()
   }
 
   getToys() {
+    console.log(this.getToyParams.offset)
+    if (this.page == 1) {
+      this.getToyParams.offset = 1
+    } else {
+      this.getToyParams.offset = (this.page - 1) * this.getToyParams.limit
+    }
     this.api.getToys(this.getToyParams).subscribe(res => {
       this.toys = res
-      this.numberOfPagesList = Array(res.numberOfPages)
-        .fill(0)
-        .map((_x, i) => i)
     })
   }
 
-  paginate(page: number) {
-    this.getToyParams.page = page
+  paginate() {
     this.getToys()
   }
 
   filter() {
-    this.getToyParams.page = 1
+    this.getToyParams.offset = 1
     this.getToys()
   }
 
   deleteToy(toyId: number) {
     this.api.deleteToy(toyId).subscribe(_res => {
-      this.toys.items = this.toys.items.filter(el => el.toyId !== toyId)
+      this.toys.items = this.toys.items.filter(el => el.id !== toyId)
     })
   }
 

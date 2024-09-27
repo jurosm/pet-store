@@ -14,26 +14,23 @@ public class ToyService(ToyRepository toyRepository, IMapper mapper, CategoryRep
     private readonly CategoryRepository _categoryRepository = categoryRepository;
     private readonly IMapper _mapper = mapper;
 
-    public async Task<ToysResponse> GetToysPageAsync(int pageSize, int page, ToyOrder order, string match, int? category)
+    public async Task<ToysResponse> GetToysPageAsync(int limit, int offset, ToyOrder order, string match, int? category)
     {
-        var dbCategories = await _categoryRepository.ReadAllAsync();
+        PagedResult<Toy> toys = await _toyRepository.GetToysPaged(limit, offset, order, match, category);
 
-        IEnumerable<CategoryUnit> categories = dbCategories.Select(_mapper.Map<CategoryUnit>);
-        ToysResponse response = new()
+        return new ToysResponse
         {
-            Categories = categories
+            Items = toys.Results!.Select(_mapper.Map<ToyUnit>),
+            Offset = toys.Offset,
+            Limit = toys.Limit,
+            Total = toys.Total
         };
-
-        PagedResult<Toy> toys = await _toyRepository.GetToysPaged(pageSize, page, order, match, category);
-
-        response.Items = toys.Results!.Select(_mapper.Map<ToyUnit>);
-        response.NumberOfPages = toys.PageCount;
-        return response;
     }
 
-    public Task<Toy> AddToyAsync(ToyData toyUnit)
+    public async Task<ToyResponse> AddToyAsync(ToyData toyUnit)
     {
-        return _toyRepository.AddToyAsync(toyUnit);
+        var toy = await _toyRepository.AddToyAsync(toyUnit);
+        return _mapper.Map<ToyResponse>(toy);
     }
 
     public Task<Toy> UpdateToyAsync(ToyData toy, int id)

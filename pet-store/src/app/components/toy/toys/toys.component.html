@@ -20,7 +20,7 @@
             formControlName="category"
             (change)="filter()">
             <option [ngValue]="0">All categories</option>
-            <option *ngFor="let category of categories" [ngValue]="category.categoryId">
+            <option *ngFor="let category of categories" [ngValue]="category.id">
               {{ category.name }}
             </option>
           </select>
@@ -30,7 +30,7 @@
       <div class="col-md-3">
         <div class="form-control">
           <select
-            [(ngModel)]="getToyParams.pageSize"
+            [(ngModel)]="getToyParams.limit"
             formControlName="pageSize"
             (change)="filter()">
             <option [ngValue]="0">Choose page size</option>
@@ -66,7 +66,7 @@
           <div class="card" style="width: 18rem">
             <div class="card-body">
               <h5 class="card-title">
-                <a [routerLink]="['/toys', element.toyId]">{{ element.name }}</a>
+                <a [routerLink]="['/toys', element.id]">{{ element.name }}</a>
               </h5>
               <p class="card-text">{{ element.shortDescription }}</p>
             </div>
@@ -79,7 +79,7 @@
                 {{ element.price }} <i class="fas fa-dollar-sign"></i>
               </li>
               <li class="list-group-item" *ngIf="!authService.isAuthenticated()">
-                In cart: {{ this.service.numberOfItems(element.toyId) }}
+                In cart: {{ this.service.numberOfItems(element.id) }}
               </li>
             </ul>
             <div class="card-body">
@@ -88,7 +88,7 @@
                   type="button"
                   name="button"
                   class="btn btn-primary"
-                  (click)="router.navigate(['/toy/edit', element.toyId])">
+                  (click)="router.navigate(['/toy/edit', element.id])">
                   Edit
                 </button>
               </div>
@@ -98,7 +98,7 @@
                   type="button"
                   name="button"
                   class="btn btn-primary"
-                  (click)="deleteToy(element.toyId)">
+                  (click)="deleteToy(element.id)">
                   Delete
                 </button>
               </div>
@@ -107,14 +107,8 @@
         </div>
       </div>
       <hr />
-    </div>
+    </div> 
   </div>
 </form>
 
-<div class="pag">
-  <ul class="pagination">
-    <li class="page-item" *ngFor="let number of numberOfPagesList">
-      <a class="page-link" (click)="paginate(number + 1)">{{ number + 1 }}</a>
-    </li>
-  </ul>
-</div>
+<ngb-pagination [collectionSize]="toys.total" [(page)]="page" (pageChange)="paginate()" [pageSize]="getToyParams.limit" [maxSize]="10"/>

@@ -42,7 +42,7 @@ export class CreateToyComponent implements OnInit {
       this.route.paramMap.subscribe(params => {
         this.api.getToy(params.get('id')).subscribe(res => {
           this.toy = res
-          this.toy.toyId = +params.get('id')
+          this.toy.id = +params.get('id')
         })
       })
     }

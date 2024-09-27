@@ -6,12 +6,8 @@
     <input
       type="text"
       style="text-align: center"
-      name=""
       class="form-control"
-      value=""
-      placeholder=""
       required
-      [(ngModel)]="categoryName"
       formControlName="categoryName" />
   </div>
 
@@ -21,7 +17,7 @@
       class="btn btn-primary btn-lg"
       value="Create new"
       [disabled]="!createCategoryForm.valid"
-      (click)="addNewCategory()" />
+      (click)="addNewCategory()"/>
   </div>
 
   <div class="text-danger" *ngIf="createCategoryForm.controls.categoryName.errors">
@@ -38,9 +34,9 @@
     </div>
     <div>
       <div class="form-control">
-        <select input="number" [(ngModel)]="category.categoryId" formControlName="categoryId">
-          <option [value]="0">None</option>
-          <option *ngFor="let category of categories" [value]="category.categoryId">
+        <select formControlName="categoryId">
+          <option [ngValue]="0">None</option>
+          <option *ngFor="let category of categories" [ngValue]="category.id">
             {{ category.name }}
           </option>
         </select>

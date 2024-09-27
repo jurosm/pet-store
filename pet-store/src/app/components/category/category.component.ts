@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { PetStoreService } from 'src/app/services/pet-store.service'
 import { Category } from 'src/app/models/categories/category'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
@@ -8,24 +8,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
 })
-export class CategoryComponent {
+export class CategoryComponent implements OnInit {
   categories: Category[]
-  category: Category
   deleteCategoryForm: FormGroup
-  categoryName: string
   createCategoryForm: FormGroup
 
-  constructor(public api: PetStoreService) {
+  constructor(private readonly api: PetStoreService) {
     this.deleteCategoryForm = new FormGroup({
-      categoryId: new FormControl(),
+      categoryId: new FormControl(Validators.required),
     })
 
     this.createCategoryForm = new FormGroup({
-      categoryName: new FormControl(Validators.required),
+      categoryName: new FormControl(),
     })
-
-    this.category = new Category()
-
+  }
+  ngOnInit(): void {
     this.getCategories()
   }
 
@@ -36,20 +33,21 @@ export class CategoryComponent {
   }
 
   deleteCategory() {
-    if (this.category.categoryId !== 0 && this.category.categoryId !== undefined) {
-      this.api.deleteCategory(this.category.categoryId).subscribe(_res => {
+    const deleteCategoryId = this.deleteCategoryForm.value.categoryId
+
+    if (deleteCategoryId !== 0 && deleteCategoryId !== undefined) {
+      this.api.deleteCategory(deleteCategoryId).subscribe(_res => {
         this.getCategories()
       })
     }
   }
 
   addNewCategory() {
-    if (this.categoryName !== undefined) {
-      if (this.categoryName.trim() !== '') {
-        this.api.createCategory({ name: this.categoryName }).subscribe(_res => {
-          this.getCategories()
-        })
-      }
+    const categoryName = this.createCategoryForm.value.categoryName
+    if (categoryName.trim() !== '') {
+      this.api.createCategory({ name: categoryName }).subscribe(_res => {
+        this.getCategories()
+      })
     }
   }
 }
