@@ -1,5 +1,6 @@
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser'
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgModule } from '@angular/core'
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt'
 import { TokenInterceptor } from './interceptors/tokenInterceptor'
@@ -9,10 +10,9 @@ import { HeaderComponent } from './components/shared/header/header.component'
 import { FooterComponent } from './components/shared/footer/footer.component'
 import { OrderComponent } from './components/order/order.component'
 
-import { StripeModule } from 'stripe-angular'
 import { OrderService } from './services/order.service'
 import { PetStoreService } from './services/pet-store.service'
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http'
 import { ToysComponent } from './components/toy/toys/toys.component'
 import { ToyComponent } from './components/toy/toy.component'
 import { AuthService } from './services/auth.service'
@@ -25,12 +25,16 @@ import { CreateToyComponent } from './components/admin/create-toy/create-toy.com
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component'
 import { CommentsComponent } from './components/toy/comments/comments.component'
 import { CategoryComponent } from './components/category/category.component'
+import { OrderConfirmComponent } from './components/order/order-confirm/order-confirm.component'
+import { OrderCompleteComponent } from './components/order/order-complete/order-complete.component'
+import { authInterceptor } from './helper/authInterceptor'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    OrderConfirmComponent,
     OrderComponent,
     ToysComponent,
     ToyComponent,
@@ -40,16 +44,17 @@ import { CategoryComponent } from './components/category/category.component'
     ListOrdersComponent,
     CommentsComponent,
     CategoryComponent,
+    OrderCompleteComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     FontAwesomeModule,
     AppRoutingModule,
-    StripeModule.forRoot(),
     JwtModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbPaginationModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
@@ -63,7 +68,7 @@ import { CategoryComponent } from './components/category/category.component'
       useClass: TokenInterceptor,
       multi: true,
     },
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
   ],
   bootstrap: [AppComponent],
 })

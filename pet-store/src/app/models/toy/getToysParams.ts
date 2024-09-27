@@ -1,7 +1,7 @@
 export class GetToysParams {
-  page: number
+  offset: number
   order: number
   matchName: string
   category: number
-  pageSize: number
+  limit: number
 }

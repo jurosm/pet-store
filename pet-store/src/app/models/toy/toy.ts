@@ -1,7 +1,7 @@
 export class Toy {
   description: string
   shortDescription: string
-  toyId: number
+  id: number
   name: string
   price: number
   quantity: number

@@ -9,7 +9,6 @@ namespace PetStoreService.Application.Services.ToySystem;
 
 public enum ToyOrder
 {
-    None = 0,
     Ascending = 1,
     Descending = 2
 }
@@ -18,7 +17,7 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
 {
     private readonly IMapper _mapper = mapper;
 
-    public Task<PagedResult<Toy>> GetToysPaged(int pageSize, int page, ToyOrder order, string match, int? category)
+    public Task<PagedResult<Toy>> GetToysPaged(int limit, int offset, ToyOrder order, string match, int? category)
     {
         IQueryable<Toy> baseQuery = Table.Include(x => x.Category);
 
@@ -29,22 +28,16 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
 
         if (category.HasValue)
         {
-            baseQuery = baseQuery.Where(x => x.CategoryId == category);
+            baseQuery = baseQuery.Where(x => x.CategoryId == category.Value);
         }
 
         if (order == ToyOrder.Ascending)
         {
-            return PagedResult<Toy>.GetPaged(baseQuery.OrderBy(x => x.Price), page, pageSize);
+            return PagedResult<Toy>.GetPaged(baseQuery.OrderBy(x => x.Price), offset, limit);
         }
-
-        else if (order == ToyOrder.Descending)
-        {
-            return PagedResult<Toy>.GetPaged(baseQuery.OrderByDescending(x => x.Price), page, pageSize);
-        }
-
         else
         {
-            return PagedResult<Toy>.GetPaged(baseQuery, page, pageSize);
+            return PagedResult<Toy>.GetPaged(baseQuery.OrderByDescending(x => x.Price), offset, limit);
         }
     }
 
@@ -56,14 +49,17 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
     public async Task<Toy> AddToyAsync(ToyData toyUnit)
     {
         Toy toy = _mapper.Map<Toy>(toyUnit);
+
         Category? category = await Context.Category.FirstOrDefaultAsync(x => x.Id == toyUnit.CategoryId);
-        if (category != null) category.Toy.Add(toy);
-        else
+        if (category == null)
         {
             toy.CategoryId = null;
-            await Table.AddAsync(toy);
         }
+        await Context.Toy.AddAsync(toy);
+
         await Context.SaveChangesAsync();
+
+        Console.WriteLine("KURCINAAAA");
 
         return toy;
     }

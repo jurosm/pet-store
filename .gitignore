@@ -402,3 +402,5 @@ docker-compose.yaml
 
 *coverage.cobertura.xml
 *coveragereport
+
+*yarn.lock

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: process.env.API_URL,
-  stripeKey: process.env.STRIPE_KEY,
+  apiUrl: process?.env?.API_URL,
+  stripeKey: process?.env?.STRIPE_KEY,
 }
 
 /*

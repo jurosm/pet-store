@@ -74,7 +74,7 @@
       <div class="form-control">
         <select input="number" [(ngModel)]="toy.categoryId" formControlName="categoryId">
           <option [ngValue]="0">None</option>
-          <option *ngFor="let category of categories" [ngValue]="category.categoryId">
+          <option *ngFor="let category of categories" [ngValue]="category.id">
             {{ category.name }}
           </option>
         </select>

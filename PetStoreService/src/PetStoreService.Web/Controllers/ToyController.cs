@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace PetStoreService.Web.Controllers
 {
-    [Route("/toy")]
+    [Route("toy")]
     public class ToyController(ToyService toyService) : BaseApiController
     {
         private readonly ToyService _toyService = toyService;
 
         [HttpGet]
-        public async Task<ActionResult<ToysResponse>> GetToysPage([FromQuery] int? categoryId, [FromQuery] string match, [FromQuery] int page = 1, [FromQuery] ToyOrder order = 0, [FromQuery] int pageSize = 5)
+        public async Task<ActionResult<ToysResponse>> GetToysPage([FromQuery] int? categoryId, [FromQuery] string match, [FromQuery] int offset = 1, [FromQuery] ToyOrder order = 0, [FromQuery] int limit = 5)
         {
-            return Ok(await _toyService.GetToysPageAsync(pageSize, page, order, match, categoryId));
+            return Ok(await _toyService.GetToysPageAsync(limit, offset, order, match, categoryId));
         }
 
         [HttpGet("{id}")]
