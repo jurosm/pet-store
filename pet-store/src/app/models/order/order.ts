@@ -1,4 +1,4 @@
-import { OrderItem } from './orderItem'
+import { OrderItem } from './order-item'
 
 export class OrderContact {
   customerName: string
@@ -9,6 +9,8 @@ export class OrderContact {
 }
 
 export class Order extends OrderContact {
+  id: number
   tokenId: string
   orderItems: OrderItem[]
+  paymentSecret?: string
 }

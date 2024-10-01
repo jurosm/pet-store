@@ -3,13 +3,18 @@ import { Order, OrderContact } from '../models/order/order'
 import { PetStoreService } from './pet-store.service'
 import { ErrorService } from './errorService'
 import { catchError } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+import { OrderInfo } from '../models/order/order-info'
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
   private order: Order
-  constructor(private readonly service: PetStoreService, private readonly errorService: ErrorService) {
+  constructor(
+    private readonly service: PetStoreService,
+    private readonly errorService: ErrorService
+  ) {
     this.order = new Order()
     this.order.orderItems = []
   }
@@ -21,7 +26,7 @@ export class OrderService {
   /**
    * Creates an order on the backend
    */
-  create() {
+  create(): Observable<OrderInfo> {
     return this.service.create(this.order).pipe(catchError(this.errorService.handlerError))
   }
 

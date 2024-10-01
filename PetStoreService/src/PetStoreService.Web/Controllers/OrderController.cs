@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PetStoreService.Application.Models.Request.Order;
 using PetStoreService.Application.Models.Response.Order;
+using PetStoreService.Application.Models.Services.Order;
 using PetStoreService.Application.Services.OrderSystem;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace PetStoreService.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] OrderRequest orderRequest)
+        public async Task<ActionResult<CreateOrderResponse>> Create([FromBody] OrderRequest orderRequest)
         {
             try
             {
@@ -36,6 +37,18 @@ namespace PetStoreService.Web.Controllers
                 Console.WriteLine(ex.Message);
                 throw;
             }
+        }
+
+        [HttpPost("{orderId}/payment-intent")]
+        public async Task<ActionResult<CreatePaymentIntentResponse>> CreatePaymentIntent([FromRoute] int orderId)
+        {
+            return Ok(await _orderService.CreatePaymentIntentAsync(new CreatePaymentIntentRequest { OrderId = orderId }));
+        }
+
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<GetOrderResponse>> GetOrderById([FromRoute] int orderId)
+        {
+            return Ok(await _orderService.GetOrderById(orderId));
         }
     }
 }

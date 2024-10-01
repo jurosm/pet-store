@@ -1,7 +1,8 @@
-﻿namespace PetStoreService.Application.Models.Services.Order
+﻿namespace PetStoreService.Application.Models.Services.Order;
+
+public class OrderInfo
 {
-    public class OrderInfo
-    {
-        public required string Message { get; set; }
-    }
+    public required CreateOrderResponse Order { get; set; }
+    public required string PaymentSecret { get; set; }
 }
+

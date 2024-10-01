@@ -59,8 +59,6 @@ public class ToyRepository(PetStoreDBContext context, IMapper mapper) : Reposito
 
         await Context.SaveChangesAsync();
 
-        Console.WriteLine("KURCINAAAA");
-
         return toy;
     }
 

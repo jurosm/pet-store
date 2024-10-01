@@ -49,7 +49,6 @@ export class ToysComponent implements OnInit {
   }
 
   getToys() {
-    console.log(this.getToyParams.offset)
     if (this.page == 1) {
       this.getToyParams.offset = 1
     } else {

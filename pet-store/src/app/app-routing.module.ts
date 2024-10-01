@@ -22,8 +22,8 @@ const routes: Routes = [
   { path: 'toy/edit/:id', component: CreateToyComponent, canActivate: [RouteGuard] },
   { path: 'orders', component: ListOrdersComponent, canActivate: [RouteGuard] },
   { path: 'category', component: CategoryComponent, canActivate: [RouteGuard] },
-  { path: 'order/confirm', component: OrderConfirmComponent },
-  { path: 'order/complete', component: OrderCompleteComponent },
+  { path: 'order/:id/confirm', component: OrderConfirmComponent },
+  { path: 'order/:id/complete', component: OrderCompleteComponent },
 ]
 
 @NgModule({

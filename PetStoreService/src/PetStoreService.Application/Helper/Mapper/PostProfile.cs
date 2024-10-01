@@ -6,6 +6,7 @@ using PetStoreService.Application.Models.Response.Category;
 using PetStoreService.Application.Models.Response.Comment;
 using PetStoreService.Application.Models.Response.Order;
 using PetStoreService.Application.Models.Response.Toy;
+using PetStoreService.Application.Models.Services.Order;
 using PetStoreService.Domain.Entities;
 
 namespace PetStoreService.Application.Helper.Mapper
@@ -39,12 +40,17 @@ namespace PetStoreService.Application.Helper.Mapper
                 .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => OrderStatus.Draft));
 
             CreateMap<Order, OrderListItem>().ReverseMap();
+            CreateMap<Order, GetOrderResponse>();
 
             CreateMap<Category, CategoryUnit>().ReverseMap();
 
             CreateMap<Comment, CommentsUnit>().ReverseMap();
 
             CreateMap<CommentData, Comment>().ReverseMap();
+
+            CreateMap<Toy, CreateOrderToyResponse>().ReverseMap();
+            CreateMap<CreateOrderItemResponse, OrderItem>().ForMember(src => src.Toy, opt => opt.MapFrom(dest => dest.Toy)).ReverseMap();
+            CreateMap<Order, CreateOrderResponse>().ForMember(src => src.OrderItem, opt => opt.MapFrom(dest => dest.OrderItem)).ReverseMap();
         }
     }
 }

@@ -3,7 +3,7 @@
 public class OrderListItem
 {
     public DateTime OrderDate { get; set; }
-    public int OrderId { get; set; }
+    public int Id { get; set; }
     public required string CustomerName { get; set; }
     public required string CustomerSurname { get; set; }
     public required string ShippingAddress { get; set; }

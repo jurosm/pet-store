@@ -70,7 +70,6 @@ namespace PetStoreService.Persistence
                 entity.Property(e => e.ExternalReferenceId).HasMaxLength(255);
 
                 entity.Property(e => e.IpinfoAddress)
-                    .IsRequired()
                     .HasColumnName("IPInfoAddress")
                     .HasMaxLength(255);
 
