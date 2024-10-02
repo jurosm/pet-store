@@ -25,7 +25,8 @@ import { ListOrdersComponent } from './components/admin/list-orders/list-orders.
 import { CommentsComponent } from './components/toy/comments/comments.component'
 import { CategoryComponent } from './components/category/category.component'
 import { authInterceptor } from './helper/authInterceptor'
-import { OrderModule } from './order/order.module'
+import { OrderModule } from './order/order.module';
+import { StoreModule } from '@ngrx/store'
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { OrderModule } from './order/order.module'
     FormsModule,
     ReactiveFormsModule,
     NgbPaginationModule,
-    OrderModule
+    OrderModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
