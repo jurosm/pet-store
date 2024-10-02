@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
-import { PetStoreService } from 'src/app/services/pet-store.service'
-import { OrderListItem } from 'src/app/models/order/orderListItem'
+import { OrderListItem } from '../../../../app/models/order/order-list-item'
+import { PetStoreService } from '../../../../app/services/pet-store.service'
 
 @Component({
   selector: 'app-list-orders',
@@ -9,7 +9,7 @@ import { OrderListItem } from 'src/app/models/order/orderListItem'
 })
 export class ListOrdersComponent {
   orderListItems: OrderListItem[]
-  constructor(public api: PetStoreService) {
+  constructor(private readonly api: PetStoreService) {
     this.api.getOrders().subscribe(res => {
       this.orderListItems = res
     })

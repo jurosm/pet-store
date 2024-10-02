@@ -1,19 +1,19 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router'
-import { OrderService } from 'src/app/services/order.service'
+import { OrderService } from '../../../app/services/order.service'
 import * as Collections from 'typescript-collections'
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css'],
+  selector: 'app-order-create',
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.css'],
 })
-export class OrderComponent {
+export class CreateComponent {
   createOrder() {
     this.orderService.submitOrderContact(this.orderForm.value)
     this.orderService.create().subscribe({
-      next: (res) => {
+      next: res => {
         this.isSuccessful = true
         this.router.navigateByUrl(`/order/${res.order.id}/confirm`)
       },
