@@ -15,6 +15,8 @@ export const addToCart = createAction('[Order Page] Add To Cart', props<{ id: nu
 
 export const removeFromCart = createAction('[Order Page] Remove From Cart', props<{ id: number }>())
 
+export const createPaymentIntent = createAction('[Order Page] Create Payment Intent')
+
 export const reinitializeOrderItems = createAction('[Order Page] Reinitialize Order Items')
 
 export const updateStripeToken = createAction(

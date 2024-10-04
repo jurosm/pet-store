@@ -32,6 +32,10 @@ export class PetStoreService {
     return this.httpClient.post(`${this.url}/order`, order)
   }
 
+  createPaymentIntent(orderId: number): Observable<any> {
+    return this.httpClient.post(`${this.url}/order/${orderId}/payment-intent`, {})
+  }
+
   login(model: LoginModel): Observable<AuthResult> {
     return this.httpClient
       .post<AuthResult>(`${this.url}/auth/login`, model)

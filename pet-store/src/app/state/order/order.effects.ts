@@ -5,7 +5,7 @@ import { from, map, switchMap, withLatestFrom } from 'rxjs'
 
 import { OrderService } from '../../services/order.service'
 import { AppState } from '../app.state'
-import { createOrder, createOrderSuccess } from './order.actions'
+import { createOrder, createOrderSuccess, createPaymentIntent } from './order.actions'
 
 @Injectable()
 export class OrderEffects {
@@ -22,6 +22,14 @@ export class OrderEffects {
       switchMap(([_action, order]) =>
         from(this.orderService.create(order)).pipe(map(order => createOrderSuccess(order)))
       )
+    )
+  )
+
+  $createPaymentIntent = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createPaymentIntent),
+      withLatestFrom(this.store$.select(state => state.order.order)),
+      switchMap(([_action, order]) => from(this.orderService.createPaymentIntent(order.id)).pipe())
     )
   )
 }

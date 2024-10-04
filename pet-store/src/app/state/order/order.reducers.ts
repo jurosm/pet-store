@@ -14,6 +14,7 @@ enum OrderStateStatus {
 export interface OrderState {
   order: Order
   status: OrderStateStatus
+  stripeClientSecret?: string
 }
 
 export const initialState: OrderState = {

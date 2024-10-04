@@ -4,7 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms'
 import * as Collections from 'typescript-collections'
 import { Store } from '@ngrx/store'
 import { AppState } from '../../state/app.state'
-import { createOrder, createOrderContact } from '../../state/order/order.actions'
+import { createOrder, createOrderContact, createPaymentIntent } from '../../state/order/order.actions'
 
 @Component({
   selector: 'app-order-create',
@@ -15,6 +15,7 @@ export class CreateComponent {
   createOrder() {
     this.store.dispatch(createOrderContact({ ...this.orderForm.value }))
     this.store.dispatch(createOrder())
+    this.store.dispatch(createPaymentIntent())
   }
   invalidError: any
   orderForm: FormGroup
