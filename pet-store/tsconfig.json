@@ -17,7 +17,8 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["ES2022", "dom"],
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "useDefineForClassFields": false // Needed for NGRX effects actions injection
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

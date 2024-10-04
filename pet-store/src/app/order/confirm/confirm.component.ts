@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { loadStripe, Stripe } from '@stripe/stripe-js'
-import { environment } from '../../../../../src/environments/environment'
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-order-confirm',
-  templateUrl: './order-confirm.component.html',
-  styleUrl: './order-confirm.component.css',
+  templateUrl: './confirm.component.html',
+  styleUrl: './confirm.component.css',
 })
-export class OrderConfirmComponent implements OnInit {
+export class ConfirmComponent implements OnInit {
   private readonly clientSecret = ''
   private readonly publishableKey = environment.stripeKey
   private stripe: Stripe

@@ -18,20 +18,40 @@ public class OrderService(OrderRepository orderRepository, IPaymentService strip
         return (await _orderRepository.ReadAllAsync()).OrderByDescending(x => x.OrderDate).Select(x => _mapper.Map<OrderListItem>(x));
     }
 
-    public async Task<OrderInfo> CreateAsync(OrderRequest orderRequest)
+    public async Task<CreateOrderResponse> CreateAsync(OrderRequest orderRequest)
     {
         Order order = _mapper.Map<Order>(orderRequest);
 
-        // Todo: IpinfoAddress should be nullable
-        order.IpinfoAddress = string.Empty;
+        await _orderRepository.CreateOrderAndRemoveItems(order);
 
-        var amount = await _orderRepository.CreateOrderAndRemoveItems(order);
+        var response = _mapper.Map<CreateOrderResponse>(order);
 
-        var paymentIntent = await _stripeService.CreatePaymentIntent(new PaymentIntentRequest() { Amount = amount, Currency = "usd" });
-        order.ExternalReferenceId = paymentIntent.PaymentIntentId;
+        return response;
+    }
+
+    public async Task<CreatePaymentIntentResponse> CreatePaymentIntentAsync(CreatePaymentIntentRequest request)
+    {
+        var order = await _orderRepository.GetOrderByIdAsync(request.OrderId);
+
+        var paymentIntent = await _stripeService.CreatePaymentIntent(new PaymentIntentRequest
+        {
+            Amount = order.Total,
+            Currency = "usd"
+        });
+
+        order.OrderStatus = OrderStatus.PaymentProcessing;
 
         await _orderRepository.UpdateAsync(order);
 
-        return new OrderInfo() { Message = "Order created" };
+        return new CreatePaymentIntentResponse
+        {
+            ClientSecret = paymentIntent.ClientSecret,
+        };
+    }
+
+    public async Task<GetOrderResponse> GetOrderById(int orderId)
+    {
+        var order = await _orderRepository.GetOrderByIdAsync(orderId);
+        return _mapper.Map<GetOrderResponse>(order);
     }
 }

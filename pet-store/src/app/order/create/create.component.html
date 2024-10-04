@@ -1,4 +1,4 @@
-<div class="form" [formGroup]="orderForm">
+<form [formGroup]="orderForm">
   <div class="input-group mb-3">
     <div class="input-group-append">
       <span class="input-group-text">Name: </span>
@@ -120,7 +120,8 @@
       data-target="#carousel-div"
       class="btn btn-primary btn-lg"
       value="Submit"
-      [disabled]="!orderForm.valid || !orderService.numberOfItems()" />
+      (click)="createOrder()"
+      [disabled]="!orderForm.valid" />
   </div>
 
   <div class="d-flex justify-content-center mt-3">
@@ -134,4 +135,4 @@
       Transaction is not successful!
     </div>
   </div>
-</div>
+</form>

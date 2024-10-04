@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PetStoreService.Application.Exceptions.Services.Order;
+using PetStoreService.Application.Exceptions;
 using PetStoreService.Domain.Entities;
 using PetStoreService.Persistence;
 
@@ -21,12 +21,12 @@ public class OrderRepository(PetStoreDBContext context) : Repository<Order>(cont
     {
         foreach (var orderItem in orderItems)
         {
-            Toy? toy = await Context.Toy.FindAsync(orderItem.ToyId) ?? throw new Exception("Toy not found");
+            Toy? toy = await Context.Toy.FindAsync(orderItem.ToyId) ?? throw new BadRequestException("Toy not found", "order.toy.not_found");
             toy.Quantity -= orderItem.Quantity;
         }
     }
 
-    public async Task<decimal> CreateOrderAndRemoveItems(Order order)
+    public async Task CreateOrderAndRemoveItems(Order order)
     {
         await using var transaction = await Context.Database.BeginTransactionAsync();
 
@@ -35,19 +35,20 @@ public class OrderRepository(PetStoreDBContext context) : Repository<Order>(cont
         var toys = await Context.Toy.FromSqlRaw($"select * from petstore.\"Toy\" where petstore.\"Toy\".\"Id\" in ({toyIds}) for update").ToListAsync();
 #pragma warning restore EF1002 // Risk of vulnerability to SQL injection.
 
-        if (!CheckValidOrder(order.OrderItem, toys)) throw new MessageException("Invalid order");
+        if (!CheckValidOrder(order.OrderItem, toys)) throw new BadRequestException("Toy quantity exceeded.", "order.toy.quantity_exceeded");
+
+        var total = order.OrderItem.Sum(x => x.Quantity * toys.Find(t => t.Id == x.ToyId)!.Price);
+        order.Total = total;
 
         await RemoveItemsAsync(order.OrderItem);
-
-        decimal amount = PricePerOrder(order.OrderItem, toys);
-
-        // Todo: This should be nullable
-        order.ExternalReferenceId = string.Empty;
 
         await CreateAsync(order);
 
         await transaction.CommitAsync();
+    }
 
-        return amount;
+    public async Task<Order> GetOrderByIdAsync(int id)
+    {
+        return await Context.Order.FindAsync(id) ?? throw new NotFoundException("Order not found");
     }
 }

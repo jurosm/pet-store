@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { HeaderComponent } from './components/shared/header/header.component'
 import { FooterComponent } from './components/shared/footer/footer.component'
-import { OrderComponent } from './components/order/order.component'
 
 import { OrderService } from './services/order.service'
 import { PetStoreService } from './services/pet-store.service'
@@ -25,17 +24,24 @@ import { CreateToyComponent } from './components/admin/create-toy/create-toy.com
 import { ListOrdersComponent } from './components/admin/list-orders/list-orders.component'
 import { CommentsComponent } from './components/toy/comments/comments.component'
 import { CategoryComponent } from './components/category/category.component'
-import { OrderConfirmComponent } from './components/order/order-confirm/order-confirm.component'
-import { OrderCompleteComponent } from './components/order/order-complete/order-complete.component'
 import { authInterceptor } from './helper/authInterceptor'
+import { OrderModule } from './order/order.module'
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+import { orderReducer } from './state/order/order.reducers'
+import { OrderEffects } from './state/order/order.effects'
+import { localStorageSync } from 'ngrx-store-localstorage'
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({ keys: ['order'], rehydrate: true })(reducer)
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer]
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    OrderConfirmComponent,
-    OrderComponent,
     ToysComponent,
     ToyComponent,
     LoginComponent,
@@ -44,7 +50,6 @@ import { authInterceptor } from './helper/authInterceptor'
     ListOrdersComponent,
     CommentsComponent,
     CategoryComponent,
-    OrderCompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,10 @@ import { authInterceptor } from './helper/authInterceptor'
     JwtModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    OrderModule,
+    StoreModule.forRoot({ order: orderReducer }, { metaReducers }),
+    EffectsModule.forRoot([OrderEffects]),
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

@@ -21,7 +21,7 @@ export class LoginComponent {
 
   serverError: ErrorResponse
 
-  constructor(private service: PetStoreService, private router: Router) {
+  constructor(private readonly service: PetStoreService, private readonly router: Router) {
     this.faUser = faUser
     this.faKey = faKey
     this.login = new LoginModel()

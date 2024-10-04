@@ -11,7 +11,7 @@ import { environment } from '../../../src/environments/environment'
 import { ToysResponse } from '../models/toy/toysResponse'
 import { Toy } from '../models/toy/toy'
 import { Category } from '../models/categories/category'
-import { OrderListItem } from '../models/order/orderListItem'
+import { OrderListItem } from '../models/order/order-list-item'
 import { CommentsUnit } from '../models/toy/comments/commentsUnit'
 import { CommentData } from '../models/toy/comments/commentData'
 import { CategoryName } from '../models/categories/categoryName'
@@ -28,8 +28,12 @@ export class PetStoreService {
     this.url = environment.apiUrl
   }
 
-  create(order: Order) {
+  create(order: Order): Observable<any> {
     return this.httpClient.post(`${this.url}/order`, order)
+  }
+
+  createPaymentIntent(orderId: number): Observable<any> {
+    return this.httpClient.post(`${this.url}/order/${orderId}/payment-intent`, {})
   }
 
   login(model: LoginModel): Observable<AuthResult> {

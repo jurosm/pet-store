@@ -91,7 +91,7 @@
           id="faIcon"
           style="color: #dddddd"
           *ngIf="!authService.isAuthenticated()"
-          >{{ orderService.numberOfItems() }}</i
+          >{{ numberOfItemsInCart | async }}</i
         >
       </li>
     </ul>

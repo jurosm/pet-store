@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using PetStoreService.Application.Exceptions.Services.Order;
+using PetStoreService.Application.Exceptions;
 using PetStoreService.Application.Models.Response;
 using System;
-using System.IO;
 
 namespace PetStoreService.Web.Filters.GlobalFilters
 {
@@ -20,23 +19,22 @@ namespace PetStoreService.Web.Filters.GlobalFilters
                     case Auth0.Core.Exceptions.ApiException _:
                         Auth0.Core.Exceptions.ApiException res = context.Exception as Auth0.Core.Exceptions.ApiException;
                         context.HttpContext.Response.StatusCode = 401;
-                        context.Result = new JsonResult(new MessageResponse { Message = res.Message });
+                        context.Result = new JsonResult(new ErrorResponse { Message = res.Message });
                         break;
 
-                    case FileNotFoundException exception:
-                        context.HttpContext.Response.StatusCode = 404;
-                        Console.WriteLine(exception.Message);
-                        context.Result = new JsonResult(new MessageResponse { Message = "Item not found!" });
-                        break;
-
-                    case MessageException _:
+                    case BadRequestException exception:
                         context.HttpContext.Response.StatusCode = 400;
-                        MessageException e = context.Exception as MessageException;
-                        context.Result = new JsonResult(new MessageResponse { Message = e.Message });
+                        context.Result = new JsonResult(new ErrorResponse { Message = exception.Message, ErrorCode = exception.ErrorCode });
+                        break;
+
+                    case NotFoundException exception:
+                        context.HttpContext.Response.StatusCode = 404;
+                        context.Result = new JsonResult(new ErrorResponse { Message = exception.Message });
                         break;
 
                     default:
                         context.Result = new StatusCodeResult(500);
+                        Console.WriteLine(context.Exception.StackTrace);
                         break;
                 }
             }
