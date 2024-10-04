@@ -79,7 +79,7 @@
                 {{ element.price }} <i class="fas fa-dollar-sign"></i>
               </li>
               <li class="list-group-item" *ngIf="!authService.isAuthenticated()">
-                In cart: {{ this.service.numberOfItems(element.id) }}
+                In cart: {{ numberOfItems(element.id) | async}}
               </li>
             </ul>
             <div class="card-body">

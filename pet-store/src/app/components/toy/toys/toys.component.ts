@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core'
 import { PetStoreService } from 'src/app/services/pet-store.service'
-import { OrderService } from 'src/app/services/order.service'
 import { GetToysParams } from 'src/app/models/toy/getToysParams'
 import { ToysResponse } from 'src/app/models/toy/toysResponse'
 import { FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AuthService } from 'src/app/services/auth.service'
 import { Category } from 'src/app/models/categories/category'
+import { select, Store } from '@ngrx/store'
+import { AppState } from '../../../state/app.state'
+import { numberOfItems } from '../../../state/order/order.selectors'
 
 @Component({
   selector: 'app-toys',
@@ -24,7 +26,7 @@ export class ToysComponent implements OnInit {
 
   constructor(
     public readonly api: PetStoreService,
-    public readonly service: OrderService,
+    public readonly store: Store<AppState>,
     public readonly router: Router,
     public readonly authService: AuthService
   ) {
@@ -57,6 +59,10 @@ export class ToysComponent implements OnInit {
     this.api.getToys(this.getToyParams).subscribe(res => {
       this.toys = res
     })
+  }
+
+  numberOfItems(toyId: number) {
+    return this.store.pipe(select(numberOfItems(toyId)))
   }
 
   paginate() {

@@ -25,8 +25,17 @@ import { ListOrdersComponent } from './components/admin/list-orders/list-orders.
 import { CommentsComponent } from './components/toy/comments/comments.component'
 import { CategoryComponent } from './components/category/category.component'
 import { authInterceptor } from './helper/authInterceptor'
-import { OrderModule } from './order/order.module';
-import { StoreModule } from '@ngrx/store'
+import { OrderModule } from './order/order.module'
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+import { orderReducer } from './state/order/order.reducers'
+import { OrderEffects } from './state/order/order.effects'
+import { localStorageSync } from 'ngrx-store-localstorage'
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({ keys: ['order'], rehydrate: true })(reducer)
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer]
 
 @NgModule({
   declarations: [
@@ -52,7 +61,8 @@ import { StoreModule } from '@ngrx/store'
     ReactiveFormsModule,
     NgbPaginationModule,
     OrderModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({ order: orderReducer }, { metaReducers }),
+    EffectsModule.forRoot([OrderEffects]),
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

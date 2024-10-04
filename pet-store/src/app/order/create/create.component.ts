@@ -1,8 +1,10 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormControl } from '@angular/forms'
-import { Router } from '@angular/router'
-import { OrderService } from '../../../app/services/order.service'
+//import { Router } from '@angular/router'
 import * as Collections from 'typescript-collections'
+import { Store } from '@ngrx/store'
+import { AppState } from '../../state/app.state'
+import { createOrder, createOrderContact } from '../../state/order/order.actions'
 
 @Component({
   selector: 'app-order-create',
@@ -11,13 +13,8 @@ import * as Collections from 'typescript-collections'
 })
 export class CreateComponent {
   createOrder() {
-    this.orderService.submitOrderContact(this.orderForm.value)
-    this.orderService.create().subscribe({
-      next: res => {
-        this.isSuccessful = true
-        this.router.navigateByUrl(`/order/${res.order.id}/confirm`)
-      },
-    })
+    this.store.dispatch(createOrderContact({ ...this.orderForm.value }))
+    this.store.dispatch(createOrder())
   }
   invalidError: any
   orderForm: FormGroup
@@ -26,7 +23,10 @@ export class CreateComponent {
   validationServerError: Collections.Dictionary<string, string>
   serverErrorMessage: string
 
-  constructor(private readonly orderService: OrderService, private readonly router: Router) {
+  constructor(
+    // private readonly router: Router,
+    private readonly store: Store<AppState>
+  ) {
     this.transactionIsNotSuccessful = false
     this.isSuccessful = false
     this.orderForm = new FormGroup({

@@ -7,20 +7,14 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">{{ toy?.price }} <i class="fas fa-dollar-sign"></i></li>
+        <li class="list-group-item">This items in cart: {{ numberOfItemsInCart | async }}</li>
         <li class="list-group-item">
-          This items in cart: {{ this.service.numberOfItems(toy?.id) }}
-        </li>
-        <li class="list-group-item">
-          Quantity: {{ toy?.quantity - this.service.numberOfItems(toy?.id) }}
+          Quantity: {{ toy?.quantity - (numberOfItemsInCart | async) }}
         </li>
       </ul>
       <div class="card-body" *ngIf="!authService.isAuthenticated()">
         <div class="d-flex justify-content-center mt-3">
-          <button
-            type="button"
-            name="button"
-            class="btn btn-primary"
-            (click)="service.removeFromCart(toy.id)">
+          <button type="button" name="button" class="btn btn-primary" (click)="removeFromCart()">
             Remove from cart
           </button>
         </div>
@@ -29,8 +23,8 @@
             type="button"
             name="button"
             class="btn btn-primary"
-            (click)="service.addToCart(toy.id)"
-            [disabled]="hasInStack()">
+            (click)="addToCart()"
+            [disabled]="hasInStack | async">
             Add to cart
           </button>
         </div>

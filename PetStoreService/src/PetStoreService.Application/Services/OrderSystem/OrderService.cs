@@ -40,6 +40,7 @@ public class OrderService(OrderRepository orderRepository, IPaymentService strip
         });
 
         order.OrderStatus = OrderStatus.PaymentProcessing;
+
         await _orderRepository.UpdateAsync(order);
 
         return new CreatePaymentIntentResponse
