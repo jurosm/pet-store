@@ -7,7 +7,7 @@ export const createOrderContact = createAction(
   props<OrderContact>()
 )
 
-export const createOrder = createAction('[Order Page] Create Order')
+export const createOrder = createAction('[Order Page] Create Order', props<Order>())
 
 export const createOrderSuccess = createAction('[Order Page] Create Order Success', props<Order>())
 
@@ -17,9 +17,13 @@ export const removeFromCart = createAction('[Order Page] Remove From Cart', prop
 
 export const createPaymentIntent = createAction('[Order Page] Create Payment Intent')
 
+export const paymentIntentSuccess = createAction('[Order Page] Payment Intent Success')
+
 export const reinitializeOrderItems = createAction('[Order Page] Reinitialize Order Items')
 
 export const updateStripeToken = createAction(
   '[Order Page] Update Stripe Token',
   props<{ token: string }>()
 )
+
+export const finishOrder = createAction('[Order Page] Finish order', props<{ id: number }>())

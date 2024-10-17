@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: process?.env?.API_URL,
   stripeKey: process?.env?.STRIPE_KEY,
+  stripeReturnBaseUrl: process?.env?.STRIPE_RETURN_BASE_URL,
 }
 
 /*
