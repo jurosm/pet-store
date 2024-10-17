@@ -11,6 +11,6 @@ export class OrderContact {
 export class Order extends OrderContact {
   id?: number
   tokenId?: string
-  orderItems: OrderItem[]
+  orderItem: OrderItem[]
   paymentSecret?: string
 }

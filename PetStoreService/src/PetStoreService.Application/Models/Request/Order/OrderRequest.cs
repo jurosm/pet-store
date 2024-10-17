@@ -5,7 +5,7 @@ namespace PetStoreService.Application.Models.Request.Order;
 public class OrderRequest
 {
     [Required]
-    public required List<OrderItemRequest> OrderItems { get; set; }
+    public required List<OrderItemRequest> OrderItem { get; set; }
 
     [Required]
     [MaxLength(30, ErrorMessage = "Maximum length is 30")]

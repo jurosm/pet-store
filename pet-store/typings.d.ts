@@ -7,6 +7,7 @@ interface Process {
 interface Env {
   STRIPE_KEY: string
   API_URL: string
+  STRIPE_RETURN_BASE_URL: string
 }
 
 interface GlobalEnvironment {

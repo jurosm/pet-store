@@ -39,7 +39,7 @@ public class OrderTests : TestBase
             Country = "Country",
             CustomerName = "CustomerName",
             CustomerSurname = "CustomerSurname",
-            OrderItems =
+            OrderItem =
             [
                 new OrderItemRequest
                 {
@@ -84,7 +84,7 @@ public class OrderTests : TestBase
             Country = "Country",
             CustomerName = "CustomerName",
             CustomerSurname = "CustomerSurname",
-            OrderItems =
+            OrderItem =
             [
                 new OrderItemRequest
                 {
@@ -116,7 +116,7 @@ public class OrderTests : TestBase
             Country = "Country",
             CustomerName = "CustomerName",
             CustomerSurname = "CustomerSurname",
-            OrderItems =
+            OrderItem =
             [
                 new OrderItemRequest
                 {
@@ -152,7 +152,7 @@ public class OrderTests : TestBase
             Country = "Country",
             CustomerName = "CustomerName",
             CustomerSurname = "CustomerSurname",
-            OrderItems =
+            OrderItem =
             [
                 new OrderItemRequest
                 {
