@@ -21,7 +21,5 @@ export const selectFinishedOrder = (orderId: number) =>
   createSelector(selectOrder, (state: OrderState) => {
     const successfulOrder = state.successfulOrders.find(order => order.id === orderId)
 
-    if (!successfulOrder && state.order.id === orderId) {
-      return state.order
-    }
+    return successfulOrder
   })
