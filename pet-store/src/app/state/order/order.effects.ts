@@ -54,7 +54,7 @@ export class OrderEffects {
     )
   )
 
-  navigateForward$ = createEffect(
+  navigateToConfirm$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(paymentIntentSuccess),
