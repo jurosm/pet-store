@@ -53,7 +53,7 @@ export class ConfirmComponent implements OnInit {
           const { error: stripeError } = await this.stripe.confirmPayment({
             elements,
             confirmParams: {
-              return_url: `${this.returnBaseUrl}/order/${res.order.id}/complete`,
+              return_url: `${this.returnBaseUrl}/order/${res.order.id}`,
             },
             redirect: 'if_required',
           })

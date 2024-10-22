@@ -70,7 +70,7 @@ export class OrderEffects {
       this.actions$.pipe(
         ofType(finishOrder),
         map(action => action.id),
-        tap(id => this.router.navigateByUrl(`/order/${id}/complete`))
+        tap(id => this.router.navigateByUrl(`/order/${id}`))
       ),
     { dispatch: false }
   )

@@ -5,10 +5,11 @@ import { CompleteComponent } from './complete/complete.component'
 import { ConfirmComponent } from './confirm/confirm.component'
 import { OrderRoutingModule } from './order-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
+import { ViewComponent } from './view/view.component'
 
 @NgModule({
-  declarations: [CreateComponent, CompleteComponent, ConfirmComponent],
-  exports: [CreateComponent, CompleteComponent, ConfirmComponent],
+  declarations: [CreateComponent, CompleteComponent, ConfirmComponent, ViewComponent],
+  exports: [CreateComponent, CompleteComponent, ConfirmComponent, ViewComponent],
   imports: [CommonModule, OrderRoutingModule, ReactiveFormsModule],
 })
 export class OrderModule {}
