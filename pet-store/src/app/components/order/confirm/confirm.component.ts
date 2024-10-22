@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { loadStripe, Stripe } from '@stripe/stripe-js'
 
-import { environment } from '../../../environments/environment'
-import { AppState } from '../../state/app.state'
-import { finishOrder } from '../../state/order/order.actions'
+import { environment } from '../../../../environments/environment'
+import { AppState } from '../../../state/app.state'
+import { finishOrder } from '../../../state/order/order.actions'
 
 @Component({
   selector: 'app-order-confirm',
