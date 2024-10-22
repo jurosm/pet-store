@@ -95,7 +95,7 @@ export class PetStoreService {
   }
 
   getComments(toyId: number) {
-    return this.httpClient.get<CommentsUnit[]>(`${this.url}/comment/${toyId}`)
+    return this.httpClient.get<CommentsUnit[]>(`${this.url}/comment?toyId=${toyId}`)
   }
 
   deleteCategory(id: number) {
