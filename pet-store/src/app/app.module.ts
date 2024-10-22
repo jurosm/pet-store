@@ -25,7 +25,7 @@ import { ListOrdersComponent } from './components/admin/list-orders/list-orders.
 import { CommentsComponent } from './components/toy/comments/comments.component'
 import { CategoryComponent } from './components/category/category.component'
 import { authInterceptor } from './helper/authInterceptor'
-import { OrderModule } from './order/order.module'
+import { OrderModule } from './components/order/order.module'
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { orderReducer } from './state/order/order.reducers'

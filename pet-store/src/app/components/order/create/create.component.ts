@@ -3,8 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import * as Collections from 'typescript-collections'
 
-import { AppState } from '../../state/app.state'
-import { createOrder } from '../../state/order/order.actions'
+import { AppState } from '../../../state/app.state'
+import { createOrder } from '../../../state/order/order.actions'
 
 @Component({
   selector: 'app-order-create',

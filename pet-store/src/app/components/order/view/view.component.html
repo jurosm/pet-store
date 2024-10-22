@@ -1,0 +1,28 @@
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let orderItem of (orderData | async).orderItem">
+        <td>{{ orderItem.toy.name }}</td>
+        <td>{{ orderItem.quantity }}</td>
+        <td>{{ orderItem.toy.price }} $</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td>{{ (orderData | async).total }} $</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

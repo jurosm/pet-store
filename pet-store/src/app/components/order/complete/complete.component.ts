@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Store } from '@ngrx/store'
 
-import { Order } from '../../models/order/order'
-import { AppState } from '../../state/app.state'
-import { selectFinishedOrder } from '../../state/order/order.selectors'
+import { Order } from '../../../models/order/order'
+import { AppState } from '../../../state/app.state'
+import { selectFinishedOrder } from '../../../state/order/order.selectors'
 import { Observable } from 'rxjs'
 
 @Component({
